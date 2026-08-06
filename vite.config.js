@@ -2,78 +2,53 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import fs from 'fs'
-import XLSXModule from 'xlsx'
-const XLSX = XLSXModule.default || XLSXModule
+import ExcelJS from 'exceljs'
 
 const leadsApiPlugin = () => ({
   name: 'leads-api-plugin',
   configureServer(server) {
-    server.middlewares.use('/api/leads', (req, res) => {
+    server.middlewares.use('/api/leads', async (req, res) => {
+      const filePath = path.resolve(__dirname, 'public/contact_leads.xlsx');
       if (req.method === 'POST') {
         let body = '';
         req.on('data', chunk => { body += chunk.toString(); });
-        req.on('end', () => {
+        req.on('end', async () => {
           try {
             const data = JSON.parse(body || '{}');
-            const filePath = path.resolve(__dirname, 'public/contact_leads.xlsx');
-            
-            const newRow = {
-              "Timestamp": new Date().toLocaleString(),
-              "Full Name": data.name || '',
-              "Gmail / Insta Handle": data.email || '',
-              "Business / Company Name": data.company || '',
-              "Target Service Domain": data.service || 'AI Integration',
-              "Scope & Budget": data.budget || '₹5k - ₹10k',
-              "Project Objectives / Message": data.message || ''
-            };
-
-            let workbook;
-            let existingData = [];
-            
-            if (fs.existsSync(filePath)) {
-              workbook = XLSX.readFile(filePath);
-              const sheetName = workbook.SheetNames[0] || 'Contact Leads';
-              const sheet = workbook.Sheets[sheetName];
-              if (sheet) {
-                existingData = XLSX.utils.sheet_to_json(sheet);
-              }
-            } else {
-              workbook = XLSX.utils.book_new();
-            }
-
-            existingData.push(newRow);
-            const updatedSheet = XLSX.utils.json_to_sheet(existingData, {
-              header: [
-                "Timestamp",
-                "Full Name",
-                "Gmail / Insta Handle",
-                "Business / Company Name",
-                "Target Service Domain",
-                "Scope & Budget",
-                "Project Objectives / Message"
-              ]
-            });
-
-            updatedSheet['!cols'] = [
-              { wch: 22 },
-              { wch: 22 },
-              { wch: 26 },
-              { wch: 28 },
-              { wch: 24 },
-              { wch: 18 },
-              { wch: 45 }
+            const newRow = [
+              new Date().toLocaleString(),
+              data.name || '',
+              data.email || '',
+              data.company || '',
+              data.service || 'AI Integration',
+              data.budget || '₹5k - ₹10k',
+              data.message || ''
             ];
 
-            if (workbook.SheetNames.length === 0) {
-              XLSX.utils.book_append_sheet(workbook, updatedSheet, 'Contact Leads');
+            const workbook = new ExcelJS.Workbook();
+            let worksheet;
+
+            if (fs.existsSync(filePath)) {
+              await workbook.xlsx.readFile(filePath);
+              worksheet = workbook.getWorksheet('Contact Leads') || workbook.worksheets[0];
             } else {
-              workbook.Sheets[workbook.SheetNames[0]] = updatedSheet;
+              worksheet = workbook.addWorksheet('Contact Leads');
+              worksheet.columns = [
+                { header: 'Timestamp', key: 'timestamp', width: 22 },
+                { header: 'Full Name', key: 'name', width: 22 },
+                { header: 'Gmail / Insta Handle', key: 'email', width: 26 },
+                { header: 'Business / Company Name', key: 'company', width: 28 },
+                { header: 'Target Service Domain', key: 'service', width: 24 },
+                { header: 'Scope & Budget', key: 'budget', width: 18 },
+                { header: 'Project Objectives / Message', key: 'message', width: 45 }
+              ];
             }
 
-            XLSX.writeFile(workbook, filePath);
+            worksheet.addRow(newRow);
+            await workbook.xlsx.writeFile(filePath);
 
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ success: true, message: 'Lead added to contact_leads.xlsx', lead: newRow }));
+            res.end(JSON.stringify({ success: true, message: 'Lead added to contact_leads.xlsx', lead: data }));
           } catch (err) {
             console.error('Error writing to contact_leads.xlsx:', err);
             res.statusCode = 500;
@@ -82,13 +57,26 @@ const leadsApiPlugin = () => ({
           }
         });
       } else if (req.method === 'GET') {
-        const filePath = path.resolve(__dirname, 'public/contact_leads.xlsx');
         if (fs.existsSync(filePath)) {
-          const workbook = XLSX.readFile(filePath);
-          const sheet = workbook.Sheets[workbook.SheetNames[0]];
-          const data = XLSX.utils.sheet_to_json(sheet);
+          const workbook = new ExcelJS.Workbook();
+          await workbook.xlsx.readFile(filePath);
+          const worksheet = workbook.getWorksheet('Contact Leads') || workbook.worksheets[0];
+          const leads = [];
+          worksheet.eachRow((row, rowNumber) => {
+            if (rowNumber > 1) {
+              leads.push({
+                "Timestamp": row.getCell(1).value,
+                "Full Name": row.getCell(2).value,
+                "Gmail / Insta Handle": row.getCell(3).value,
+                "Business / Company Name": row.getCell(4).value,
+                "Target Service Domain": row.getCell(5).value,
+                "Scope & Budget": row.getCell(6).value,
+                "Project Objectives / Message": row.getCell(7).value
+              });
+            }
+          });
           res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify({ success: true, leads: data }));
+          res.end(JSON.stringify({ success: true, leads }));
         } else {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({ success: true, leads: [] }));
