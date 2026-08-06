@@ -117,36 +117,36 @@ export const ScrollExpandMedia = ({
       {!mediaFullyExpanded && (
         <div className="fixed inset-0 z-50 pointer-events-auto flex flex-col overflow-hidden select-none">
 
-          {/* TOP PANEL (0 to 50vh + 1px subpixel overlap) */}
+          {/* TOP PANEL (0 to 50dvh + 1px subpixel overlap) */}
           <motion.div
-            className="w-full h-[calc(50vh+1px)] bg-lime relative overflow-hidden z-10 shadow-2xl"
+            className="w-full h-[calc(50dvh+1px)] bg-lime relative overflow-hidden z-10 shadow-2xl"
             style={{
               y: topPanelY,
             }}
           >
             {/* Top Half of Centered Logo */}
-            <div className="w-full h-[100vh] absolute left-0 top-0 flex items-center justify-center pointer-events-none p-8">
+            <div className="w-full h-[100dvh] absolute left-0 top-0 flex items-center justify-center pointer-events-none p-4 sm:p-8">
               <img
                 src={mediaSrc}
                 alt="VELLOXA Logo"
-                className="h-40 sm:h-56 md:h-72 w-auto object-contain filter brightness-0 drop-shadow-xl"
+                className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />
             </div>
           </motion.div>
 
-          {/* BOTTOM PANEL (50vh to 100vh) */}
+          {/* BOTTOM PANEL (50dvh to 100dvh) */}
           <motion.div
-            className="w-full h-[50vh] bg-lime relative overflow-hidden z-10 shadow-2xl"
+            className="w-full h-[50dvh] bg-lime relative overflow-hidden z-10 shadow-2xl"
             style={{
               y: bottomPanelY,
             }}
           >
             {/* Bottom Half of Centered Logo */}
-            <div className="w-full h-[100vh] absolute left-0 bottom-0 flex items-center justify-center pointer-events-none p-8">
+            <div className="w-full h-[100dvh] absolute left-0 bottom-0 flex items-center justify-center pointer-events-none p-4 sm:p-8">
               <img
                 src={mediaSrc}
                 alt="VELLOXA Logo"
-                className="h-40 sm:h-56 md:h-72 w-auto object-contain filter brightness-0 drop-shadow-xl"
+                className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />
             </div>
           </motion.div>
