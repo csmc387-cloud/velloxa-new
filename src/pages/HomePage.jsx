@@ -44,17 +44,17 @@ export default function HomePage() {
       {/* 1. STANDALONE HERO SECTION - SLOGAN ONLY */}
       <section
         id="hero-section"
-        className="relative min-h-[85vh] sm:min-h-screen flex flex-col items-center justify-center overflow-hidden py-12 sm:py-16"
+        className="relative min-h-[100dvh] h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden py-0 px-4 text-center"
       >
         {/* Background Mesh Gradient Orbs */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-lime/10 rounded-full blur-[140px] pointer-events-none animate-mesh" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[700px] h-[90vw] max-h-[700px] bg-lime/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none animate-mesh" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] max-w-[500px] h-[70vw] max-h-[500px] bg-cyan/10 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none" />
 
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center justify-center my-auto">
-          {/* Main Slogan */}
-          <h1 className="font-display text-7xl sm:text-[10rem] md:text-8xl lg:text-9xl xl:text-[10rem] font-bold tracking-tight text-white uppercase w-full mx-auto leading-[0.95] select-none text-center space-y-2 sm:space-y-3 md:space-y-4">
-            <span className="block text-center">WE BUILD <span className="text-lime">.</span></span>
-            <span className="block text-center">YOU GROW <span className="text-cyan">.</span></span>
+        <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center justify-center">
+          {/* Main Slogan - Centered across all mobile screen widths (360px - 430px) and heights (667px - 932px) */}
+          <h1 className="font-display text-[13.5vw] sm:text-[8rem] md:text-8xl lg:text-9xl xl:text-[10rem] font-bold tracking-tight text-white uppercase w-full mx-auto leading-[0.92] select-none text-center flex flex-col items-center justify-center space-y-1 sm:space-y-2">
+            <span className="block text-center whitespace-nowrap">WE BUILD<span className="text-lime">.</span></span>
+            <span className="block text-center whitespace-nowrap">YOU GROW<span className="text-cyan">.</span></span>
           </h1>
         </div>
       </section>

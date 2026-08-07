@@ -36,6 +36,7 @@ export default function ContactPage() {
       return (
         formData.name.trim() !== '' &&
         formData.email.trim() !== '' &&
+        formData.email.includes('@') &&
         formData.company.trim() !== ''
       );
     }
@@ -77,7 +78,7 @@ export default function ContactPage() {
           <div className="space-y-4">
             <div>
               <h3 className="text-lg sm:text-xl font-display font-medium text-white">Client Identification</h3>
-              <p className="text-gray-400 text-xs sm:text-sm">Provide your name, business email, and business name.</p>
+              <p className="text-gray-400 text-xs sm:text-sm">Provide your name, Gmail / Insta Handle, and business name.</p>
             </div>
 
             <div className="space-y-3 pt-1">
@@ -97,8 +98,19 @@ export default function ContactPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="Gmail / Insta Handle"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/50 text-sm transition-all"
+                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-500 focus:outline-none text-sm transition-all ${
+                    formData.email.length > 0 && !formData.email.includes('@')
+                      ? 'border-red-500/50 focus:border-red-500'
+                      : formData.email.includes('@')
+                      ? 'border-lime/50 focus:border-lime'
+                      : 'border-white/10 focus:border-lime/50'
+                  }`}
                 />
+                {formData.email.length > 0 && !formData.email.includes('@') && (
+                  <p className="text-red-400 text-[11px] font-mono mt-1 pl-1 flex items-center space-x-1">
+                    <span>⚠️ Must include '@' symbol (e.g. user@gmail.com or @instahandle)</span>
+                  </p>
+                )}
               </div>
 
               <div>

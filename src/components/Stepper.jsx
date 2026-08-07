@@ -211,19 +211,18 @@ export default function Stepper({
 
         {/* Stepper Footer Controls */}
         <div className="flex items-center justify-between pt-6 border-t border-white/10 mt-4">
-          <button
-            type="button"
-            onClick={handleBack}
-            disabled={isFirstStep}
-            className={`px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
-              isFirstStep
-                ? 'opacity-20 cursor-not-allowed text-gray-500'
-                : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            <ArrowLeft className="size-3.5" />
-            <span>{backButtonText}</span>
-          </button>
+          {!isFirstStep ? (
+            <button
+              type="button"
+              onClick={handleBack}
+              className="px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider transition-all flex items-center space-x-1.5 text-gray-400 hover:text-white"
+            >
+              <ArrowLeft className="size-3.5" />
+              <span>{backButtonText}</span>
+            </button>
+          ) : (
+            <div />
+          )}
 
           {!isLastStep ? (
             <button

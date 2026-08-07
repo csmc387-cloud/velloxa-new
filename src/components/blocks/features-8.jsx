@@ -1,6 +1,11 @@
 import React from 'react'
 import { Card, CardContent } from '@/components/ui/card'
-import { Shield, Users, Bot, Code2, TrendingUp, LineChart } from 'lucide-react'
+import { Shield } from 'lucide-react'
+import ChartBarIcon from '@/components/ui/chart-bar-icon'
+import TerminalIcon from '@/components/ui/terminal-icon'
+import BrainCircuitIcon from '@/components/ui/brain-circuit-icon'
+import UsersIcon from '@/components/ui/users-icon'
+import WorldIcon from '@/components/ui/world-icon'
 import { motion } from 'framer-motion'
 
 export function Features() {
@@ -19,12 +24,12 @@ export function Features() {
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="pt-6 flex flex-col justify-between h-full space-y-8">
-                                    <div className="relative flex aspect-square size-12 rounded-full border border-lime/30 bg-lime/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-lime/15">
-                                        <Code2 className="m-auto size-5 text-lime opacity-80" strokeWidth={1.5} />
+                                <CardContent className="pt-6 flex flex-col justify-start h-full space-y-3">
+                                    <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                        <TerminalIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                     </div>
                                     <div className="relative z-10 space-y-2 text-left">
-                                        <h2 className="text-xl font-display font-semibold text-white">Web Engineering</h2>
+                                        <h3 className="text-xl font-display font-semibold text-white">Web Engineering</h3>
                                         <p className="text-muted text-sm leading-relaxed">Lightning-fast, mobile-first websites designed to convert visitors into consultation bookings.</p>
                                     </div>
                                 </CardContent>
@@ -40,12 +45,12 @@ export function Features() {
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="pt-6 flex flex-col justify-between h-full space-y-8">
+                                <CardContent className="pt-6 flex flex-col justify-start h-full space-y-3">
                                     <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
-                                        <Bot className="m-auto size-5 text-cyan opacity-80" strokeWidth={1.5} />
+                                        <BrainCircuitIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                     </div>
                                     <div className="relative z-10 space-y-2 text-left">
-                                        <h2 className="text-xl font-display font-semibold text-white">AI Integration</h2>
+                                        <h3 className="text-xl font-display font-semibold text-white">AI Integration</h3>
                                         <p className="text-muted text-sm leading-relaxed">Automate internal operations, customer intake, and more with custom AI workflows.</p>
                                     </div>
                                 </CardContent>
@@ -61,12 +66,12 @@ export function Features() {
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="pt-6 flex flex-col justify-between h-full space-y-8">
-                                    <div className="relative flex aspect-square size-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-white/10">
-                                        <TrendingUp className="m-auto size-5 text-white opacity-80" strokeWidth={1.5} />
+                                <CardContent className="pt-6 flex flex-col justify-start h-full space-y-3">
+                                    <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                        <WorldIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                     </div>
                                     <div className="relative z-10 space-y-2 text-left">
-                                        <h2 className="text-xl font-display font-semibold text-white">Passion Marketing</h2>
+                                        <h3 className="text-xl font-display font-semibold text-white">Passion Marketing</h3>
                                         <p className="text-muted text-sm leading-relaxed">Putting your SME in front of the right eyes — highest-tier SEO, social media marketing, and organic growth strategies that build lasting visibility.</p>
                                     </div>
                                 </CardContent>
@@ -83,12 +88,12 @@ export function Features() {
                         >
                             <Card className="relative overflow-hidden liquid-glass-card h-full">
                                 <CardContent className="grid pt-6 sm:grid-cols-2 h-full">
-                                    <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6 pb-6 sm:pb-0">
-                                        <div className="relative flex aspect-square size-12 rounded-full border border-lime/30 bg-lime/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-lime/15">
-                                            <LineChart className="m-auto size-5 text-lime opacity-80" strokeWidth={1.5} />
+                                    <div className="relative z-10 flex flex-col justify-start space-y-3 pb-6 sm:pb-0">
+                                        <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                            <ChartBarIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                         </div>
                                         <div className="space-y-2">
-                                            <h2 className="text-xl font-display font-semibold text-white">Growth For You</h2>
+                                            <h3 className="text-xl font-display font-semibold text-white">Growth For You</h3>
                                             <p className="text-muted text-sm">Scale revenue, acquire qualified leads, and dominate SME market share with automated conversion funnels.</p>
                                         </div>
                                     </div>
@@ -289,12 +294,12 @@ export function Features() {
                         >
                             <Card className="relative overflow-hidden liquid-glass-card h-full">
                                 <CardContent className="grid h-full pt-6 sm:grid-cols-2 items-end pb-6 sm:pb-8 gap-6">
-                                    <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
-                                        <div className="relative flex aspect-square size-12 rounded-full border border-lime/30 bg-lime/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-lime/15">
-                                            <Users className="m-auto size-6 text-lime opacity-80" strokeWidth={1.5} />
+                                    <div className="relative z-10 flex flex-col justify-start space-y-3">
+                                        <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                            <UsersIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                         </div>
                                         <div className="space-y-2">
-                                            <h2 className="text-xl font-display font-semibold text-white">Step by Step</h2>
+                                            <h3 className="text-xl font-display font-semibold text-white">Step by Step</h3>
                                             <p className="text-muted text-sm">A transparent, milestone-driven workflow ensuring precision execution from initial audit to final launch.</p>
                                         </div>
                                     </div>
@@ -311,7 +316,7 @@ export function Features() {
                                             viewport={{ once: true, margin: "-20px" }}
                                         >
                                             <defs>
-                                                <filter id="xGlow" x="-30%" y="-30%" width="160%" height="160%">
+                                                <filter id="tickGlow" x="-30%" y="-30%" width="160%" height="160%">
                                                     <feGaussianBlur stdDeviation="2.5" result="blur" />
                                                     <feMerge>
                                                         <feMergeNode in="blur" />
@@ -324,8 +329,8 @@ export function Features() {
                                             <motion.line
                                                 x1="51" y1="22" x2="124" y2="22"
                                                 stroke="rgba(255, 255, 255, 0.85)"
-                                                strokeWidth="3.5"
-                                                strokeDasharray="1 8"
+                                                strokeWidth="3"
+                                                strokeDasharray="3 6"
                                                 strokeLinecap="round"
                                                 variants={{
                                                     hidden: { pathLength: 0, opacity: 0 },
@@ -346,8 +351,8 @@ export function Features() {
                                             <motion.line
                                                 x1="156" y1="22" x2="229" y2="22"
                                                 stroke="rgba(255, 255, 255, 0.85)"
-                                                strokeWidth="3.5"
-                                                strokeDasharray="1 8"
+                                                strokeWidth="3"
+                                                strokeDasharray="3 6"
                                                 strokeLinecap="round"
                                                 variants={{
                                                     hidden: { pathLength: 0, opacity: 0 },
@@ -364,12 +369,12 @@ export function Features() {
                                                 }}
                                             />
 
-                                            {/* Straight Dotted White Line: Segment 3 (Node 3 -> 4 / X Marker) */}
+                                            {/* Straight Dotted White Line: Segment 3 (Node 3 -> 4 / Scale Marker) */}
                                             <motion.line
                                                 x1="261" y1="22" x2="346" y2="22"
                                                 stroke="rgba(255, 255, 255, 0.85)"
-                                                strokeWidth="3.5"
-                                                strokeDasharray="1 8"
+                                                strokeWidth="3"
+                                                strokeDasharray="3 6"
                                                 strokeLinecap="round"
                                                 variants={{
                                                     hidden: { pathLength: 0, opacity: 0 },
@@ -431,14 +436,14 @@ export function Features() {
                                             {/* Node 3: Build */}
                                             <g>
                                                 <motion.circle
-                                                    cx="245" cy="22" r="14" fill="rgba(186, 255, 122, 0.15)" stroke="#BAFF7A" strokeWidth="2"
+                                                    cx="245" cy="22" r="14" fill="rgba(0, 255, 204, 0.15)" stroke="#00FFCC" strokeWidth="2"
                                                     variants={{
                                                         hidden: { scale: 0 },
                                                         visible: { scale: 1, transition: { type: "spring", stiffness: 120, delay: 0.7 } }
                                                     }}
                                                 />
                                                 <motion.text
-                                                    x="245" y="26" textAnchor="middle" fill="#BAFF7A" fontSize="12" fontWeight="700" fontFamily="monospace"
+                                                    x="245" y="26" textAnchor="middle" fill="#00FFCC" fontSize="12" fontWeight="700" fontFamily="monospace"
                                                     variants={{
                                                         hidden: { opacity: 0 },
                                                         visible: { opacity: 1, transition: { duration: 0.3, delay: 0.8 } }
@@ -449,41 +454,43 @@ export function Features() {
                                                 <text x="245" y="55" textAnchor="middle" fill="rgba(255,255,255,0.9)" fontSize="11" fontWeight="600" fontFamily="monospace">Build</text>
                                             </g>
 
-                                            {/* Node 4: "X MARKS THE SPOT" (Scale) */}
+                                            {/* Node 4: Scale (Tick Mark) */}
                                             <g>
                                                 {/* Outer Glowing Dashed Target Ring */}
                                                 <motion.circle
-                                                    cx="365" cy="22" r="18" stroke="#FF4D4D" strokeOpacity="0.6" strokeWidth="1.5" strokeDasharray="3 3" fill="none"
+                                                    cx="365" cy="22" r="18" stroke="#BAFF7A" strokeOpacity="0.6" strokeWidth="1.5" strokeDasharray="3 3" fill="none"
                                                     variants={{
                                                         hidden: { scale: 0, opacity: 0 },
                                                         visible: { scale: 1, opacity: 1, transition: { duration: 0.4, delay: 1.1 } }
                                                     }}
                                                 />
 
-                                                {/* Translucent Crimson Circle Container */}
+                                                {/* Translucent Lime Circle Container */}
                                                 <motion.circle
-                                                    cx="365" cy="22" r="14" fill="rgba(255, 77, 77, 0.18)" stroke="#FF4D4D" strokeWidth="2" filter="url(#xGlow)"
+                                                    cx="365" cy="22" r="14" fill="rgba(186, 255, 122, 0.18)" stroke="#BAFF7A" strokeWidth="2" filter="url(#tickGlow)"
                                                     variants={{
                                                         hidden: { scale: 0 },
                                                         visible: { scale: 1, transition: { type: "spring", stiffness: 140, delay: 1.0 } }
                                                     }}
                                                 />
 
-                                                {/* Crimson 'X' Mark */}
+                                                {/* Glowing Lime Tick Mark (Checkmark) */}
                                                 <motion.path
-                                                    d="M 359 16 L 371 28 M 371 16 L 359 28"
-                                                    stroke="#FF4D4D"
-                                                    strokeWidth="3.2"
+                                                    d="M 358 22 L 363 27 L 372 17"
+                                                    stroke="#BAFF7A"
+                                                    strokeWidth="3"
                                                     strokeLinecap="round"
-                                                    filter="url(#xGlow)"
+                                                    strokeLinejoin="round"
+                                                    fill="none"
+                                                    filter="url(#tickGlow)"
                                                     variants={{
                                                         hidden: { pathLength: 0, opacity: 0 },
                                                         visible: { pathLength: 1, opacity: 1, transition: { duration: 0.3, delay: 1.2 } }
                                                     }}
                                                 />
 
-                                                {/* Label under X Marks the Spot */}
-                                                <text x="365" y="55" textAnchor="middle" fill="#FF4D4D" fillOpacity="0.9" fontSize="11" fontWeight="700" fontFamily="monospace">Scale</text>
+                                                {/* Label under Scale */}
+                                                <text x="365" y="55" textAnchor="middle" fill="#BAFF7A" fillOpacity="0.9" fontSize="11" fontWeight="700" fontFamily="monospace">Scale</text>
                                             </g>
                                         </motion.svg>
                                     </div>

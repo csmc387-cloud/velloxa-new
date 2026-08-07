@@ -73,11 +73,11 @@ export const Footer = ({
                     <Link
                       key={index}
                       href={link.href}
-                      className="text-gray-400 hover:text-white transition-colors"
+                      className="text-white hover:text-lime transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <div className="w-5 h-5 hover:scale-110 duration-300">
+                      <div className="w-5 h-5 hover:scale-110 transition-transform duration-300">
                         {link.icon}
                       </div>
                       <span className="sr-only">{link.label}</span>
