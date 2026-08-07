@@ -99,26 +99,6 @@ export default defineConfig({
     open: true
   },
   build: {
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('three') || id.includes('@react-three') || id.includes('shadergradient')) {
-              return 'vendor-three';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-framer';
-            }
-            if (id.includes('lucide-react')) {
-              return 'vendor-lucide';
-            }
-            if (id.includes('react')) {
-              return 'vendor-react';
-            }
-          }
-        }
-      }
-    }
+    chunkSizeWarningLimit: 2000
   }
 })
