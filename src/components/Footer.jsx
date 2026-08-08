@@ -36,6 +36,25 @@ export const Footer = ({
   brandIcon,
   className,
 }) => {
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopyEmail = (e) => {
+    e.preventDefault();
+    const email = "velloxa.agency@gmail.com";
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email);
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = email;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <section className={cn("relative w-full mt-0 overflow-hidden", className)}>
       <footer className="border-t border-white/10 bg-black/40 backdrop-blur-2xl mt-12 relative overflow-hidden">
@@ -69,20 +88,30 @@ export const Footer = ({
 
               {socialLinks.length > 0 && (
                 <div className="flex mb-4 mt-2 gap-4">
-                  {socialLinks.map((link, index) => (
-                    <Link
-                      key={index}
-                      href={link.href}
-                      className="text-white hover:text-lime transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className="w-5 h-5 hover:scale-110 transition-transform duration-300">
-                        {link.icon}
+                  {socialLinks.map((link, index) => {
+                    const isEmail = link.label === "Email";
+                    return (
+                      <div key={index} className="relative">
+                        <Link
+                          href={link.href}
+                          onClick={isEmail ? handleCopyEmail : undefined}
+                          className="text-white hover:text-lime transition-colors"
+                          target={isEmail ? undefined : "_blank"}
+                          rel={isEmail ? undefined : "noopener noreferrer"}
+                        >
+                          <div className="w-5 h-5 hover:scale-110 transition-transform duration-300">
+                            {link.icon}
+                          </div>
+                          <span className="sr-only">{link.label}</span>
+                        </Link>
+                        {isEmail && copied && (
+                          <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-lime text-charcoal text-[10px] font-mono font-bold whitespace-nowrap shadow-lg">
+                            Copied velloxa.agency@gmail.com!
+                          </span>
+                        )}
                       </div>
-                      <span className="sr-only">{link.label}</span>
-                    </Link>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
 

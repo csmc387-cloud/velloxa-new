@@ -241,15 +241,37 @@ export default function ContactPage() {
               </div>
 
               {/* Gmail Row */}
-              <div className="flex items-center space-x-1.5 text-[10px] sm:text-[11px] font-mono text-gray-400">
-                <a
-                  href="mailto:velloxa.agency@gmail.com"
-                  className="flex items-center space-x-1.5 text-gray-300 hover:text-lime transition-colors font-medium"
-                  title="Send Email to velloxa.agency@gmail.com"
+              <div className="flex items-center space-x-1.5 text-[10px] sm:text-[11px] font-mono text-gray-400 relative">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const email = "velloxa.agency@gmail.com";
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                      navigator.clipboard.writeText(email);
+                    } else {
+                      const textArea = document.createElement("textarea");
+                      textArea.value = email;
+                      document.body.appendChild(textArea);
+                      textArea.select();
+                      document.execCommand("copy");
+                      document.body.removeChild(textArea);
+                    }
+                    const badge = e.currentTarget.nextSibling;
+                    if (badge) {
+                      badge.style.opacity = '1';
+                      setTimeout(() => { badge.style.opacity = '0'; }, 2500);
+                    }
+                  }}
+                  className="flex items-center space-x-1.5 text-gray-300 hover:text-lime transition-colors font-medium focus:outline-none cursor-pointer"
+                  title="Click to copy velloxa.agency@gmail.com"
                 >
                   <MailSendIcon size={14} className="text-gray-300 hover:text-lime transition-all" />
                   <span>velloxa.agency@gmail.com</span>
-                </a>
+                </button>
+                <span className="opacity-0 transition-opacity duration-300 px-2 py-0.5 rounded bg-lime text-charcoal text-[10px] font-mono font-bold">
+                  Copied!
+                </span>
               </div>
             </div>
           </div>
