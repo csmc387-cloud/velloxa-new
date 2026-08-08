@@ -15,7 +15,7 @@ const socialItems = [
   {
     name: "Email",
     icon: MailSendIcon,
-    href: "mailto:hello@veloxa.ai",
+    href: "mailto:velloxa.agency@gmail.com",
     target: "_self",
     rel: "",
   },
