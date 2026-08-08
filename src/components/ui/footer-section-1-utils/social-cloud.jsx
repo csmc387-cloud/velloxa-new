@@ -8,7 +8,7 @@ const socialItems = [
   {
     name: "Instagram",
     icon: InstagramIcon,
-    href: "https://instagram.com/veloxa.ai",
+    href: "https://www.instagram.com/velloxa.agency/?utm_source=ig_web_button_share_sheet",
     target: "_blank",
     rel: "noopener noreferrer",
   },
