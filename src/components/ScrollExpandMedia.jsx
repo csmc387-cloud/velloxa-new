@@ -7,10 +7,10 @@ import React, {
 } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import footerIconLogo from '../assets/footer-icon-logo.png';
+import openingCardLogo from '../assets/opening-card-logo.svg';
 
 export const ScrollExpandMedia = ({
-  mediaSrc = footerIconLogo,
+  mediaSrc = openingCardLogo,
   children,
 }) => {
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState(false);
