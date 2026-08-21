@@ -12,11 +12,14 @@ function GrowthTrendVisualizer() {
 
     return (
         <div className="w-full relative select-none mt-auto">
-            <svg
+            <motion.svg
                 className="w-full h-32 sm:h-36 lg:h-40 overflow-visible translate-y-1 sm:translate-y-2.5"
                 viewBox="12 -4 328 132"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-20px" }}
             >
                 <defs>
                     {/* Atmospheric Area Gradient Fill */}
@@ -204,10 +207,10 @@ function GrowthTrendVisualizer() {
                         strokeDasharray="3 3"
                         strokeLinejoin="miter"
                         fill="none"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        whileInView={{ pathLength: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-20px" }}
-                        transition={{ duration: 1.0, delay: 0.1, ease: "easeOut" }}
+                        variants={{
+                            hidden: { pathLength: 0, opacity: 0 },
+                            visible: { pathLength: 1, opacity: 1, transition: { duration: 1.0, delay: 0.1, ease: "easeOut" } }
+                        }}
                     />
 
                     {/* Vertical Projection Drop-Lines from Intermediate Peaks to Graph Sheet Baseline */}
@@ -228,10 +231,10 @@ function GrowthTrendVisualizer() {
                             stroke="url(#graphDropGrad)"
                             strokeDasharray="2 2"
                             strokeWidth="0.9"
-                            initial={{ pathLength: 0, opacity: 0 }}
-                            whileInView={{ pathLength: 1, opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: drop.delay }}
+                            variants={{
+                                hidden: { pathLength: 0, opacity: 0 },
+                                visible: { pathLength: 1, opacity: 1, transition: { duration: 0.5, delay: drop.delay } }
+                            }}
                         />
                     ))}
 
@@ -239,10 +242,10 @@ function GrowthTrendVisualizer() {
                     <motion.path
                         d="M 20 122 L 54 70 L 80 105 L 128 48 L 165 82 L 210 24 L 246 54 L 295 10 L 340 28 L 340 122 L 20 122 Z"
                         fill="url(#growthAtmosphereGradient)"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true, margin: "-20px" }}
-                        transition={{ duration: 0.9, delay: 0.25 }}
+                        variants={{
+                            hidden: { opacity: 0 },
+                            visible: { opacity: 1, transition: { duration: 0.9, delay: 0.25 } }
+                        }}
                     />
 
                     {/* Main 4-Peak Spiking Frequency Curve */}
@@ -255,10 +258,10 @@ function GrowthTrendVisualizer() {
                         strokeLinecap="round"
                         filter="url(#crispLaserGlow)"
                         fill="none"
-                        initial={{ pathLength: 0, opacity: 0.2 }}
-                        whileInView={{ pathLength: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-20px" }}
-                        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                        variants={{
+                            hidden: { pathLength: 0, opacity: 0.2 },
+                            visible: { pathLength: 1, opacity: 1, transition: { duration: 1.3, ease: [0.22, 1, 0.36, 1], delay: 0.1 } }
+                        }}
                     />
 
                     {/* Peak Points 1, 2, 3 Diamond Vertex Markers */}
@@ -271,10 +274,10 @@ function GrowthTrendVisualizer() {
                             key={idx}
                             points={`${pt.x},${pt.y - 3} ${pt.x + 3},${pt.y} ${pt.x},${pt.y + 3} ${pt.x - 3},${pt.y}`}
                             fill="#00FFCC"
-                            initial={{ scale: 0 }}
-                            whileInView={{ scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ type: "spring", stiffness: 160, delay: pt.delay }}
+                            variants={{
+                                hidden: { scale: 0 },
+                                visible: { scale: 1, transition: { type: "spring", stiffness: 160, delay: pt.delay } }
+                            }}
                         />
                     ))}
 
@@ -288,19 +291,19 @@ function GrowthTrendVisualizer() {
                         strokeOpacity="0.35"
                         strokeDasharray="2 2"
                         strokeWidth="1"
-                        initial={{ pathLength: 0, opacity: 0 }}
-                        whileInView={{ pathLength: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 1.0 }}
+                        variants={{
+                            hidden: { pathLength: 0, opacity: 0 },
+                            visible: { pathLength: 1, opacity: 1, transition: { duration: 0.4, delay: 1.0 } }
+                        }}
                     />
                 </g>
 
                 {/* Peak Point 4 (Apex Peak at x=295, y=10) with Targeting Reticle */}
                 <motion.g
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    viewport={{ once: true, margin: "-20px" }}
-                    transition={{ type: "spring", stiffness: 140, delay: 1.05 }}
+                    variants={{
+                        hidden: { scale: 0, opacity: 0 },
+                        visible: { scale: 1, opacity: 1, transition: { type: "spring", stiffness: 140, delay: 1.05 } }
+                    }}
                 >
                     {/* Pulsing Breathing Outer Diamond Halo */}
                     <motion.polygon
@@ -328,45 +331,7 @@ function GrowthTrendVisualizer() {
                     <circle cx="295" cy="10" r="1.2" fill="#FFFFFF" />
                 </motion.g>
 
-                {/* "Your Growth" Sharp Apex Floating Callout Badge */}
-                <motion.g
-                    initial={{ opacity: 0, y: -6, scale: 0.94 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true, margin: "-20px" }}
-                    transition={{ duration: 0.45, delay: 1.15, ease: "easeOut" }}
-                >
-                    <rect
-                        x="254"
-                        y="0"
-                        width="82"
-                        height="17"
-                        rx="4"
-                        fill="#121212"
-                        stroke="rgba(186, 255, 122, 0.5)"
-                        strokeWidth="1"
-                        filter="drop-shadow(0px 0px 10px rgba(186, 255, 122, 0.3))"
-                    />
-                    {/* Live Glowing Lime Dot inside Callout */}
-                    <circle cx="264" cy="8.5" r="2.2" fill="#BAFF7A" />
-                    <text
-                        x="298"
-                        y="11.5"
-                        textAnchor="middle"
-                        fill="#FFFFFF"
-                        fontSize="9"
-                        fontFamily="monospace"
-                        fontWeight="700"
-                        letterSpacing="0.02em"
-                    >
-                        Your Growth
-                    </text>
-                    {/* Downward Needle Pointer directly targeting (295, 10) */}
-                    <polygon
-                        points="291,17 299,17 295,20"
-                        fill="#BAFF7A"
-                    />
-                </motion.g>
-            </svg>
+            </motion.svg>
         </div>
     )
 }
