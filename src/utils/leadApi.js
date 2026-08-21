@@ -1,6 +1,5 @@
 /**
- * Sends intake lead directly to the API endpoint (/api/leads)
- * which appends it into public/contact_leads.xlsx sheet.
+ * Sends intake lead to the API endpoint (/api/leads)
  */
 export const submitLeadToApi = async (formData) => {
   try {
@@ -11,7 +10,7 @@ export const submitLeadToApi = async (formData) => {
     });
     return await response.json();
   } catch (error) {
-    console.error('Failed to submit lead to API:', error);
+    console.error('Failed to submit lead:', error);
     return { success: false, error: error.message };
   }
 };

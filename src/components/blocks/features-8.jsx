@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
+import React from 'react'
 import ChartBarIcon from '@/components/ui/chart-bar-icon'
 import TerminalIcon from '@/components/ui/terminal-icon'
 import BrainCircuitIcon from '@/components/ui/brain-circuit-icon'
@@ -351,17 +350,15 @@ export function Features() {
                             transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
-                            <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="pt-6 flex flex-col justify-start h-full space-y-3">
-                                    <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
-                                        <TerminalIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
-                                    </div>
-                                    <div className="relative z-10 space-y-2 text-left">
-                                        <h3 className="text-xl font-display font-semibold text-white">Web Engineering</h3>
-                                        <p className="text-muted text-sm leading-relaxed">Lightning-fast, mobile-first websites designed to convert visitors into consultation bookings.</p>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                            <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
+                                <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                    <TerminalIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
+                                </div>
+                                <div className="relative z-10 space-y-2 text-left">
+                                    <h3 className="text-xl font-display font-semibold text-white">Web Engineering</h3>
+                                    <p className="text-muted text-sm leading-relaxed">Lightning-fast, mobile-first websites designed to convert visitors into consultation bookings.</p>
+                                </div>
+                            </div>
                         </motion.div>
 
                         {/* 2. SME AI Integration - LEFT side entrance */}
@@ -372,17 +369,15 @@ export function Features() {
                             transition={{ duration: 0.85, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
-                            <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="pt-6 flex flex-col justify-start h-full space-y-3">
-                                    <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
-                                        <BrainCircuitIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
-                                    </div>
-                                    <div className="relative z-10 space-y-2 text-left">
-                                        <h3 className="text-xl font-display font-semibold text-white">AI Integration</h3>
-                                        <p className="text-muted text-sm leading-relaxed">Automate internal operations, customer intake, and more with custom AI workflows.</p>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                            <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
+                                <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                    <BrainCircuitIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
+                                </div>
+                                <div className="relative z-10 space-y-2 text-left">
+                                    <h3 className="text-xl font-display font-semibold text-white">AI Integration</h3>
+                                    <p className="text-muted text-sm leading-relaxed">Automate internal operations, customer intake, and more with custom AI workflows.</p>
+                                </div>
+                            </div>
                         </motion.div>
 
                         {/* 3. Passion Marketing - RIGHT side entrance */}
@@ -393,17 +388,15 @@ export function Features() {
                             transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
-                            <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="pt-6 flex flex-col justify-start h-full space-y-3">
-                                    <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
-                                        <WorldIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
-                                    </div>
-                                    <div className="relative z-10 space-y-2 text-left">
-                                        <h3 className="text-xl font-display font-semibold text-white">Passion Marketing</h3>
-                                        <p className="text-muted text-sm leading-relaxed">Putting your SME in front of the right eyes — highest-tier SEO, social media marketing, and organic growth strategies that build lasting visibility.</p>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                            <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
+                                <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                    <WorldIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
+                                </div>
+                                <div className="relative z-10 space-y-2 text-left">
+                                    <h3 className="text-xl font-display font-semibold text-white">Passion Marketing</h3>
+                                    <p className="text-muted text-sm leading-relaxed">Putting your SME in front of the right eyes — highest-tier SEO, social media marketing, and organic growth strategies that build lasting visibility.</p>
+                                </div>
+                            </div>
                         </motion.div>
 
                         {/* 4. Growth For You (big 3-column card with growing bar graph) - LEFT side entrance */}
@@ -414,23 +407,21 @@ export function Features() {
                             transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full lg:col-span-3 h-full"
                         >
-                            <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="grid h-full pt-6 sm:grid-cols-2 items-center pb-6 sm:pb-8 gap-6 sm:gap-8">
-                                    <div className="relative z-10 flex flex-col justify-start space-y-3 pb-6 sm:pb-0">
-                                        <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
-                                            <ChartBarIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <h3 className="text-xl font-display font-semibold text-white">Growth For You</h3>
-                                            <p className="text-muted text-sm">Scale revenue, acquire qualified leads, and dominate SME market share with automated conversion funnels.</p>
-                                        </div>
+                            <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white grid grid-cols-1 sm:grid-cols-2 items-center p-6 pb-6 sm:pb-8 gap-6 sm:gap-8">
+                                <div className="relative z-10 flex flex-col justify-start space-y-3 pb-6 sm:pb-0">
+                                    <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                        <ChartBarIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                     </div>
-                                    <div className="relative w-full flex flex-col justify-end mt-auto sm:self-end sm:pl-2">
-                                        {/* Realistic Compounding SaaS Revenue Growth Visualizer */}
-                                        <GrowthTrendVisualizer />
+                                    <div className="space-y-2">
+                                        <h3 className="text-xl font-display font-semibold text-white">Growth For You</h3>
+                                        <p className="text-muted text-sm">Scale revenue, acquire qualified leads, and dominate SME market share with automated conversion funnels.</p>
                                     </div>
-                                </CardContent>
-                            </Card>
+                                </div>
+                                <div className="relative w-full flex flex-col justify-end mt-auto sm:self-end sm:pl-2">
+                                    {/* Realistic Compounding SaaS Revenue Growth Visualizer */}
+                                    <GrowthTrendVisualizer />
+                                </div>
+                            </div>
                         </motion.div>
 
                         {/* 5. Step by Step Card - RIGHT side entrance */}
@@ -441,17 +432,16 @@ export function Features() {
                             transition={{ duration: 0.85, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full lg:col-span-3 h-full"
                         >
-                            <Card className="relative overflow-hidden liquid-glass-card h-full">
-                                <CardContent className="grid h-full pt-6 sm:grid-cols-2 items-center pb-6 sm:pb-8 gap-6 sm:gap-8">
-                                    <div className="relative z-10 flex flex-col justify-start space-y-3">
-                                        <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
-                                            <UsersIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <h3 className="text-xl font-display font-semibold text-white">Step by Step</h3>
-                                            <p className="text-muted text-sm">A transparent, milestone-driven workflow ensuring precision execution from initial audit to final launch.</p>
-                                        </div>
+                            <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white grid grid-cols-1 sm:grid-cols-2 items-center p-6 pb-6 sm:pb-8 gap-6 sm:gap-8">
+                                <div className="relative z-10 flex flex-col justify-start space-y-3">
+                                    <div className="relative flex aspect-square size-12 rounded-full border border-cyan/30 bg-cyan/10 backdrop-blur-md opacity-75 before:absolute before:-inset-2 before:rounded-full before:border before:border-cyan/15">
+                                        <UsersIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                     </div>
+                                    <div className="space-y-2">
+                                        <h3 className="text-xl font-display font-semibold text-white">Step by Step</h3>
+                                        <p className="text-muted text-sm">A transparent, milestone-driven workflow ensuring precision execution from initial audit to final launch.</p>
+                                    </div>
+                                </div>
 
                                     {/* Clean, Streamlined Straight Horizontal Timeline for Desktop */}
                                     <div className="relative flex items-center justify-center w-full max-w-full mx-auto mt-auto sm:self-end py-1 sm:py-0 overflow-visible">
@@ -799,8 +789,7 @@ export function Features() {
                                             </g>
                                         </motion.svg>
                                     </div>
-                                </CardContent>
-                            </Card>
+                            </div>
                         </motion.div>
 
                     </div>

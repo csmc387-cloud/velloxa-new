@@ -1,8 +1,6 @@
 import React, { useState, useEffect, Children } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import PhoneIcon from './PhoneIcon';
-import MailSendIcon from './MailSendIcon';
+import { ArrowLeft, ArrowRight, Phone } from 'lucide-react';
 
 export function WinkSmileyIcon({ className = "size-5 text-lime" }) {
   const [isWinking, setIsWinking] = useState(true);
@@ -267,7 +265,7 @@ export default function Stepper({
           <div className="border-t border-white/10 pt-3.5">
             {/* Phone Numbers Below Divider Line */}
             <div className="flex items-center justify-center space-x-2 text-xs font-mono text-gray-400 text-center">
-              <PhoneIcon size={14} className="text-gray-300 hover:text-lime transition-all" />
+              <Phone className="size-3.5 text-gray-300 hover:text-lime transition-all" />
               <a
                 href="tel:+919266544745"
                 className="text-gray-300 hover:text-lime transition-colors font-medium"

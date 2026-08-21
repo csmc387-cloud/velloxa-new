@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import Stepper, { Step, WinkSmileyIcon } from '../components/Stepper';
-import PhoneIcon from '../components/PhoneIcon';
-import MailSendIcon from '../components/MailSendIcon';
-import { submitLeadToApi } from '../utils/excelExporter';
+import Stepper, { Step } from '../components/Stepper';
+import { submitLeadToApi } from '../utils/leadApi';
 
 function AnimatedCheckIcon({ className = "size-8 text-lime" }) {
   return (

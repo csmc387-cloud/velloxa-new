@@ -40,17 +40,7 @@ export const Footer = ({
 
   const handleCopyEmail = (e) => {
     e.preventDefault();
-    const email = "velloxa.agency@gmail.com";
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(email);
-    } else {
-      const textArea = document.createElement("textarea");
-      textArea.value = email;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textArea);
-    }
+    navigator.clipboard?.writeText("velloxa.agency@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
