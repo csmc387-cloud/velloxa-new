@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import Stepper, { Step } from '../components/Stepper';
+import Stepper, { Step, WinkSmileyIcon } from '../components/Stepper';
 import PhoneIcon from '../components/PhoneIcon';
 import MailSendIcon from '../components/MailSendIcon';
 import { submitLeadToApi } from '../utils/excelExporter';
+
+function AnimatedCheckIcon({ className = "size-8 text-lime" }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <motion.path
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        d="M 20 6 L 9 17 L 4 12"
+      />
+    </svg>
+  );
+}
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -98,13 +119,12 @@ export default function ContactPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="Gmail / Insta Handle"
-                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-500 focus:outline-none text-sm transition-all ${
-                    formData.email.length > 0 && !formData.email.includes('@')
+                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-500 focus:outline-none text-sm transition-all ${formData.email.length > 0 && !formData.email.includes('@')
                       ? 'border-red-500/50 focus:border-red-500'
                       : formData.email.includes('@')
-                      ? 'border-lime/50 focus:border-lime'
-                      : 'border-white/10 focus:border-lime/50'
-                  }`}
+                        ? 'border-lime/50 focus:border-lime'
+                        : 'border-white/10 focus:border-lime/50'
+                    }`}
                 />
                 {formData.email.length > 0 && !formData.email.includes('@') && (
                   <p className="text-red-400 text-[11px] font-mono mt-1 pl-1 flex items-center space-x-1">
@@ -146,8 +166,8 @@ export default function ContactPage() {
                   key={item.name}
                   onClick={() => setFormData({ ...formData, service: item.name })}
                   className={`p-3.5 rounded-xl text-left border transition-all ${formData.service === item.name
-                      ? 'border-lime bg-lime/10 text-white'
-                      : 'border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:text-white'
+                    ? 'border-lime bg-lime/10 text-white'
+                    : 'border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:text-white'
                     }`}
                 >
                   <span className="block font-medium text-sm text-white mb-0.5">{item.name}</span>
@@ -175,8 +195,8 @@ export default function ContactPage() {
                       key={range}
                       onClick={() => setFormData({ ...formData, budget: range })}
                       className={`py-2 px-3 rounded-lg text-xs font-mono transition-all ${formData.budget === range
-                          ? 'bg-lime text-charcoal font-bold'
-                          : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
+                        ? 'bg-lime text-charcoal font-bold'
+                        : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
                         }`}
                     >
                       {range}
@@ -200,79 +220,22 @@ export default function ContactPage() {
 
         {/* STEP 4: CONFIRMATION */}
         <Step>
-          <div className="space-y-6 py-4 text-center relative pb-8">
-            {/* Animated Spring Pop Checkmark */}
+          <div className="flex flex-col items-center justify-center text-center py-6 space-y-4 w-full mx-auto">
+            {/* Animated Spring Pop Self-Drawing Checkmark */}
             <motion.div
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', stiffness: 350, damping: 15, delay: 0.1 }}
               className="size-16 rounded-full bg-lime/10 border-2 border-lime text-lime flex items-center justify-center mx-auto shadow-[0_0_35px_rgba(186,255,122,0.6)]"
             >
-              <CheckCircle2 className="size-8 stroke-[2.5]" />
+              <AnimatedCheckIcon className="size-8 text-lime" />
             </motion.div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 max-w-md mx-auto text-center">
               <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">INTAKE TRANSMITTED</h3>
               <p className="text-gray-300 text-xs sm:text-sm max-w-sm mx-auto leading-relaxed">
                 Thank you partner, we will reach you thru your email / dm within 24 hours.
               </p>
-            </div>
-
-            {/* Lower Left Corner Phone Numbers & Gmail */}
-            <div className="absolute -bottom-2.5 left-0 flex flex-col items-start space-y-1 z-20">
-              {/* Phone Numbers Row */}
-              <div className="flex items-center space-x-1.5 text-[10px] sm:text-[11px] font-mono text-gray-400">
-                <PhoneIcon size={14} className="text-gray-300 hover:text-lime transition-all" />
-                <a
-                  href="tel:+919266544745"
-                  className="text-gray-300 hover:text-lime transition-colors font-medium"
-                  title="Call 9266544745"
-                >
-                  9266544745
-                </a>
-                <span className="text-lime/70 font-bold">•</span>
-                <a
-                  href="tel:+919711886700"
-                  className="text-gray-300 hover:text-lime transition-colors font-medium"
-                  title="Call 9711886700"
-                >
-                  9711886700
-                </a>
-              </div>
-
-              {/* Gmail Row */}
-              <div className="flex items-center space-x-1.5 text-[10px] sm:text-[11px] font-mono text-gray-400 relative">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const email = "velloxa.agency@gmail.com";
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                      navigator.clipboard.writeText(email);
-                    } else {
-                      const textArea = document.createElement("textarea");
-                      textArea.value = email;
-                      document.body.appendChild(textArea);
-                      textArea.select();
-                      document.execCommand("copy");
-                      document.body.removeChild(textArea);
-                    }
-                    const badge = e.currentTarget.nextSibling;
-                    if (badge) {
-                      badge.style.opacity = '1';
-                      setTimeout(() => { badge.style.opacity = '0'; }, 2500);
-                    }
-                  }}
-                  className="flex items-center space-x-1.5 text-gray-300 hover:text-lime transition-colors font-medium focus:outline-none cursor-pointer"
-                  title="Click to copy velloxa.agency@gmail.com"
-                >
-                  <MailSendIcon size={14} className="text-gray-300 hover:text-lime transition-all" />
-                  <span>velloxa.agency@gmail.com</span>
-                </button>
-                <span className="opacity-0 transition-opacity duration-300 px-2 py-0.5 rounded bg-lime text-charcoal text-[10px] font-mono font-bold">
-                  Copied!
-                </span>
-              </div>
             </div>
           </div>
         </Step>

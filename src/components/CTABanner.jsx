@@ -11,7 +11,7 @@ export default function CTABanner() {
       transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
       className="relative overflow-hidden my-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
-      <div className="relative rounded-3xl liquid-glass-card border border-lime/40 p-8 sm:p-12 md:p-16 shadow-limeGlow overflow-hidden">
+      <div className="relative rounded-3xl liquid-glass-card border border-lime/40 p-8 sm:p-12 md:p-16 overflow-hidden">
         
         {/* Decorative Glow Orb */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-lime/10 rounded-full blur-3xl pointer-events-none animate-mesh" />

@@ -1,6 +1,72 @@
-import React, { useState, Children } from 'react';
+import React, { useState, useEffect, Children } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import PhoneIcon from './PhoneIcon';
+import MailSendIcon from './MailSendIcon';
+
+export function WinkSmileyIcon({ className = "size-5 text-lime" }) {
+  const [isWinking, setIsWinking] = useState(true);
+
+  useEffect(() => {
+    setIsWinking(true);
+    const timer = setTimeout(() => {
+      setIsWinking(false);
+    }, 750);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      {/* Outer Face Circle */}
+      <circle cx="12" cy="12" r="9.5" />
+
+      {/* Left Eye */}
+      <circle cx="9" cy="9.5" r="1.2" fill="currentColor" />
+
+      {/* Right Eye (Winks first then turns into happy open eye) */}
+      <AnimatePresence mode="wait">
+        {isWinking ? (
+          <motion.path
+            key="wink-eye"
+            initial={{ opacity: 0, pathLength: 0 }}
+            animate={{ opacity: 1, pathLength: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            d="M 13.5 10 Q 15 11.5 16.5 10"
+            strokeWidth="2.5"
+          />
+        ) : (
+          <motion.circle
+            key="open-eye"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 450, damping: 18 }}
+            cx="15"
+            cy="9.5"
+            r="1.2"
+            fill="currentColor"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Smile Mouth */}
+      <motion.path
+        initial={{ pathLength: 0.4 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        d="M 8 14 Q 12 18 16 14"
+      />
+    </svg>
+  );
+}
 
 export function Step({ children }) {
   return <div className="w-full space-y-6">{children}</div>;
@@ -69,114 +135,65 @@ export default function Stepper({
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className="w-full max-w-2xl mx-auto rounded-3xl p-6 sm:p-8 relative overflow-hidden bg-black/40 border border-white/10 backdrop-blur-2xl"
     >
-      
-      {/* Animated Curved Wave Stepper Timeline */}
+
+      {/* Clean & Simple Step Indicators */}
       {!disableStepIndicators && (
-        <div className="relative mb-4 h-24 w-full">
-          
-          {/* SVG Glowing Curved Wave Track Line */}
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <svg
-              viewBox="0 0 100 60"
-              preserveAspectRatio="none"
-              className="w-full h-full"
-            >
-              <defs>
-                <linearGradient id="zigzagLimeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#BAFF7A" stopOpacity="0.6" />
-                  <stop offset="50%" stopColor="#00FFCC" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#BAFF7A" stopOpacity="1" />
-                </linearGradient>
-                <filter id="zigzagGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="1.5" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-              </defs>
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 min-h-[44px] sm:min-h-[52px]">
+          {steps.map((_, index) => {
+            const stepNumber = index + 1;
+            const isCompleted = stepNumber < currentStep;
+            const isActive = stepNumber === currentStep;
+            const isLastStepIndicator = stepNumber === totalSteps;
 
-              {/* Inactive Base Curved Path */}
-              <path
-                d="M 8 20 C 22 20, 22 40, 36 40 C 50 40, 50 20, 64 20 C 78 20, 78 40, 92 40"
-                fill="none"
-                stroke="rgba(255,255,255,0.15)"
-                strokeWidth="2.5"
-                strokeDasharray="4 4"
-                strokeLinecap="round"
-              />
+            return (
+              <button
+                key={index}
+                type="button"
+                onClick={() => handleStepClick(stepNumber)}
+                disabled={disableStepIndicators || stepNumber > currentStep}
+                aria-label={`Step ${stepNumber}`}
+                className="group relative flex items-center justify-center focus:outline-none disabled:cursor-not-allowed h-9 w-9 sm:h-11 sm:w-11"
+              >
+                {/* Active Rotating Hairline Ring */}
+                {isActive && (
+                  <div className="absolute inset-0 rounded-full p-[0.5px] overflow-hidden flex items-center justify-center pointer-events-none shadow-[0_0_10px_rgba(186,255,122,0.4)]">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+                      className="absolute w-[220%] h-[220%] rounded-full bg-[conic-gradient(from_0deg,#BAFF7A,#00F0FF,#10B981,#BAFF7A)]"
+                    />
+                  </div>
+                )}
 
-              {/* Active Animated Progress Curved Path */}
-              <motion.path
-                d="M 8 20 C 22 20, 22 40, 36 40 C 50 40, 50 20, 64 20 C 78 20, 78 40, 92 40"
-                fill="none"
-                stroke="url(#zigzagLimeGrad)"
-                strokeWidth="3"
-                strokeLinecap="round"
-                filter="url(#zigzagGlow)"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: (currentStep - 1) / (totalSteps - 1) }}
-                transition={{ type: 'spring', stiffness: 200, damping: 22 }}
-              />
-            </svg>
-          </div>
-
-          {/* Step Circle Nodes Centralized Exactly ON the Curve */}
-          <div className="absolute inset-0 z-10">
-            {steps.map((_, index) => {
-              const stepNumber = index + 1;
-              const isCompleted = stepNumber < currentStep;
-              const isActive = stepNumber === currentStep;
-              const isTop = index % 2 === 0;
-
-              const xPercent = totalSteps > 1 ? (index / (totalSteps - 1)) * 84 + 8 : 50;
-              const yPercent = isTop ? 33.33 : 66.67;
-
-              return (
-                <div
-                  key={index}
-                  style={{
-                    left: `${xPercent}%`,
-                    top: `${yPercent}%`,
-                  }}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10"
+                {/* Step Badge / Dot */}
+                <motion.div
+                  layout
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  className={`relative z-10 flex items-center justify-center rounded-full transition-colors duration-250 ${isActive
+                    ? 'size-8 sm:size-10 bg-black text-lime font-mono text-base sm:text-lg font-bold'
+                    : isCompleted
+                      ? 'size-2.5 sm:size-3.5 bg-lime shadow-[0_0_6px_rgba(186,255,122,0.4)] group-hover:scale-110'
+                      : 'size-2 sm:size-3 bg-white/20 group-hover:bg-white/50 group-hover:scale-110'
+                    }`}
                 >
-                  <button
-                    type="button"
-                    onClick={() => handleStepClick(stepNumber)}
-                    disabled={disableStepIndicators || stepNumber > currentStep}
-                    className="relative flex flex-col items-center focus:outline-none group"
-                  >
+                  {isActive && (
                     <motion.span
-                      animate={{ scale: isActive ? 1.25 : 1 }}
-                      transition={{ type: 'spring', stiffness: 380, damping: 20 }}
-                      className={`size-9 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-300 ${
-                        isActive
-                          ? 'bg-[#141619] border-2 border-lime text-lime shadow-[0_0_25px_rgba(186,255,122,0.8)] ring-4 ring-lime/20 z-20'
-                          : isCompleted
-                          ? 'bg-lime border-2 border-lime text-charcoal shadow-[0_0_12px_rgba(186,255,122,0.4)] z-10'
-                          : 'bg-[#141619] border border-white/20 text-gray-500 z-10 group-hover:border-white/40'
-                      }`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center justify-center leading-none"
                     >
-                      {isCompleted ? <Check className="size-4 stroke-[3]" /> : stepNumber}
+                      {isLastStepIndicator ? (
+                        <WinkSmileyIcon className="size-5 sm:size-6 text-lime" />
+                      ) : (
+                        stepNumber
+                      )}
                     </motion.span>
-                    
-                    <span 
-                      className={`absolute left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-widest whitespace-nowrap transition-colors ${
-                        isTop ? '-top-6' : 'top-10'
-                      } ${
-                        isActive 
-                          ? 'text-lime font-bold drop-shadow-[0_0_8px_rgba(186,255,122,0.5)]' 
-                          : isCompleted 
-                          ? 'text-white font-medium' 
-                          : 'text-gray-500'
-                      }`}
-                    >
-                      STEP {stepNumber}
-                    </span>
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
+                  )}
+                </motion.div>
+              </button>
+            );
+          })}
         </div>
       )}
 
@@ -210,38 +227,64 @@ export default function Stepper({
         </AnimatePresence>
 
         {/* Stepper Footer Controls */}
-        <div className="flex items-center justify-between pt-6 border-t border-white/10 mt-4">
-          {!isFirstStep ? (
-            <button
-              type="button"
-              onClick={handleBack}
-              className="px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider transition-all flex items-center space-x-1.5 text-gray-400 hover:text-white"
-            >
-              <ArrowLeft className="size-3.5" />
-              <span>{backButtonText}</span>
-            </button>
-          ) : (
-            <div />
-          )}
+        <div className="mt-4 pt-2 space-y-3">
+          {/* Navigation Controls (ABOVE Divider Line) */}
+          <div className="flex items-center justify-between pb-1">
+            {!isFirstStep ? (
+              <button
+                type="button"
+                onClick={handleBack}
+                className="px-4 py-2 rounded-lg text-xs font-mono uppercase tracking-wider transition-all flex items-center space-x-1.5 text-gray-400 hover:text-white"
+              >
+                <ArrowLeft className="size-3.5" />
+                <span>{backButtonText}</span>
+              </button>
+            ) : (
+              <div />
+            )}
 
-          {!isLastStep ? (
-            <button
-              type="button"
-              onClick={handleNext}
-              className="px-5 py-2.5 rounded-xl bg-lime text-charcoal font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#a6ff5e] transition-all flex items-center space-x-2 shadow-sm shadow-lime/20"
-            >
-              <span>{nextButtonText}</span>
-              <ArrowRight className="size-3.5" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => handleStepClick(1)}
-              className="px-5 py-2 rounded-xl text-cyan text-xs font-mono font-semibold uppercase tracking-wider hover:text-white transition-all"
-            >
-              <span>Restart</span>
-            </button>
-          )}
+            {!isLastStep ? (
+              <button
+                type="button"
+                onClick={handleNext}
+                className="px-5 py-2.5 rounded-xl bg-lime text-charcoal font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#a6ff5e] transition-all flex items-center space-x-2 shadow-sm shadow-lime/20"
+              >
+                <span>{nextButtonText}</span>
+                <ArrowRight className="size-3.5" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => handleStepClick(1)}
+                className="px-5 py-2 rounded-xl text-cyan text-xs font-mono font-semibold uppercase tracking-wider hover:text-white transition-all"
+              >
+                <span>Restart</span>
+              </button>
+            )}
+          </div>
+
+          {/* Divider Line */}
+          <div className="border-t border-white/10 pt-3.5">
+            {/* Phone Numbers Below Divider Line */}
+            <div className="flex items-center justify-center space-x-2 text-xs font-mono text-gray-400 text-center">
+              <PhoneIcon size={14} className="text-gray-300 hover:text-lime transition-all" />
+              <a
+                href="tel:+919266544745"
+                className="text-gray-300 hover:text-lime transition-colors font-medium"
+                title="Call 9266544745"
+              >
+                9266544745
+              </a>
+              <span className="text-lime/70 font-bold">•</span>
+              <a
+                href="tel:+919711886700"
+                className="text-gray-300 hover:text-lime transition-colors font-medium"
+                title="Call 9711886700"
+              >
+                9711886700
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
