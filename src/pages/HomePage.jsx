@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { motion, useInView } from 'framer-motion';
-import ContactPage from './ContactPage';
-import { Features } from '../components/blocks/features-8';
+
+const ContactPage = lazy(() => import('./ContactPage'));
+const Features = lazy(() => import('../components/blocks/features-8').then(module => ({ default: module.Features })));
 
 function AnimatedCounter({ from = 1, to = 100, suffix = '%', duration = 1.8 }) {
   const [count, setCount] = useState(from);
@@ -101,14 +102,19 @@ export default function HomePage() {
           </h2>
         </div>
 
-        <Features />
+        <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading solutions...</div>}>
+          <Features />
+        </Suspense>
       </section>
 
       {/* 4. MULTI-STEP CONTACT INTAKE FORM */}
       <div>
-        <ContactPage />
+        <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading contact form...</div>}>
+          <ContactPage />
+        </Suspense>
       </div>
 
     </div>
   );
 }
+
