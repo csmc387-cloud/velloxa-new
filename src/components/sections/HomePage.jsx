@@ -83,13 +83,13 @@ export default function HomePage() {
         id="hero-section"
         className="hero relative min-h-[100dvh] h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden py-0 px-3 sm:px-4 text-center safe-top"
       >
-        {/* Background Mesh Gradient Orbs */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[700px] h-[90vw] max-h-[700px] bg-lime/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none animate-mesh" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] max-w-[500px] h-[70vw] max-h-[500px] bg-cyan/10 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none" />
+        {/* Expanded Background Mesh Gradient Orbs */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[950px] h-[95vw] max-h-[950px] bg-lime/15 rounded-full blur-[120px] sm:blur-[160px] pointer-events-none animate-mesh" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[800px] h-[85vw] max-h-[800px] bg-cyan/15 rounded-full blur-[110px] sm:blur-[150px] pointer-events-none" />
 
         <div className="w-full max-w-7xl mx-auto px-2 mini:px-3 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center justify-center">
-          {/* Main Slogan - Perfectly sized across all iPhone sizes (mini 375px, standard 390px, Plus/Pro Max 428-430px) */}
-          <h1 className="font-display text-[clamp(2.4rem,11.8vw,10rem)] sm:text-[8rem] md:text-8xl lg:text-9xl xl:text-[10rem] font-bold tracking-tight text-white uppercase w-full mx-auto leading-[0.92] select-none text-center flex flex-col items-center justify-center space-y-1 sm:space-y-2">
+          {/* Main Slogan - Scaled larger across all iPhone sizes (mini 375px, standard 390px, Plus/Pro Max 428-430px) and desktop */}
+          <h1 className="font-display text-[clamp(3.2rem,14.5vw,13.5rem)] sm:text-[9rem] md:text-[10.5rem] lg:text-[12.5rem] xl:text-[14rem] font-black tracking-tight text-white uppercase w-full mx-auto leading-[0.88] select-none text-center flex flex-col items-center justify-center space-y-1 sm:space-y-3">
             <span className="block text-center whitespace-nowrap">WE BUILD<span className="text-lime">.</span></span>
             <span className="block text-center whitespace-nowrap">YOU GROW<span className="text-cyan">.</span></span>
           </h1>
@@ -103,25 +103,25 @@ export default function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-4xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 relative z-20 py-8"
+        className="max-w-5xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 relative z-20 py-10"
       >
-        <div className="flex flex-row items-center justify-center gap-4 mini:gap-6 sm:gap-16 text-center">
+        <div className="flex flex-row items-center justify-center gap-6 mini:gap-8 sm:gap-20 text-center">
           {/* 100% Counter */}
           <div>
-            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
+            <span className="block text-6xl mini:text-7xl sm:text-8xl lg:text-9xl font-display font-black text-white tracking-tight drop-shadow-[0_0_30px_rgba(255,255,255,0.45)]">
               <AnimatedCounter from={1} to={100} suffix="%" duration={1.8} />
             </span>
-            <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">ROI Impact</span>
+            <span className="text-xs mini:text-sm sm:text-base lg:text-lg font-mono font-bold text-gray-200 uppercase tracking-widest pt-2 block">ROI Impact</span>
           </div>
 
-          <div className="h-14 sm:h-20 w-px bg-white/20" />
+          <div className="h-16 sm:h-24 w-px bg-white/20" />
 
           {/* 2X - 3X Traffic */}
           <div>
-            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
-              2<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl font-bold opacity-90 uppercase">X</span>
+            <span className="block text-6xl mini:text-7xl sm:text-8xl lg:text-9xl font-display font-black text-white tracking-tight drop-shadow-[0_0_30px_rgba(255,255,255,0.45)]">
+              2<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold opacity-90 uppercase">X</span>
             </span>
-            <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">Traffic Growth</span>
+            <span className="text-xs mini:text-sm sm:text-base lg:text-lg font-mono font-bold text-gray-200 uppercase tracking-widest pt-2 block">Traffic Growth</span>
           </div>
         </div>
       </motion.section>
@@ -130,10 +130,10 @@ export default function HomePage() {
       <section id="solutions" className="max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
         <div className="text-center max-w-5xl mx-auto">
           <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
-            <span className="text-[clamp(3.4rem,14.5vw,10.5rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
+            <span className="text-[clamp(3.6rem,15vw,11.5rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
               SOLUTIONS<span className="text-cyan drop-shadow-[0_0_25px_rgba(0,255,204,0.7)]">.</span>
             </span>
-            <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pt-1">
+            <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pt-2">
               Engineered for Growth
             </span>
           </h2>
