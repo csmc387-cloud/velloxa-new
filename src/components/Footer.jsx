@@ -47,7 +47,7 @@ export const Footer = ({
 
   return (
     <section className={cn("relative w-full mt-0 overflow-hidden", className)}>
-      <footer className="border-t border-white/10 bg-black/40 backdrop-blur-2xl mt-12 relative overflow-hidden">
+      <footer className="border-t border-white/10 bg-black/40 backdrop-blur-2xl mt-12 relative overflow-hidden safe-bottom">
         {/* Flickering Grid Background */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100 [mask-image:radial-gradient(ellipse_90%_90%_at_50%_50%,#000_50%,transparent_100%)]">
           <FlickeringGrid
@@ -66,7 +66,7 @@ export const Footer = ({
               <div className="space-y-2 flex flex-col items-center flex-1 mb-2">
                 <div className="flex flex-col items-center gap-2">
                   <img
-                    src={footerIconLogo}
+                    src={footerIconLogo?.src || footerIconLogo}
                     alt="VELLOXA Logo"
                     className="h-28 sm:h-36 md:h-44 w-auto object-contain mix-blend-screen hover:scale-105 transition-transform duration-300"
                   />

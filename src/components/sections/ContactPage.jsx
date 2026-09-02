@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Stepper, { Step } from '../components/Stepper';
-import { submitLeadToApi } from '../utils/leadApi';
+import Stepper, { Step } from '@/components/Stepper';
+import { submitLeadToApi } from '@/utils/leadApi';
 
 function AnimatedCheckIcon({ className = "size-8 text-lime" }) {
   return (
@@ -68,15 +70,15 @@ export default function ContactPage() {
   };
 
   return (
-    <div id="contact-section" className="space-y-12 pb-16 pt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div id="contact-section" className="space-y-12 pb-16 pt-8 max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 overflow-hidden">
 
       {/* 1. HEADER */}
       <section className="text-center max-w-5xl mx-auto">
         <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
-          <span className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-widest text-white uppercase">
+          <span className="text-lg mini:text-2xl sm:text-3xl lg:text-4xl font-bold tracking-widest text-white uppercase">
             Let's Build Something
           </span>
-          <span className="text-6xl sm:text-8xl lg:text-9xl font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none">
+          <span className="text-[clamp(2.1rem,9.5vw,7.5rem)] lg:text-9xl font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none">
             EXTRAORDINARY<span className="text-lime drop-shadow-[0_0_25px_rgba(186,255,122,0.7)]">.</span>
           </span>
         </h2>

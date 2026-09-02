@@ -127,7 +127,7 @@ export const ScrollExpandMedia = ({
             {/* Top Half of Centered Logo */}
             <div className="w-full h-[100dvh] absolute left-0 top-0 flex items-center justify-center pointer-events-none p-4 sm:p-8">
               <img
-                src={mediaSrc}
+                src={typeof mediaSrc === 'object' && mediaSrc?.src ? mediaSrc.src : mediaSrc}
                 alt="VELLOXA Logo"
                 className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />
@@ -144,7 +144,7 @@ export const ScrollExpandMedia = ({
             {/* Bottom Half of Centered Logo */}
             <div className="w-full h-[100dvh] absolute left-0 bottom-0 flex items-center justify-center pointer-events-none p-4 sm:p-8">
               <img
-                src={mediaSrc}
+                src={typeof mediaSrc === 'object' && mediaSrc?.src ? mediaSrc.src : mediaSrc}
                 alt="VELLOXA Logo"
                 className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />

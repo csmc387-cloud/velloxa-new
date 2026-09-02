@@ -1,8 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./index.html",
   ],
   theme: {
     extend: {
@@ -15,12 +18,18 @@ export default {
         borderDark: "#333333"
       },
       fontFamily: {
-        display: ["Oswald", "sans-serif"],
-        body: ["DM Sans", "sans-serif"],
+        display: ["var(--font-display)", "Oswald", "sans-serif"],
+        body: ["var(--font-body)", "DM Sans", "sans-serif"],
       },
       boxShadow: {
         limeGlow: "0 0 25px rgba(186, 255, 122, 0.25)",
         cyanGlow: "0 0 25px rgba(0, 255, 204, 0.25)",
+      },
+      screens: {
+        'mini': '375px',
+        'standard': '390px',
+        'wide': '428px',
+        'plus': '428px',
       }
     },
   },

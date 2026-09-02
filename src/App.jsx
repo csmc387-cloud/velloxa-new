@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import ScrollExpandMedia from './components/ScrollExpandMedia';
 
 const BackgroundShader = lazy(() => import('./components/BackgroundShader'));
-const HomePage = lazy(() => import('./pages/HomePage'));
+const HomePage = lazy(() => import('./components/sections/HomePage'));
 const Footer = lazy(() => import('./components/Footer'));
 
 export default function App() {

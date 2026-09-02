@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, Children } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Phone } from 'lucide-react';
@@ -131,7 +133,7 @@ export default function Stepper({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full max-w-2xl mx-auto rounded-3xl p-6 sm:p-8 relative overflow-hidden bg-black/40 border border-white/10 backdrop-blur-2xl"
+      className="w-full max-w-2xl mx-auto rounded-3xl p-4 mini:p-6 sm:p-8 relative overflow-hidden bg-black/40 border border-white/10 backdrop-blur-2xl"
     >
 
       {/* Clean & Simple Step Indicators */}

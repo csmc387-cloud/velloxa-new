@@ -1,0 +1,156 @@
+import { DM_Sans, Oswald } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
+import '../index.css';
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+const oswald = Oswald({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+export const viewport = {
+  themeColor: '#0d0d0d',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+};
+
+export const metadata = {
+  metadataBase: new URL('https://veloxa.io'),
+  title: {
+    default: 'VELOXA — AI Integration, Web Engineering & Passion Marketing',
+    template: '%s | VELOXA',
+  },
+  description:
+    'Veloxa is a high-growth digital agency specializing in custom AI integration, modern web engineering, and passion marketing. We build high-conversion, tech-forward platforms that scale.',
+  keywords: [
+    'AI Integration',
+    'Web Engineering',
+    'Web Development',
+    'Passion Marketing',
+    'Digital Agency',
+    'Tech-Forward Web Platforms',
+    'High-Conversion Web Apps',
+    'Veloxa',
+    'SME Automation',
+    'Next.js Agency',
+  ],
+  authors: [{ name: 'Veloxa Team', url: 'https://veloxa.io' }],
+  creator: 'VELOXA',
+  publisher: 'VELOXA',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: 'https://veloxa.io',
+  },
+  openGraph: {
+    title: 'VELOXA — AI Integration, Web Engineering & Passion Marketing',
+    description:
+      'Veloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
+    url: 'https://veloxa.io',
+    siteName: 'VELOXA',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'VELOXA — AI Integration & Web Engineering',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VELOXA — AI Integration, Web Engineering & Passion Marketing',
+    description:
+      'Veloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
+    images: ['/og-image.jpg'],
+    creator: '@velloxa_agency',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+  },
+  manifest: '/manifest.webmanifest',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://veloxa.io/#agency',
+      name: 'VELOXA',
+      url: 'https://veloxa.io/',
+      logo: 'https://veloxa.io/favicon.svg',
+      image: 'https://veloxa.io/og-image.jpg',
+      description:
+        'Veloxa is a high-growth digital agency specializing in custom AI integration, web engineering, and passion marketing for ambitious businesses.',
+      serviceType: [
+        'Artificial Intelligence Solutions',
+        'Custom Web Development',
+        'Marketing & Growth Engineering',
+      ],
+      areaServed: 'Worldwide',
+      knowsAbout: [
+        'AI Integration',
+        'Web Engineering',
+        'Web Development',
+        'Passion Marketing',
+        'Digital Growth',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://veloxa.io/#website',
+      url: 'https://veloxa.io/',
+      name: 'VELOXA',
+      publisher: {
+        '@id': 'https://veloxa.io/#agency',
+      },
+    },
+  ],
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className={`${dmSans.variable} ${oswald.variable} dark scroll-smooth`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className="bg-charcoal text-white font-body antialiased selection:bg-lime selection:text-charcoal min-h-screen flex flex-col">
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  );
+}

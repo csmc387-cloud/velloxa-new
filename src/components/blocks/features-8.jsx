@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react'
 import ChartBarIcon from '@/components/ui/chart-bar-icon'
 import TerminalIcon from '@/components/ui/terminal-icon'
@@ -344,6 +346,7 @@ export function Features() {
 
                         {/* 1. Web Engineering (top-left 2-col card) - RIGHT side entrance */}
                         <motion.div
+                            id="web-engineering"
                             initial={{ opacity: 0, x: 60, y: 35 }}
                             whileInView={{ opacity: 1, x: 0, y: 0 }}
                             viewport={{ once: true, margin: "-40px" }}
@@ -363,6 +366,7 @@ export function Features() {
 
                         {/* 2. SME AI Integration - LEFT side entrance */}
                         <motion.div
+                            id="ai-integration"
                             initial={{ opacity: 0, x: -60, y: 35 }}
                             whileInView={{ opacity: 1, x: 0, y: 0 }}
                             viewport={{ once: true, margin: "-40px" }}
@@ -382,6 +386,7 @@ export function Features() {
 
                         {/* 3. Passion Marketing - RIGHT side entrance */}
                         <motion.div
+                            id="passion-marketing"
                             initial={{ opacity: 0, x: 60, y: 35 }}
                             whileInView={{ opacity: 1, x: 0, y: 0 }}
                             viewport={{ once: true, margin: "-40px" }}
