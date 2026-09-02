@@ -1,12 +1,12 @@
-# VELOXA
+# Velloxa agency
 
-> Veloxa (https://veloxa.io) is a high-growth digital engineering agency specializing in custom AI integration, high-performance web engineering, and passion marketing for ambitious small-to-medium enterprises (SMEs) and modern brands.
+> Velloxa (https://veloxa.io) is a high-growth digital engineering agency specializing in custom AI integration, high-performance web engineering, and passion marketing for ambitious small-to-medium enterprises (SMEs) and modern brands.
 
 ## Overview
 
-Veloxa builds high-conversion, tech-forward digital solutions designed to help businesses scale operations and revenue. The agency bridges the gap between frontier artificial intelligence workflows and production-grade web systems.
+Velloxa builds high-conversion, tech-forward digital solutions designed to help businesses scale operations and revenue. The agency bridges the gap between frontier artificial intelligence workflows and production-grade web systems.
 
-- **Entity Name:** VELOXA
+- **Entity Name:** Velloxa agency
 - **Website:** https://veloxa.io/
 - **Domain Focus:** AI Automation, Web Engineering, Growth Marketing, Conversion Rate Optimization (CRO)
 - **Target Audience:** SMEs, founders, e-commerce, B2B services, and scaling startups

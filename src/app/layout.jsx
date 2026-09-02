@@ -27,11 +27,11 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL('https://veloxa.io'),
   title: {
-    default: 'Velloxa',
-    template: '%s | Velloxa',
+    default: 'Velloxa agency',
+    template: '%s | Velloxa agency',
   },
   description:
-    'Veloxa is a high-growth digital agency specializing in custom AI integration, modern web engineering, and passion marketing. We build high-conversion, tech-forward platforms that scale.',
+    'Velloxa is a high-growth digital agency specializing in custom AI integration, modern web engineering, and passion marketing. We build high-conversion, tech-forward platforms that scale.',
   keywords: [
     'AI Integration',
     'Web Engineering',
@@ -40,13 +40,14 @@ export const metadata = {
     'Digital Agency',
     'Tech-Forward Web Platforms',
     'High-Conversion Web Apps',
-    'Veloxa',
+    'Velloxa',
+    'Velloxa agency',
     'SME Automation',
     'Next.js Agency',
   ],
-  authors: [{ name: 'Veloxa Team', url: 'https://veloxa.io' }],
-  creator: 'VELOXA',
-  publisher: 'VELOXA',
+  authors: [{ name: 'Velloxa Team', url: 'https://veloxa.io' }],
+  creator: 'Velloxa agency',
+  publisher: 'Velloxa agency',
   formatDetection: {
     email: false,
     address: false,
@@ -56,17 +57,17 @@ export const metadata = {
     canonical: 'https://veloxa.io',
   },
   openGraph: {
-    title: 'Velloxa',
+    title: 'Velloxa agency',
     description:
-      'Veloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
+      'Velloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
     url: 'https://veloxa.io',
-    siteName: 'VELOXA',
+    siteName: 'Velloxa agency',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'VELOXA — AI Integration & Web Engineering',
+        alt: 'Velloxa agency — AI Integration & Web Engineering',
       },
     ],
     locale: 'en_US',
@@ -74,9 +75,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Velloxa',
+    title: 'Velloxa agency',
     description:
-      'Veloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
+      'Velloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
     images: ['/og-image.jpg'],
     creator: '@velloxa_agency',
   },
@@ -106,12 +107,12 @@ const jsonLd = {
     {
       '@type': 'ProfessionalService',
       '@id': 'https://veloxa.io/#agency',
-      name: 'VELOXA',
+      name: 'Velloxa agency',
       url: 'https://veloxa.io/',
       logo: 'https://veloxa.io/favicon.svg',
       image: 'https://veloxa.io/og-image.jpg',
       description:
-        'Veloxa is a high-growth digital agency specializing in custom AI integration, web engineering, and passion marketing for ambitious businesses.',
+        'Velloxa is a high-growth digital agency specializing in custom AI integration, web engineering, and passion marketing for ambitious businesses.',
       serviceType: [
         'Artificial Intelligence Solutions',
         'Custom Web Development',
