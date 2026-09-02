@@ -1,7 +1,7 @@
 export default function manifest() {
   return {
-    name: 'VELOXA — AI Integration & Web Engineering',
-    short_name: 'VELOXA',
+    name: 'Velloxa',
+    short_name: 'Velloxa',
     description: 'Veloxa is a high-growth digital agency specializing in custom AI integration, web engineering, and passion marketing.',
     start_url: '/',
     display: 'standalone',

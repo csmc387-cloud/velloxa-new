@@ -27,8 +27,8 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL('https://veloxa.io'),
   title: {
-    default: 'VELOXA — AI Integration, Web Engineering & Passion Marketing',
-    template: '%s | VELOXA',
+    default: 'Velloxa',
+    template: '%s | Velloxa',
   },
   description:
     'Veloxa is a high-growth digital agency specializing in custom AI integration, modern web engineering, and passion marketing. We build high-conversion, tech-forward platforms that scale.',
@@ -56,7 +56,7 @@ export const metadata = {
     canonical: 'https://veloxa.io',
   },
   openGraph: {
-    title: 'VELOXA — AI Integration, Web Engineering & Passion Marketing',
+    title: 'Velloxa',
     description:
       'Veloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
     url: 'https://veloxa.io',
@@ -74,7 +74,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VELOXA — AI Integration, Web Engineering & Passion Marketing',
+    title: 'Velloxa',
     description:
       'Veloxa builds high-conversion, tech-forward digital platforms. Specializing in custom AI integrations, web engineering, and passion marketing.',
     images: ['/og-image.jpg'],
