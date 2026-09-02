@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { motion, useInView } from 'framer-motion';
-import Breadcrumbs from '@/components/Breadcrumbs';
 
 const ContactPage = lazy(() => import('./ContactPage'));
 const Features = lazy(() => import('@/components/blocks/features-8').then(module => ({ default: module.Features })));
@@ -42,6 +41,40 @@ function AnimatedCounter({ from = 1, to = 100, suffix = '%', duration = 1.8 }) {
 }
 
 export default function HomePage() {
+  // Automatically synchronize URL hash with current section during scroll
+  useEffect(() => {
+    const sections = [
+      { id: 'hero-section', hash: '' },
+      { id: 'metrics', hash: '#metrics' },
+      { id: 'solutions', hash: '#solutions' },
+      { id: 'contact', hash: '#contact' },
+    ];
+
+    let currentHash = window.location.hash;
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight * 0.35;
+      let active = sections[0].hash;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i].id);
+        if (el && el.offsetTop <= scrollPosition) {
+          active = sections[i].hash;
+          break;
+        }
+      }
+
+      if (active !== currentHash) {
+        currentHash = active;
+        const newUrl = active ? `${window.location.pathname}${active}` : window.location.pathname;
+        window.history.replaceState(null, '', newUrl);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="space-y-16 pb-12">
 
@@ -92,9 +125,6 @@ export default function HomePage() {
           </div>
         </div>
       </motion.section>
-
-      {/* BREADCRUMBS NAVIGATION */}
-      <Breadcrumbs />
 
       {/* 3. SERVICES FEATURES SECTION */}
       <section id="solutions" className="max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 space-y-8">

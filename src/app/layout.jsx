@@ -135,6 +135,36 @@ const jsonLd = {
         '@id': 'https://veloxa.io/#agency',
       },
     },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://veloxa.io/#breadcrumbs',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://veloxa.io/#hero-section',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Metrics',
+          item: 'https://veloxa.io/#metrics',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Solutions',
+          item: 'https://veloxa.io/#solutions',
+        },
+        {
+          '@type': 'ListItem',
+          position: 4,
+          name: 'Consultation & Contact',
+          item: 'https://veloxa.io/#contact',
+        },
+      ],
+    },
   ],
 };
 
