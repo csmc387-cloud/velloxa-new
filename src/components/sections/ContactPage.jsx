@@ -75,10 +75,10 @@ export default function ContactPage() {
       {/* 1. HEADER */}
       <section className="text-center max-w-5xl mx-auto">
         <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
-          <span className="text-lg mini:text-2xl sm:text-3xl lg:text-4xl font-bold tracking-widest text-white uppercase">
+          <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pb-1">
             Let's Build Something
           </span>
-          <span className="text-[clamp(2.1rem,9.5vw,7.5rem)] lg:text-9xl font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none">
+          <span className="text-[clamp(2.35rem,10.5vw,9.5rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
             EXTRAORDINARY<span className="text-lime drop-shadow-[0_0_25px_rgba(186,255,122,0.7)]">.</span>
           </span>
         </h2>
@@ -97,7 +97,7 @@ export default function ContactPage() {
         <Step>
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg sm:text-xl font-display font-medium text-white">Client Identification</h3>
+              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">Client Identification</h3>
               <p className="text-gray-400 text-xs sm:text-sm">Provide your name, Gmail / Insta Handle, and business name.</p>
             </div>
 
@@ -149,7 +149,7 @@ export default function ContactPage() {
         <Step>
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg sm:text-xl font-display font-medium text-white">Target Service Domain</h3>
+              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">Target Service Domain</h3>
               <p className="text-gray-400 text-xs sm:text-sm">Select the area that fits your objectives.</p>
             </div>
 
@@ -181,7 +181,7 @@ export default function ContactPage() {
         <Step>
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg sm:text-xl font-display font-medium text-white">Scope & Budget</h3>
+              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">Scope & Budget</h3>
               <p className="text-gray-400 text-xs sm:text-sm">Indicate estimated budget and project requirements.</p>
             </div>
 

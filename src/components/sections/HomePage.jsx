@@ -108,18 +108,18 @@ export default function HomePage() {
         <div className="flex flex-row items-center justify-center gap-4 mini:gap-6 sm:gap-16 text-center">
           {/* 100% Counter */}
           <div>
-            <span className="block text-4xl mini:text-5xl sm:text-6xl lg:text-7xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
               <AnimatedCounter from={1} to={100} suffix="%" duration={1.8} />
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">ROI Impact</span>
           </div>
 
-          <div className="h-12 sm:h-16 w-px bg-white/20" />
+          <div className="h-14 sm:h-20 w-px bg-white/20" />
 
           {/* 2X - 3X Traffic */}
           <div>
-            <span className="block text-4xl mini:text-5xl sm:text-6xl lg:text-7xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
-              2<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl font-bold opacity-90 uppercase">X</span>
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
+              2<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl font-bold opacity-90 uppercase">X</span>
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">Traffic Growth</span>
           </div>
@@ -130,10 +130,10 @@ export default function HomePage() {
       <section id="solutions" className="max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
         <div className="text-center max-w-5xl mx-auto">
           <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
-            <span className="text-5xl mini:text-6xl sm:text-8xl lg:text-9xl font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none">
+            <span className="text-[clamp(3.4rem,14.5vw,10.5rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
               SOLUTIONS<span className="text-cyan drop-shadow-[0_0_25px_rgba(0,255,204,0.7)]">.</span>
             </span>
-            <span className="text-lg mini:text-2xl sm:text-3xl lg:text-4xl font-bold tracking-widest text-white uppercase">
+            <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pt-1">
               Engineered for Growth
             </span>
           </h2>
