@@ -13,11 +13,23 @@ const nextConfig = {
     '@react-three/drei',
     'shadergradient',
   ],
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },
   async headers() {
     return [
+      {
+        source: '/(.*)\\.(ico|png|svg|jpg|jpeg|webp|avif|woff|woff2|webmanifest)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
       {
         source: '/:path*',
         headers: [
@@ -32,6 +44,10 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
           },
           {
             key: 'Permissions-Policy',

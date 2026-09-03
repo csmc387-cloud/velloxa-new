@@ -112,15 +112,13 @@ export const FlickeringGrid = ({
 
     updateCanvasSize();
 
+    let inView = false;
     let lastTime = 0;
     const animate = (time) => {
-      if (lastTime === 0) {
+      if (inView && gridParams) {
+        const deltaTime = Math.min((time - (lastTime || time)) / 1000, 0.1);
         lastTime = time;
-      }
-      const deltaTime = Math.min((time - lastTime) / 1000, 0.1);
-      lastTime = time;
 
-      if (gridParams) {
         updateSquares(gridParams.squares, deltaTime);
         drawGrid(
           ctx,
@@ -131,6 +129,8 @@ export const FlickeringGrid = ({
           gridParams.squares,
           gridParams.dpr,
         );
+      } else {
+        lastTime = time;
       }
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -143,12 +143,13 @@ export const FlickeringGrid = ({
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
+        inView = entry.isIntersecting;
         setIsInView(entry.isIntersecting);
       },
-      { threshold: 0 },
+      { threshold: 0.05 },
     );
 
-    intersectionObserver.observe(canvas);
+    intersectionObserver.observe(container || canvas);
 
     animationFrameId = requestAnimationFrame(animate);
 

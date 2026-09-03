@@ -31,6 +31,21 @@ class ShaderErrorBoundary extends Component {
 }
 
 export default function BackgroundShader() {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    // Defer heavy Three.js / WebGL shader compilation until initial hydration is complete
+    if (typeof window !== 'undefined') {
+      if ('requestIdleCallback' in window) {
+        const handle = window.requestIdleCallback(() => setMounted(true), { timeout: 200 });
+        return () => window.cancelIdleCallback(handle);
+      } else {
+        const timer = setTimeout(() => setMounted(true), 100);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
   return (
     <div 
       className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-charcoal"
@@ -40,17 +55,18 @@ export default function BackgroundShader() {
       }}
     >
       <ShaderErrorBoundary>
-        <ShaderGradientCanvas
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            pointerEvents: 'none',
-            transform: 'translateZ(0)'
-          }}
-        >
+        {mounted && (
+          <ShaderGradientCanvas
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: 'none',
+              transform: 'translateZ(0)'
+            }}
+          >
           <ShaderGradient
             animate="on"
             axesHelper="off"
@@ -97,6 +113,7 @@ export default function BackgroundShader() {
             zoomOut={false}
           />
         </ShaderGradientCanvas>
+        )}
       </ShaderErrorBoundary>
       {/* Semi-transparent dark overlay for text contrast */}
       <div className="absolute inset-0 bg-charcoal/40 pointer-events-none" />
