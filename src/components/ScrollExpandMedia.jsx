@@ -16,8 +16,6 @@ export const ScrollExpandMedia = ({
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState(false);
   const [touchStartY, setTouchStartY] = useState(0);
   const sectionRef = useRef(null);
-  const isFullyOpenRef = useRef(false);
-  const cooldownTimerRef = useRef(null);
 
   // Smooth scroll progress physics - tuned for faster responsive opening
   const targetProgress = useMotionValue(0);
@@ -32,74 +30,37 @@ export const ScrollExpandMedia = ({
   const bottomPanelY = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
   const promptOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
 
-  // 1. Force manual scroll restoration and guarantee initial position is strictly Hero section (0, 0)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if ('scrollRestoration' in window.history) {
-        window.history.scrollRestoration = 'manual';
-      }
-      window.scrollTo(0, 0);
-      if (window.location.hash) {
-        window.history.replaceState(null, '', window.location.pathname);
-      }
-    }
-  }, []);
+  // Clean flat 2D motion for revealed website content (NO 3D rotateX/z depth)
+  const contentScale = useTransform(smoothProgress, [0.1, 1], [0.95, 1]);
+  const contentOpacity = useTransform(smoothProgress, [0.05, 0.75], [0, 1]);
 
-  // 2. Absorb inertia when opening completes to ensure view stays firmly on Hero section
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (latest) => {
-      if (latest >= 0.98 && !isFullyOpenRef.current) {
-        isFullyOpenRef.current = true;
-        // Anchor firmly to hero section
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-
-        // Absorb leftover trackpad/touch inertia for 450ms before releasing native scroll
-        if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
-        cooldownTimerRef.current = setTimeout(() => {
-          setMediaFullyExpanded(true);
-          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-        }, 450);
+      if (latest >= 0.98 && !mediaFullyExpanded) {
+        setMediaFullyExpanded(true);
       }
     });
-    return () => {
-      unsubscribe();
-      if (cooldownTimerRef.current) clearTimeout(cooldownTimerRef.current);
-    };
-  }, [smoothProgress]);
+    return () => unsubscribe();
+  }, [smoothProgress, mediaFullyExpanded]);
 
-  // 3. Pin scroll to Hero section (0,0) and lock body while intro cover is active
+  // Lock page scrolling cleanly without layout thrashing while intro cover is active
   useEffect(() => {
     if (!mediaFullyExpanded) {
       document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-
-      const lockToHero = () => {
-        if (window.scrollY !== 0) {
-          window.scrollTo(0, 0);
-        }
-      };
-      window.addEventListener('scroll', lockToHero, { passive: true });
-      return () => {
-        window.removeEventListener('scroll', lockToHero);
-        document.body.style.overflow = '';
-        document.documentElement.style.overflow = '';
-      };
     } else {
       document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [mediaFullyExpanded]);
 
-  // 4. Input listeners for wheel and touch with inertia dampening and scroll lockdown
   useEffect(() => {
+    // When fully expanded, completely detach all intro listeners to allow 100% native smooth scrolling
     if (mediaFullyExpanded) return;
 
     const handleWheel = (e) => {
       e.preventDefault();
-      window.scrollTo(0, 0);
-
-      if (isFullyOpenRef.current) return;
-
       const current = targetProgress.get();
       const scrollDelta = e.deltaY * 0.005;
       const next = Math.min(Math.max(current + scrollDelta, 0), 1);
@@ -113,12 +74,6 @@ export const ScrollExpandMedia = ({
     };
 
     const handleTouchMove = (e) => {
-      if (e.cancelable) {
-        e.preventDefault();
-      }
-      window.scrollTo(0, 0);
-
-      if (isFullyOpenRef.current) return;
       if (!touchStartY || !e.touches || !e.touches[0]) return;
 
       const touchY = e.touches[0].clientY;
@@ -134,12 +89,11 @@ export const ScrollExpandMedia = ({
 
     const handleTouchEnd = () => {
       setTouchStartY(0);
-      window.scrollTo(0, 0);
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
@@ -154,10 +108,7 @@ export const ScrollExpandMedia = ({
     <div ref={sectionRef} className="relative w-full overflow-x-hidden">
       {/* FLAT 2D VERTICAL SLIDE INTRO COVER */}
       {!mediaFullyExpanded && (
-        <div 
-          className="fixed inset-0 z-50 pointer-events-auto flex flex-col overflow-hidden select-none cursor-pointer"
-          onClick={() => targetProgress.set(1)}
-        >
+        <div className="fixed inset-0 z-50 pointer-events-auto flex flex-col overflow-hidden select-none">
 
           {/* TOP PANEL (0 to 50dvh + 1px subpixel overlap) */}
           <motion.div
@@ -217,9 +168,23 @@ export const ScrollExpandMedia = ({
         </div>
       )}
 
-      {/* REVEALED WEBSITE CONTENT - 100% STABLE 1:1 SCALE FOR SEAMLESS TRANSITION */}
-      <div className="w-full relative z-10">
-        {children}
+      {/* REVEALED WEBSITE CONTENT WITH FLAT 2D SCALE/OPACITY ANIMATION */}
+      <div className="w-full">
+        {!mediaFullyExpanded ? (
+          <motion.div
+            className="w-full origin-center"
+            style={{
+              scale: contentScale,
+              opacity: contentOpacity,
+            }}
+          >
+            {children}
+          </motion.div>
+        ) : (
+          <div className="w-full">
+            {children}
+          </div>
+        )}
       </div>
     </div>
   );
