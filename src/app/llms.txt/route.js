@@ -1,4 +1,5 @@
-# Velloxa Agency
+export async function GET() {
+  const content = `# Velloxa Agency
 
 > Velloxa (https://veloxa.io) is a digital engineering and growth agency specializing in custom AI integration, high-performance web systems, and passion marketing for modern SMEs.
 
@@ -22,3 +23,13 @@ Velloxa bridges the gap between frontier artificial intelligence workflows and p
 
 - [Instagram](https://www.instagram.com/velloxa.agency/): Official agency social media profile.
 - [Contact Email](mailto:velloxa.agency@gmail.com): Direct client inquiry inbox.
+`;
+
+  return new Response(content, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400',
+    },
+  });
+}
