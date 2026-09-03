@@ -73,12 +73,12 @@ export default function ContactPage() {
     <div id="contact-section" className="space-y-12 pb-16 pt-8 max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 overflow-hidden">
 
       {/* 1. HEADER */}
-      <section className="text-center max-w-5xl mx-auto">
+      <section className="text-center max-w-5xl lg:max-w-6xl mx-auto">
         <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
           <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pb-1">
             Let's Build Something
           </span>
-          <span className="text-[clamp(2.35rem,10.5vw,9.5rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
+          <span className="text-[clamp(2.35rem,11vw,11.5rem)] sm:text-[clamp(3.6rem,15vw,11.5rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
             EXTRAORDINARY<span className="text-lime drop-shadow-[0_0_25px_rgba(186,255,122,0.7)]">.</span>
           </span>
         </h2>
