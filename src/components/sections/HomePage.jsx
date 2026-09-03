@@ -103,25 +103,25 @@ export default function HomePage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-5xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 relative z-20 py-10"
+        className="max-w-4xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 relative z-20 py-8"
       >
-        <div className="flex flex-row items-center justify-center gap-6 mini:gap-8 sm:gap-20 text-center">
+        <div className="flex flex-row items-center justify-center gap-4 mini:gap-6 sm:gap-16 text-center">
           {/* 100% Counter */}
           <div>
-            <span className="block text-6xl mini:text-7xl sm:text-8xl lg:text-9xl font-display font-black text-white tracking-tight drop-shadow-[0_0_30px_rgba(255,255,255,0.45)]">
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
               <AnimatedCounter from={1} to={100} suffix="%" duration={1.8} />
             </span>
-            <span className="text-xs mini:text-sm sm:text-base lg:text-lg font-mono font-bold text-gray-200 uppercase tracking-widest pt-2 block">ROI Impact</span>
+            <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">ROI Impact</span>
           </div>
 
-          <div className="h-16 sm:h-24 w-px bg-white/20" />
+          <div className="h-12 sm:h-16 w-px bg-white/20" />
 
           {/* 2X - 3X Traffic */}
           <div>
-            <span className="block text-6xl mini:text-7xl sm:text-8xl lg:text-9xl font-display font-black text-white tracking-tight drop-shadow-[0_0_30px_rgba(255,255,255,0.45)]">
-              2<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-3xl mini:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold opacity-90 uppercase">X</span>
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
+              2<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span>
             </span>
-            <span className="text-xs mini:text-sm sm:text-base lg:text-lg font-mono font-bold text-gray-200 uppercase tracking-widest pt-2 block">Traffic Growth</span>
+            <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">Traffic Growth</span>
           </div>
         </div>
       </motion.section>
