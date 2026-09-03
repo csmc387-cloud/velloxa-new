@@ -43,19 +43,28 @@ export const ScrollExpandMedia = ({
     return () => unsubscribe();
   }, [smoothProgress, mediaFullyExpanded]);
 
+  // Lock page scrolling cleanly without layout thrashing while intro cover is active
   useEffect(() => {
+    if (!mediaFullyExpanded) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mediaFullyExpanded]);
+
+  useEffect(() => {
+    // When fully expanded, completely detach all intro listeners to allow 100% native smooth scrolling
+    if (mediaFullyExpanded) return;
+
     const handleWheel = (e) => {
-      if (mediaFullyExpanded && e.deltaY < 0 && window.scrollY <= 10) {
-        setMediaFullyExpanded(false);
-        targetProgress.set(0);
-        e.preventDefault();
-      } else if (!mediaFullyExpanded) {
-        e.preventDefault();
-        const current = targetProgress.get();
-        const scrollDelta = e.deltaY * 0.005;
-        const next = Math.min(Math.max(current + scrollDelta, 0), 1);
-        targetProgress.set(next);
-      }
+      e.preventDefault();
+      const current = targetProgress.get();
+      const scrollDelta = e.deltaY * 0.005;
+      const next = Math.min(Math.max(current + scrollDelta, 0), 1);
+      targetProgress.set(next);
     };
 
     const handleTouchStart = (e) => {
@@ -69,42 +78,26 @@ export const ScrollExpandMedia = ({
 
       const touchY = e.touches[0].clientY;
       const deltaY = touchStartY - touchY;
+      const scrollFactor = deltaY < 0 ? 0.008 : 0.006;
+      const scrollDelta = deltaY * scrollFactor;
+      const current = targetProgress.get();
+      const next = Math.min(Math.max(current + scrollDelta, 0), 1);
+      targetProgress.set(next);
 
-      if (mediaFullyExpanded && deltaY < -20 && window.scrollY <= 10) {
-        setMediaFullyExpanded(false);
-        targetProgress.set(0);
-        e.preventDefault();
-      } else if (!mediaFullyExpanded) {
-        e.preventDefault();
-        const scrollFactor = deltaY < 0 ? 0.008 : 0.006;
-        const scrollDelta = deltaY * scrollFactor;
-        const current = targetProgress.get();
-        const next = Math.min(Math.max(current + scrollDelta, 0), 1);
-        targetProgress.set(next);
-
-        setTouchStartY(touchY);
-      }
+      setTouchStartY(touchY);
     };
 
     const handleTouchEnd = () => {
       setTouchStartY(0);
     };
 
-    const handleScroll = () => {
-      if (!mediaFullyExpanded) {
-        window.scrollTo(0, 0);
-      }
-    };
-
     window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('touchstart', handleTouchStart, { passive: false });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);

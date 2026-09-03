@@ -41,7 +41,7 @@ function AnimatedCounter({ from = 1, to = 100, suffix = '%', duration = 1.8 }) {
 }
 
 export default function HomePage() {
-  // Automatically synchronize URL hash with current section during scroll
+  // Automatically synchronize URL hash with current section using IntersectionObserver (ZERO scroll lag)
   useEffect(() => {
     const sections = [
       { id: 'hero-section', hash: '' },
@@ -52,27 +52,28 @@ export default function HomePage() {
 
     let currentHash = window.location.hash;
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight * 0.35;
-      let active = sections[0].hash;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const match = sections.find((s) => s.id === entry.target.id);
+            if (match && match.hash !== currentHash) {
+              currentHash = match.hash;
+              const newUrl = match.hash ? `${window.location.pathname}${match.hash}` : window.location.pathname;
+              window.history.replaceState(null, '', newUrl);
+            }
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -50% 0px', threshold: 0.1 }
+    );
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i].id);
-        if (el && el.offsetTop <= scrollPosition) {
-          active = sections[i].hash;
-          break;
-        }
-      }
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
 
-      if (active !== currentHash) {
-        currentHash = active;
-        const newUrl = active ? `${window.location.pathname}${active}` : window.location.pathname;
-        window.history.replaceState(null, '', newUrl);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => observer.disconnect();
   }, []);
 
   return (

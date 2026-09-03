@@ -1,17 +1,12 @@
-import dynamic from 'next/dynamic';
+import DeferredBackgroundShader from '@/components/DeferredBackgroundShader';
 import ScrollExpandMedia from '@/components/ScrollExpandMedia';
 import HomePage from '@/components/sections/HomePage';
 import Footer from '@/components/Footer';
 
-// Client-only dynamic load for WebGL shader to allow instant SSR HTML generation
-const BackgroundShader = dynamic(() => import('@/components/BackgroundShader'), {
-  ssr: false,
-});
-
 export default function Page() {
   return (
     <div className="bg-charcoal text-white min-h-screen flex flex-col font-body selection:bg-lime selection:text-charcoal relative">
-      <BackgroundShader />
+      <DeferredBackgroundShader />
       <ScrollExpandMedia>
         <div className="relative z-10 flex flex-col min-h-screen">
           <main className="flex-grow">

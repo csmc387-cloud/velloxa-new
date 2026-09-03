@@ -31,12 +31,32 @@ class ShaderErrorBoundary extends Component {
 }
 
 export default function BackgroundShader() {
+  const [isMobile, setIsMobile] = React.useState(true); // Default to lightweight on initial render to prevent SSR/mobile hydration lag
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      const isMobileDevice = window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024);
+      setIsMobile(isMobileDevice);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile, { passive: true });
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) {
+    return (
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-charcoal">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(186,255,122,0.14),transparent_70%),radial-gradient(ellipse_70%_50%_at_80%_60%,rgba(0,255,204,0.1),transparent_70%)]" />
+        <div className="absolute inset-0 bg-charcoal/30 pointer-events-none" />
+      </div>
+    );
+  }
+
   return (
     <div 
       className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-charcoal"
       style={{
         transform: 'translateZ(0)',
-        willChange: 'transform',
         backfaceVisibility: 'hidden'
       }}
     >
@@ -49,8 +69,7 @@ export default function BackgroundShader() {
             width: '100%',
             height: '100%',
             pointerEvents: 'none',
-            transform: 'translateZ(0)',
-            willChange: 'transform'
+            transform: 'translateZ(0)'
           }}
         >
           <ShaderGradient

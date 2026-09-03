@@ -3,6 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  swcMinify: true,
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  },
   transpilePackages: [
     'three',
     '@react-three/fiber',
