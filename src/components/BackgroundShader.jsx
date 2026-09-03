@@ -97,7 +97,6 @@ export default function BackgroundShader() {
             zoomOut={false}
           />
         </ShaderGradientCanvas>
-        )}
       </ShaderErrorBoundary>
       {/* Semi-transparent dark overlay for text contrast */}
       <div className="absolute inset-0 bg-charcoal/40 pointer-events-none" />
