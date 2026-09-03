@@ -129,6 +129,8 @@ export const ScrollExpandMedia = ({
               <img
                 src={typeof mediaSrc === 'object' && mediaSrc?.src ? mediaSrc.src : mediaSrc}
                 alt="VELLOXA Logo"
+                width="150"
+                height="150"
                 className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />
             </div>
@@ -146,6 +148,8 @@ export const ScrollExpandMedia = ({
               <img
                 src={typeof mediaSrc === 'object' && mediaSrc?.src ? mediaSrc.src : mediaSrc}
                 alt="VELLOXA Logo"
+                width="150"
+                height="150"
                 className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />
             </div>

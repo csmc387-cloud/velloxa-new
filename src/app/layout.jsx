@@ -53,8 +53,9 @@ export const metadata = {
     address: false,
     telephone: false,
   },
+  referrer: 'strict-origin-when-cross-origin',
   alternates: {
-    canonical: 'https://veloxa.io',
+    canonical: 'https://veloxa.io/',
   },
   openGraph: {
     title: 'Velloxa agency',

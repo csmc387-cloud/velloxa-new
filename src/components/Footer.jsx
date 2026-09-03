@@ -68,6 +68,10 @@ export const Footer = ({
                   <img
                     src={footerIconLogo?.src || footerIconLogo}
                     alt="VELLOXA Logo"
+                    width="150"
+                    height="150"
+                    loading="lazy"
+                    decoding="async"
                     className="h-28 sm:h-36 md:h-44 w-auto object-contain mix-blend-screen hover:scale-105 transition-transform duration-300"
                   />
                 </div>
