@@ -358,7 +358,7 @@ export function Features() {
                                     <TerminalIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                 </div>
                                 <div className="relative z-10 space-y-2 text-left">
-                                    <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">Web Engineering</h3>
+                                    <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">Web Engineering</h3>
                                     <p className="text-muted text-sm leading-relaxed">Lightning-fast, mobile-first websites designed to convert visitors into consultation bookings.</p>
                                 </div>
                             </div>
@@ -378,7 +378,7 @@ export function Features() {
                                     <BrainCircuitIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                 </div>
                                 <div className="relative z-10 space-y-2 text-left">
-                                    <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">AI Integration</h3>
+                                    <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">AI Integration</h3>
                                     <p className="text-muted text-sm leading-relaxed">Automate internal operations, customer intake, and more with custom AI workflows.</p>
                                 </div>
                             </div>
@@ -398,7 +398,7 @@ export function Features() {
                                     <WorldIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                 </div>
                                 <div className="relative z-10 space-y-2 text-left">
-                                    <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">Passion Marketing</h3>
+                                    <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">Passion Marketing</h3>
                                     <p className="text-muted text-sm leading-relaxed">Putting your SME in front of the right eyes — highest-tier SEO, social media marketing, and organic growth strategies that build lasting visibility.</p>
                                 </div>
                             </div>
@@ -418,7 +418,7 @@ export function Features() {
                                         <ChartBarIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">Growth For You</h3>
+                                        <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">Growth For You</h3>
                                         <p className="text-muted text-sm">Scale revenue, acquire qualified leads, and dominate SME market share with automated conversion funnels.</p>
                                     </div>
                                 </div>
@@ -443,7 +443,7 @@ export function Features() {
                                         <UsersIcon size={20} className="m-auto text-lime opacity-80" strokeWidth={1.5} />
                                     </div>
                                     <div className="space-y-2">
-                                        <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">Step by Step</h3>
+                                        <h3 className="text-xl sm:text-2xl font-display font-bold text-white tracking-tight">Step by Step</h3>
                                         <p className="text-muted text-sm">A transparent, milestone-driven workflow ensuring precision execution from initial audit to final launch.</p>
                                     </div>
                                 </div>
