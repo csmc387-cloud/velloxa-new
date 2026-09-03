@@ -22,11 +22,29 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
         source: '/(.*)\\.(ico|png|svg|jpg|jpeg|webp|avif|woff|woff2|webmanifest)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:path((?!.*\\.[\\w]+$|_next).*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
           },
         ],
       },
@@ -47,7 +65,7 @@ const nextConfig = {
           },
           {
             key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
+            value: 'same-origin-allow-popups',
           },
           {
             key: 'Permissions-Policy',

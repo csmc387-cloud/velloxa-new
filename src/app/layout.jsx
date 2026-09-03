@@ -185,9 +185,31 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${dmSans.variable} ${oswald.variable} dark scroll-smooth`}>
       <head>
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        <link
+          rel="preload"
+          as="image"
+          href="/opening-card-logo.svg"
+          type="image/svg+xml"
+          fetchpriority="high"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {/* BFCache restoration resilience handler */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('pageshow', function(event) {
+                if (event.persisted) {
+                  document.body.style.overflow = '';
+                }
+              });
+              window.addEventListener('pagehide', function() {
+                document.body.style.overflow = '';
+              });
+            `,
+          }}
         />
         <Script
           id="microsoft-clarity"
@@ -199,7 +221,7 @@ export default function RootLayout({ children }) {
                 function loadClarity(){
                   if (loaded) return;
                   loaded = true;
-                  ['scroll','touchstart','pointerdown','keydown'].forEach(function(e){
+                  ['scroll','touchstart','pointerdown','keydown','wheel','click'].forEach(function(e){
                     window.removeEventListener(e, loadClarity);
                   });
                   (function(c,l,a,r,i,t,y){
@@ -209,14 +231,9 @@ export default function RootLayout({ children }) {
                   })(window, document, "clarity", "script", "ychkfp2hmu");
                 }
                 if (typeof window !== 'undefined') {
-                  ['scroll','touchstart','pointerdown','keydown'].forEach(function(e){
+                  ['scroll','touchstart','pointerdown','keydown','wheel','click'].forEach(function(e){
                     window.addEventListener(e, loadClarity, { once: true, passive: true });
                   });
-                  if ('requestIdleCallback' in window) {
-                    window.requestIdleCallback(loadClarity, { timeout: 4000 });
-                  } else {
-                    setTimeout(loadClarity, 3500);
-                  }
                 }
               })();
             `,

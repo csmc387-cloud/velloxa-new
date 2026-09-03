@@ -10,11 +10,11 @@ import { ChevronDown } from 'lucide-react';
 import openingCardLogo from '../assets/opening-card-logo.svg';
 
 export const ScrollExpandMedia = ({
-  mediaSrc = openingCardLogo,
+  mediaSrc = '/opening-card-logo.svg',
   children,
 }) => {
   const [mediaFullyExpanded, setMediaFullyExpanded] = useState(false);
-  const [touchStartY, setTouchStartY] = useState(0);
+  const touchStartYRef = useRef(0);
   const sectionRef = useRef(null);
 
   // Smooth scroll progress physics - tuned for faster responsive opening
@@ -55,6 +55,15 @@ export const ScrollExpandMedia = ({
     };
   }, [mediaFullyExpanded]);
 
+  // Ensure BFCache (back/forward cache) can restore cleanly without frozen body overflow
+  useEffect(() => {
+    const handlePageHide = () => {
+      document.body.style.overflow = '';
+    };
+    window.addEventListener('pagehide', handlePageHide);
+    return () => window.removeEventListener('pagehide', handlePageHide);
+  }, []);
+
   useEffect(() => {
     // When fully expanded, completely detach all intro listeners to allow 100% native smooth scrolling
     if (mediaFullyExpanded) return;
@@ -69,26 +78,26 @@ export const ScrollExpandMedia = ({
 
     const handleTouchStart = (e) => {
       if (e.touches && e.touches[0]) {
-        setTouchStartY(e.touches[0].clientY);
+        touchStartYRef.current = e.touches[0].clientY;
       }
     };
 
     const handleTouchMove = (e) => {
-      if (!touchStartY || !e.touches || !e.touches[0]) return;
+      if (!touchStartYRef.current || !e.touches || !e.touches[0]) return;
 
       const touchY = e.touches[0].clientY;
-      const deltaY = touchStartY - touchY;
+      const deltaY = touchStartYRef.current - touchY;
       const scrollFactor = deltaY < 0 ? 0.008 : 0.006;
       const scrollDelta = deltaY * scrollFactor;
       const current = targetProgress.get();
       const next = Math.min(Math.max(current + scrollDelta, 0), 1);
       targetProgress.set(next);
 
-      setTouchStartY(touchY);
+      touchStartYRef.current = touchY;
     };
 
     const handleTouchEnd = () => {
-      setTouchStartY(0);
+      touchStartYRef.current = 0;
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
@@ -102,7 +111,7 @@ export const ScrollExpandMedia = ({
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [mediaFullyExpanded, touchStartY, targetProgress]);
+  }, [mediaFullyExpanded, targetProgress]);
 
   return (
     <div ref={sectionRef} className="relative w-full overflow-x-hidden">
@@ -124,6 +133,9 @@ export const ScrollExpandMedia = ({
                 alt="VELLOXA Logo"
                 width="150"
                 height="150"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />
             </div>
@@ -143,6 +155,9 @@ export const ScrollExpandMedia = ({
                 alt="VELLOXA Logo"
                 width="150"
                 height="150"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="h-28 sm:h-48 md:h-64 max-w-[80vw] max-h-[35dvh] w-auto object-contain filter brightness-0 drop-shadow-xl"
               />
             </div>
