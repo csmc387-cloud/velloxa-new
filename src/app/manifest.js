@@ -9,14 +9,26 @@ export default function manifest() {
     theme_color: '#0d0d0d',
     icons: [
       {
+        src: '/favicon.ico',
+        sizes: '32x32',
+        type: 'image/x-icon',
+      },
+      {
         src: '/favicon.svg',
         sizes: 'any',
         type: 'image/svg+xml',
       },
       {
-        src: '/og-image.png',
+        src: '/web-app-manifest-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'maskable any',
+      },
+      {
+        src: '/web-app-manifest-512x512.png',
         sizes: '512x512',
         type: 'image/png',
+        purpose: 'maskable any',
       },
     ],
   };

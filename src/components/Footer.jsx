@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import {
-  Twitter,
   Instagram,
   Mail,
 } from "lucide-react";
@@ -19,7 +18,6 @@ const Link = ({ href = "#", children, className, target, rel, ...props }) => (
 );
 
 const defaultSocialLinks = [
-  { icon: <Twitter className="w-5 h-5" />, href: "#", label: "Twitter" },
   { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/velloxa.agency/?utm_source=ig_web_button_share_sheet", label: "Instagram" },
   { icon: <Mail className="w-5 h-5" />, href: "mailto:velloxa.agency@gmail.com", label: "Email" },
 ];
