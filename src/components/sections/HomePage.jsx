@@ -84,9 +84,9 @@ export default function HomePage() {
         id="hero-section"
         className="hero relative min-h-[100dvh] h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden py-0 px-3 sm:px-4 text-center safe-top"
       >
-        {/* Expanded Background Mesh Gradient Orbs */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[950px] h-[95vw] max-h-[950px] bg-lime/15 rounded-full blur-[120px] sm:blur-[160px] pointer-events-none animate-mesh" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[800px] h-[85vw] max-h-[800px] bg-cyan/15 rounded-full blur-[110px] sm:blur-[150px] pointer-events-none" />
+        {/* Expanded Background Mesh Gradient Orbs - Optimized with transform-gpu and responsive blur */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[950px] h-[95vw] max-h-[950px] bg-lime/15 rounded-full blur-[40px] sm:blur-[160px] pointer-events-none animate-mesh transform-gpu" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[800px] h-[85vw] max-h-[800px] bg-cyan/15 rounded-full blur-[35px] sm:blur-[150px] pointer-events-none transform-gpu" />
 
         <div className="w-full max-w-7xl mx-auto px-2 mini:px-3 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center justify-center">
           {/* Main Slogan - Scaled larger across all iPhone sizes (mini 375px, standard 390px, Plus/Pro Max 428-430px) and desktop */}
