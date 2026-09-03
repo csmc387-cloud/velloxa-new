@@ -130,7 +130,7 @@ export default function HomePage() {
       <section id="solutions" className="max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
         <div className="text-center max-w-5xl mx-auto">
           <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
-            <span className="text-[clamp(3.6rem,15vw,11.5rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
+            <span className="text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
               SOLUTIONS<span className="text-cyan drop-shadow-[0_0_25px_rgba(0,255,204,0.7)]">.</span>
             </span>
             <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pt-2">
