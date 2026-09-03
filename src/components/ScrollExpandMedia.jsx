@@ -32,10 +32,6 @@ export const ScrollExpandMedia = ({
   const bottomPanelY = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
   const promptOpacity = useTransform(smoothProgress, [0, 0.4], [1, 0]);
 
-  // Clean flat 2D motion for revealed website content (NO 3D rotateX/z depth)
-  const contentScale = useTransform(smoothProgress, [0.1, 1], [0.95, 1]);
-  const contentOpacity = useTransform(smoothProgress, [0.05, 0.75], [0, 1]);
-
   // 1. Force manual scroll restoration and guarantee initial position is strictly Hero section (0, 0)
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -221,23 +217,9 @@ export const ScrollExpandMedia = ({
         </div>
       )}
 
-      {/* REVEALED WEBSITE CONTENT WITH FLAT 2D SCALE/OPACITY ANIMATION */}
-      <div className="w-full">
-        {!mediaFullyExpanded ? (
-          <motion.div
-            className="w-full origin-center"
-            style={{
-              scale: contentScale,
-              opacity: contentOpacity,
-            }}
-          >
-            {children}
-          </motion.div>
-        ) : (
-          <div className="w-full">
-            {children}
-          </div>
-        )}
+      {/* REVEALED WEBSITE CONTENT - 100% STABLE 1:1 SCALE FOR SEAMLESS TRANSITION */}
+      <div className="w-full relative z-10">
+        {children}
       </div>
     </div>
   );
