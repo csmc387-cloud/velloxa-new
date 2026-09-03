@@ -78,8 +78,8 @@ export default function ContactPage() {
           <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pb-1">
             Let's Build Something
           </span>
-          <span className="text-[clamp(2.25rem,10.2vw,9.8rem)] sm:text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
-            EXTRAORDINARY<span className="text-lime drop-shadow-[0_0_25px_rgba(186,255,122,0.7)]">.</span>
+          <span className="text-[clamp(2.25rem,10.2vw,9.8rem)] sm:text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase [text-shadow:0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
+            EXTRAORDINARY<span className="text-lime [text-shadow:0_0_25px_rgba(186,255,122,0.7)]">.</span>
           </span>
         </h2>
       </section>

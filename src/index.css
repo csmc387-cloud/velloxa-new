@@ -117,14 +117,19 @@ img, video, svg, canvas {
   }
 }
 
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Keyframe animations for ambient glow & retro grid */
 @keyframes meshPulse {
-  0%, 100% { opacity: 0.15; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(1.08); }
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
 }
 
 .animate-mesh {
   animation: meshPulse 8s ease-in-out infinite;
+  will-change: opacity;
 }
 
 @keyframes grid {
@@ -170,6 +175,8 @@ img, video, svg, canvas {
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: none;
+  isolation: isolate;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   transition: border-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
   transform: translateZ(0);
 }

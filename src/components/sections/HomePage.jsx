@@ -84,9 +84,9 @@ export default function HomePage() {
         id="hero-section"
         className="hero relative min-h-[100dvh] h-[100dvh] w-full flex flex-col items-center justify-center overflow-hidden py-0 px-3 sm:px-4 text-center safe-top"
       >
-        {/* Expanded Background Mesh Gradient Orbs - Optimized with transform-gpu and responsive blur */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[950px] h-[95vw] max-h-[950px] bg-lime/15 rounded-full blur-[40px] sm:blur-[160px] pointer-events-none animate-mesh transform-gpu" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[800px] h-[85vw] max-h-[800px] bg-cyan/15 rounded-full blur-[35px] sm:blur-[150px] pointer-events-none transform-gpu" />
+        {/* Smooth Background Mesh Gradient Orbs - Using radial-gradient to prevent mobile GPU blur clipping box glitches */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] max-w-[950px] h-[95vw] max-h-[950px] bg-[radial-gradient(circle,rgba(186,255,122,0.14)_0%,transparent_68%)] pointer-events-none animate-mesh" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] max-w-[800px] h-[85vw] max-h-[800px] bg-[radial-gradient(circle,rgba(0,255,204,0.12)_0%,transparent_68%)] pointer-events-none" />
 
         <div className="w-full max-w-7xl mx-auto px-2 mini:px-3 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center justify-center">
           {/* Main Slogan - Scaled larger across all iPhone sizes (mini 375px, standard 390px, Plus/Pro Max 428-430px) and desktop */}
@@ -109,7 +109,7 @@ export default function HomePage() {
         <div className="flex flex-row items-center justify-center gap-4 mini:gap-6 sm:gap-16 text-center">
           {/* 100% Counter */}
           <div>
-            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight [text-shadow:0_0_25px_rgba(255,255,255,0.4)]">
               <AnimatedCounter from={1} to={100} suffix="%" duration={1.8} />
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">ROI Impact</span>
@@ -119,7 +119,7 @@ export default function HomePage() {
 
           {/* 2X - 3X Traffic */}
           <div>
-            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.4)]">
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight [text-shadow:0_0_25px_rgba(255,255,255,0.4)]">
               2<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span>
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">Traffic Growth</span>
@@ -131,8 +131,8 @@ export default function HomePage() {
       <section id="solutions" className="max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
         <div className="text-center max-w-5xl mx-auto">
           <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
-            <span className="text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase drop-shadow-[0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
-              SOLUTIONS<span className="text-cyan drop-shadow-[0_0_25px_rgba(0,255,204,0.7)]">.</span>
+            <span className="text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase [text-shadow:0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
+              SOLUTIONS<span className="text-cyan [text-shadow:0_0_25px_rgba(0,255,204,0.7)]">.</span>
             </span>
             <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pt-2">
               Engineered for Growth
