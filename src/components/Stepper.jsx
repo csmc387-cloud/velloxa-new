@@ -127,12 +127,6 @@ export default function Stepper({
     }
   };
 
-  const handleRestart = () => {
-    setValidationError('');
-    setCurrentStep(1);
-    onStepChange?.(1);
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 45 }}
@@ -262,7 +256,7 @@ export default function Stepper({
             ) : (
               <button
                 type="button"
-                onClick={handleRestart}
+                onClick={() => handleStepClick(1)}
                 className="px-5 py-2 rounded-xl text-cyan text-xs font-mono font-semibold uppercase tracking-wider hover:text-white transition-all"
               >
                 <span>Restart</span>

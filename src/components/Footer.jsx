@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { FlickeringGrid } from "./ui/flickering-grid";
+
 import footerIconLogo from "../assets/footer-icon-logo.png";
 import footerBgLogo from "../assets/footer-bg-logo.png";
 
@@ -44,6 +46,17 @@ export const Footer = ({
   return (
     <section className={cn("relative w-full mt-0 overflow-hidden", className)}>
       <footer className="border-t border-white/10 bg-black/40 backdrop-blur-2xl mt-12 relative overflow-hidden safe-bottom">
+        {/* Flickering Grid Background */}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-100 [mask-image:radial-gradient(ellipse_90%_90%_at_50%_50%,#000_50%,transparent_100%)]">
+          <FlickeringGrid
+            squareSize={2}
+            gridGap={3}
+            flickerChance={0.5}
+            color="rgb(255, 255, 255)"
+            maxOpacity={0.4}
+            className="w-full h-full"
+          />
+        </div>
 
         <div className="max-w-7xl flex flex-col justify-between mx-auto min-h-[16rem] sm:min-h-[19rem] md:min-h-[21rem] relative p-4 py-6 sm:py-8 z-10">
           <div className="flex flex-col mb-4 w-full">

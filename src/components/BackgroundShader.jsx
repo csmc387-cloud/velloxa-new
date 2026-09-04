@@ -69,7 +69,7 @@ export default function BackgroundShader() {
             fov={45}
             frameRate={10}
             gizmoHelper="hide"
-            grain="off"
+            grain="on"
             lightType="3d"
             loop="on"
             loopDuration={10}
