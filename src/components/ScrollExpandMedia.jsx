@@ -34,9 +34,20 @@ export const ScrollExpandMedia = ({
   const contentScale = useTransform(smoothProgress, [0.1, 1], [0.95, 1]);
   const contentOpacity = useTransform(smoothProgress, [0.05, 0.75], [0, 1]);
 
+  // Guarantee initial scroll position is strictly Hero section (0, 0)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (latest) => {
       if (latest >= 0.98 && !mediaFullyExpanded) {
+        window.scrollTo(0, 0);
         setMediaFullyExpanded(true);
       }
     });
@@ -47,8 +58,10 @@ export const ScrollExpandMedia = ({
   useEffect(() => {
     if (!mediaFullyExpanded) {
       document.body.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
     } else {
       document.body.style.overflow = '';
+      window.scrollTo(0, 0);
     }
     return () => {
       document.body.style.overflow = '';
@@ -70,10 +83,15 @@ export const ScrollExpandMedia = ({
 
     const handleWheel = (e) => {
       e.preventDefault();
+      window.scrollTo(0, 0);
       const current = targetProgress.get();
       const scrollDelta = e.deltaY * 0.005;
       const next = Math.min(Math.max(current + scrollDelta, 0), 1);
       targetProgress.set(next);
+
+      if (e.deltaY > 15 && next > 0.2) {
+        targetProgress.set(1);
+      }
     };
 
     const handleTouchStart = (e) => {
@@ -84,6 +102,12 @@ export const ScrollExpandMedia = ({
 
     const handleTouchMove = (e) => {
       if (!touchStartYRef.current || !e.touches || !e.touches[0]) return;
+
+      // Prevent native window scroll so page never scrolls past hero during card opening
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+      window.scrollTo(0, 0);
 
       const touchY = e.touches[0].clientY;
       const deltaY = touchStartYRef.current - touchY;
@@ -98,11 +122,20 @@ export const ScrollExpandMedia = ({
 
     const handleTouchEnd = () => {
       touchStartYRef.current = 0;
+      window.scrollTo(0, 0);
+
+      // Smooth inertia flick assist: if user flicked or dragged past 25%, fluidly finish opening to 100%
+      const current = targetProgress.get();
+      if (current > 0.25) {
+        targetProgress.set(1);
+      } else if (current > 0 && current <= 0.25) {
+        targetProgress.set(0);
+      }
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
@@ -117,7 +150,10 @@ export const ScrollExpandMedia = ({
     <div ref={sectionRef} className="relative w-full overflow-x-hidden">
       {/* FLAT 2D VERTICAL SLIDE INTRO COVER */}
       {!mediaFullyExpanded && (
-        <div className="fixed inset-0 z-50 pointer-events-auto flex flex-col overflow-hidden select-none">
+        <div 
+          className="fixed inset-0 z-50 pointer-events-auto flex flex-col overflow-hidden select-none cursor-pointer"
+          onClick={() => targetProgress.set(1)}
+        >
 
           {/* TOP PANEL (0 to 50dvh + 1px subpixel overlap) */}
           <motion.div
