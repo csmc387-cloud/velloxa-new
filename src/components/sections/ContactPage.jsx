@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { AlertCircle, Check } from 'lucide-react';
 import Stepper, { Step } from '@/components/Stepper';
 import { submitLeadToApi } from '@/utils/leadApi';
 
@@ -97,48 +98,68 @@ export default function ContactPage() {
         <Step>
           <div className="space-y-4">
             <div>
-              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">Client Identification</h3>
-              <p className="text-gray-400 text-xs sm:text-sm">Provide your name, Gmail / Insta Handle, and business name.</p>
+              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white tracking-tight">Client Identification</h3>
+              <p className="text-gray-400 text-xs sm:text-sm">Provide your name, Gmail / Insta handle, and business name.</p>
             </div>
 
             <div className="space-y-3 pt-1">
               <div>
+                <label htmlFor="client-name" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
+                  Full Name <span className="text-lime">*</span>
+                </label>
                 <input
+                  id="client-name"
+                  name="name"
                   type="text"
+                  aria-label="Full Name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Full Name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/50 text-sm transition-all"
+                  placeholder="e.g. Alex Morgan"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-sm transition-all"
                 />
               </div>
 
               <div>
+                <label htmlFor="client-email" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
+                  Gmail / Insta Handle <span className="text-lime">*</span>
+                </label>
                 <input
+                  id="client-email"
+                  name="email"
                   type="text"
+                  aria-label="Gmail or Instagram Handle"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="Gmail / Insta Handle"
-                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-500 focus:outline-none text-sm transition-all ${formData.email.length > 0 && !formData.email.includes('@')
-                      ? 'border-red-500/50 focus:border-red-500'
+                  placeholder="e.g. user@gmail.com or @instahandle"
+                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-500 focus:outline-none text-sm transition-all ${
+                    formData.email.length > 0 && !formData.email.includes('@')
+                      ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
                       : formData.email.includes('@')
-                        ? 'border-lime/50 focus:border-lime'
-                        : 'border-white/10 focus:border-lime/50'
-                    }`}
+                        ? 'border-lime/50 focus:border-lime focus:ring-1 focus:ring-lime/30'
+                        : 'border-white/10 focus:border-lime/60 focus:ring-1 focus:ring-lime/30'
+                  }`}
                 />
                 {formData.email.length > 0 && !formData.email.includes('@') && (
-                  <p className="text-red-400 text-[11px] font-mono mt-1 pl-1 flex items-center space-x-1">
-                    <span>⚠️ Must include '@' symbol (e.g. user@gmail.com or @instahandle)</span>
+                  <p className="text-red-400 text-xs font-mono mt-1.5 pl-1 flex items-center space-x-1.5">
+                    <AlertCircle className="size-3.5 text-red-400 shrink-0" />
+                    <span>Must include '@' symbol (e.g. user@gmail.com or @instahandle)</span>
                   </p>
                 )}
               </div>
 
               <div>
+                <label htmlFor="client-company" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
+                  Business / Company Name <span className="text-lime">*</span>
+                </label>
                 <input
+                  id="client-company"
+                  name="company"
                   type="text"
+                  aria-label="Business or Company Name"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  placeholder="Business / Company Name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/50 text-sm transition-all"
+                  placeholder="e.g. Acme Corp / NextGen AI"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-sm transition-all"
                 />
               </div>
             </div>
@@ -149,30 +170,41 @@ export default function ContactPage() {
         <Step>
           <div className="space-y-4">
             <div>
-              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">Target Service Domain</h3>
-              <p className="text-gray-400 text-xs sm:text-sm">Select the area that fits your objectives.</p>
+              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white tracking-tight">Target Service Domain</h3>
+              <p className="text-gray-400 text-xs sm:text-sm">Select the area that fits your growth objectives.</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               {[
                 { name: 'AI Integration', desc: 'Automate internal operations, customer intake & custom AI workflows' },
                 { name: 'Web Engineering', desc: 'High-converting performance Web apps' },
                 { name: 'Passion Marketing', desc: 'Top-tier SEO, social media marketing & putting your SME out there' },
                 { name: 'Full Scale Suite', desc: 'Complete digital transformation' },
-              ].map((item) => (
-                <button
-                  type="button"
-                  key={item.name}
-                  onClick={() => setFormData({ ...formData, service: item.name })}
-                  className={`p-3.5 rounded-xl text-left border transition-all ${formData.service === item.name
-                    ? 'border-lime bg-lime/10 text-white'
-                    : 'border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:text-white'
+              ].map((item) => {
+                const isSelected = formData.service === item.name;
+                return (
+                  <button
+                    type="button"
+                    key={item.name}
+                    onClick={() => setFormData({ ...formData, service: item.name })}
+                    className={`p-4 rounded-xl text-left border transition-all relative ${
+                      isSelected
+                        ? 'border-lime bg-lime/10 text-white shadow-[0_0_20px_rgba(186,255,122,0.15)]'
+                        : 'border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:text-white'
                     }`}
-                >
-                  <span className="block font-medium text-sm text-white mb-0.5">{item.name}</span>
-                  <span className="block text-xs text-gray-400">{item.desc}</span>
-                </button>
-              ))}
+                  >
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="block font-medium text-sm text-white">{item.name}</span>
+                      {isSelected && (
+                        <span className="inline-flex items-center justify-center size-4 rounded-full bg-cyan/20 text-cyan text-[10px] font-bold">
+                          ✓
+                        </span>
+                      )}
+                    </div>
+                    <span className="block text-xs text-gray-400 leading-relaxed">{item.desc}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </Step>
@@ -181,36 +213,49 @@ export default function ContactPage() {
         <Step>
           <div className="space-y-4">
             <div>
-              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white">Scope & Budget</h3>
+              <h3 className="text-xl sm:text-2xl font-display font-semibold text-white tracking-tight">Scope & Budget</h3>
               <p className="text-gray-400 text-xs sm:text-sm">Indicate estimated budget and project requirements.</p>
             </div>
 
-            <div className="space-y-3 pt-1">
+            <div className="space-y-4 pt-1">
               <div>
+                <label className="block text-xs font-mono uppercase text-gray-400 mb-2 font-medium tracking-wider">
+                  Estimated Budget Tier <span className="text-lime">*</span>
+                </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                  {['₹5k - ₹10k', '₹10k - ₹15k', '₹15k - ₹20k', 'Negotiable Price'].map((range) => (
-                    <button
-                      type="button"
-                      key={range}
-                      onClick={() => setFormData({ ...formData, budget: range })}
-                      className={`py-2 px-3 rounded-lg text-xs font-mono transition-all ${formData.budget === range
-                        ? 'bg-lime text-charcoal font-bold'
-                        : 'bg-white/5 text-gray-400 hover:text-white border border-white/10'
+                  {['₹5k - ₹10k', '₹10k - ₹15k', '₹15k - ₹20k', 'Negotiable Price'].map((range) => {
+                    const isSelected = formData.budget === range;
+                    return (
+                      <button
+                        type="button"
+                        key={range}
+                        onClick={() => setFormData({ ...formData, budget: range })}
+                        className={`py-2.5 px-3 rounded-xl text-xs font-mono transition-all ${
+                          isSelected
+                            ? 'bg-lime text-charcoal font-bold shadow-[0_0_15px_rgba(186,255,122,0.35)]'
+                            : 'bg-white/5 text-gray-400 hover:text-white border border-white/10 hover:border-white/20'
                         }`}
-                    >
-                      {range}
-                    </button>
-                  ))}
+                      >
+                        {range}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
               <div>
+                <label htmlFor="client-message" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
+                  Project Objectives / Message <span className="text-lime">*</span>
+                </label>
                 <textarea
+                  id="client-message"
+                  name="message"
+                  aria-label="Project Objectives"
                   rows={3}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Outline key project objectives or timeline..."
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/50 text-sm transition-all"
+                  placeholder="Outline key project objectives, deliverables, or timeline..."
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-sm transition-all"
                 />
               </div>
             </div>
@@ -220,21 +265,57 @@ export default function ContactPage() {
         {/* STEP 4: CONFIRMATION */}
         <Step>
           <div className="flex flex-col items-center justify-center text-center py-6 space-y-4 w-full mx-auto">
+            {/* Status Badge */}
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider uppercase bg-cyan/10 border border-cyan/30 text-cyan">
+              <span className="size-1.5 rounded-full bg-cyan animate-pulse" />
+              STATUS: INTAKE TRANSMITTED
+            </span>
+
             {/* Animated Spring Pop Self-Drawing Checkmark */}
             <motion.div
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', stiffness: 350, damping: 15, delay: 0.1 }}
-              className="size-16 rounded-full bg-lime/10 border-2 border-lime text-lime flex items-center justify-center mx-auto shadow-[0_0_35px_rgba(186,255,122,0.6)]"
+              className="size-16 sm:size-20 rounded-full bg-lime/10 border-2 border-lime text-lime flex items-center justify-center mx-auto shadow-[0_0_35px_rgba(186,255,122,0.6)]"
             >
-              <AnimatedCheckIcon className="size-8 text-lime" />
+              <AnimatedCheckIcon className="size-8 sm:size-10 text-lime" />
             </motion.div>
 
             <div className="space-y-2 max-w-md mx-auto text-center">
               <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">INTAKE TRANSMITTED</h3>
               <p className="text-gray-300 text-xs sm:text-sm max-w-sm mx-auto leading-relaxed">
-                Thank you partner, we will reach you thru your email / dm within 24 hours.
+                Thank you partner, your intake has been logged. We will reach you through your email / handle within 24 hours.
               </p>
+            </div>
+
+            {/* Transmitted Details Glass Confirmation Container */}
+            <div className="w-full max-w-md mx-auto bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-left space-y-1.5 text-xs font-mono">
+              <div className="flex justify-between text-gray-400">
+                <span>Client:</span>
+                <span className="text-white font-medium">{formData.name || 'Anonymous'}</span>
+              </div>
+              <div className="flex justify-between text-gray-400">
+                <span>Handle / Email:</span>
+                <span className="text-cyan font-medium">{formData.email || '—'}</span>
+              </div>
+              <div className="flex justify-between text-gray-400">
+                <span>Company:</span>
+                <span className="text-white font-medium">{formData.company || '—'}</span>
+              </div>
+              <div className="flex justify-between text-gray-400">
+                <span>Target Domain:</span>
+                <span className="text-lime font-medium">{formData.service}</span>
+              </div>
+              <div className="flex justify-between text-gray-400">
+                <span>Budget Tier:</span>
+                <span className="text-white font-medium">{formData.budget}</span>
+              </div>
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-gray-500">
+                <span>Sink:</span>
+                <span className="text-lime flex items-center gap-1 font-semibold">
+                  <Check className="size-3 text-lime" /> Synced to contact_leads.xlsx & .csv
+                </span>
+              </div>
             </div>
           </div>
         </Step>

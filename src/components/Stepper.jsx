@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Children } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Phone } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Phone, AlertCircle } from 'lucide-react';
 
 export function WinkSmileyIcon({ className = "size-5 text-lime" }) {
   const [isWinking, setIsWinking] = useState(true);
@@ -219,9 +219,10 @@ export default function Stepper({
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 6 }}
-              className="mt-3 px-3.5 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono text-center flex items-center justify-center space-x-2"
+              className="mt-3 px-3.5 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono text-center flex items-center justify-center space-x-1.5"
             >
-              <span>⚠️ {validationError}</span>
+              <AlertCircle className="size-3.5 text-red-400 shrink-0" />
+              <span>{validationError}</span>
             </motion.div>
           )}
         </AnimatePresence>
