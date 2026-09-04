@@ -145,19 +145,34 @@ img, video, svg, canvas {
   animation: grid 15s linear infinite;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Custom scrollbar: styled on desktop, cleanly hidden on phone/mobile format */
+@media (max-width: 768px) {
+  html, body, * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  ::-webkit-scrollbar, *::-webkit-scrollbar {
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+    background: transparent !important;
+  }
 }
-::-webkit-scrollbar-track {
-  background: #1A1A1A;
-}
-::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #BAFF7A;
+
+@media (min-width: 769px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1A1A1A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #BAFF7A;
+  }
 }
 
 /* Dark Translucent Liquid Glass System - Matched to Client Form (bg-black/40 + border-white/10) */
