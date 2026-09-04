@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { AlertCircle, Check } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import Stepper, { Step } from '@/components/Stepper';
 import { submitLeadToApi } from '@/utils/leadApi';
 
@@ -88,6 +88,7 @@ export default function ContactPage() {
       {/* 2. MINIMALIST STEPPER CONTACT FORM */}
       <Stepper
         initialStep={1}
+        disableStepIndicators={true}
         isStepValid={isStepValid}
         onStepChange={handleStepChange}
         onFinalStepCompleted={handleFinalCompleted}
@@ -105,7 +106,7 @@ export default function ContactPage() {
             <div className="space-y-3 pt-1">
               <div>
                 <label htmlFor="client-name" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
-                  Full Name <span className="text-lime">*</span>
+                  Full Name
                 </label>
                 <input
                   id="client-name"
@@ -121,7 +122,7 @@ export default function ContactPage() {
 
               <div>
                 <label htmlFor="client-email" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
-                  Gmail / Insta Handle <span className="text-lime">*</span>
+                  Gmail / Insta Handle
                 </label>
                 <input
                   id="client-email"
@@ -149,7 +150,7 @@ export default function ContactPage() {
 
               <div>
                 <label htmlFor="client-company" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
-                  Business / Company Name <span className="text-lime">*</span>
+                  Business / Company Name
                 </label>
                 <input
                   id="client-company"
@@ -220,7 +221,7 @@ export default function ContactPage() {
             <div className="space-y-4 pt-1">
               <div>
                 <label className="block text-xs font-mono uppercase text-gray-400 mb-2 font-medium tracking-wider">
-                  Estimated Budget Tier <span className="text-lime">*</span>
+                  Estimated Budget Tier
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {['₹5k - ₹10k', '₹10k - ₹15k', '₹15k - ₹20k', 'Negotiable Price'].map((range) => {
@@ -245,7 +246,7 @@ export default function ContactPage() {
 
               <div>
                 <label htmlFor="client-message" className="block text-xs font-mono uppercase text-gray-400 mb-1.5 font-medium tracking-wider">
-                  Project Objectives / Message <span className="text-lime">*</span>
+                  Project Objectives / Message
                 </label>
                 <textarea
                   id="client-message"
@@ -264,13 +265,7 @@ export default function ContactPage() {
 
         {/* STEP 4: CONFIRMATION */}
         <Step>
-          <div className="flex flex-col items-center justify-center text-center py-6 space-y-4 w-full mx-auto">
-            {/* Status Badge */}
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold tracking-wider uppercase bg-cyan/10 border border-cyan/30 text-cyan">
-              <span className="size-1.5 rounded-full bg-cyan animate-pulse" />
-              STATUS: INTAKE TRANSMITTED
-            </span>
-
+          <div className="flex flex-col items-center justify-center text-center py-8 sm:py-12 space-y-6 w-full mx-auto">
             {/* Animated Spring Pop Self-Drawing Checkmark */}
             <motion.div
               initial={{ scale: 0, rotate: -45 }}
@@ -281,41 +276,11 @@ export default function ContactPage() {
               <AnimatedCheckIcon className="size-8 sm:size-10 text-lime" />
             </motion.div>
 
-            <div className="space-y-2 max-w-md mx-auto text-center">
+            <div className="space-y-2.5 max-w-md mx-auto text-center">
               <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">INTAKE TRANSMITTED</h3>
               <p className="text-gray-300 text-xs sm:text-sm max-w-sm mx-auto leading-relaxed">
                 Thank you partner, your intake has been logged. We will reach you through your email / handle within 24 hours.
               </p>
-            </div>
-
-            {/* Transmitted Details Glass Confirmation Container */}
-            <div className="w-full max-w-md mx-auto bg-white/[0.03] border border-white/10 rounded-2xl p-4 text-left space-y-1.5 text-xs font-mono">
-              <div className="flex justify-between text-gray-400">
-                <span>Client:</span>
-                <span className="text-white font-medium">{formData.name || 'Anonymous'}</span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Handle / Email:</span>
-                <span className="text-cyan font-medium">{formData.email || '—'}</span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Company:</span>
-                <span className="text-white font-medium">{formData.company || '—'}</span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Target Domain:</span>
-                <span className="text-lime font-medium">{formData.service}</span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Budget Tier:</span>
-                <span className="text-white font-medium">{formData.budget}</span>
-              </div>
-              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-gray-500">
-                <span>Sink:</span>
-                <span className="text-lime flex items-center gap-1 font-semibold">
-                  <Check className="size-3 text-lime" /> Synced to contact_leads.xlsx & .csv
-                </span>
-              </div>
             </div>
           </div>
         </Step>
