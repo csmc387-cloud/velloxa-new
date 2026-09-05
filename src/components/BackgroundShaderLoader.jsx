@@ -12,7 +12,39 @@ export default function BackgroundShaderLoader() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    let idleHandle = null;
+    let timeoutId = null;
+
+    const activateShader = () => {
+      setMounted(true);
+      cleanup();
+    };
+
+    const gestureEvents = ["touchstart", "scroll", "pointerdown", "wheel", "keydown", "click"];
+
+    const cleanup = () => {
+      gestureEvents.forEach((evt) => {
+        window.removeEventListener(evt, activateShader);
+      });
+      if (idleHandle && typeof window !== 'undefined' && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleHandle);
+      }
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+
+    gestureEvents.forEach((evt) => {
+      window.addEventListener(evt, activateShader, { passive: true, once: true });
+    });
+
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      idleHandle = window.requestIdleCallback(activateShader, { timeout: 3500 });
+    } else {
+      timeoutId = setTimeout(activateShader, 2500);
+    }
+
+    return cleanup;
   }, []);
 
   if (!mounted) {

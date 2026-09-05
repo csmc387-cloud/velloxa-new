@@ -34,7 +34,7 @@ function AnimatedCounter({ from = 1, to = 100, suffix = '%', duration = 1.8 }) {
   }, [isInView, from, to, duration]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="tabular-nums inline-block">
       {count}{suffix}
     </span>
   );

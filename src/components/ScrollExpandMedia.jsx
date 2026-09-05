@@ -47,7 +47,6 @@ export const ScrollExpandMedia = ({
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (latest) => {
       if (latest >= 0.98 && !mediaFullyExpanded) {
-        window.scrollTo(0, 0);
         setMediaFullyExpanded(true);
       }
     });
@@ -58,10 +57,8 @@ export const ScrollExpandMedia = ({
   useEffect(() => {
     if (!mediaFullyExpanded) {
       document.body.style.overflow = 'hidden';
-      window.scrollTo(0, 0);
     } else {
       document.body.style.overflow = '';
-      window.scrollTo(0, 0);
     }
     return () => {
       document.body.style.overflow = '';
@@ -82,8 +79,6 @@ export const ScrollExpandMedia = ({
     if (mediaFullyExpanded) return;
 
     const handleWheel = (e) => {
-      e.preventDefault();
-      window.scrollTo(0, 0);
       const current = targetProgress.get();
       const scrollDelta = e.deltaY * 0.005;
       const next = Math.min(Math.max(current + scrollDelta, 0), 1);
@@ -103,12 +98,6 @@ export const ScrollExpandMedia = ({
     const handleTouchMove = (e) => {
       if (!touchStartYRef.current || !e.touches || !e.touches[0]) return;
 
-      // Prevent native window scroll so page never scrolls past hero during card opening
-      if (e.cancelable) {
-        e.preventDefault();
-      }
-      window.scrollTo(0, 0);
-
       const touchY = e.touches[0].clientY;
       const deltaY = touchStartYRef.current - touchY;
       const scrollFactor = deltaY < 0 ? 0.008 : 0.006;
@@ -122,7 +111,6 @@ export const ScrollExpandMedia = ({
 
     const handleTouchEnd = () => {
       touchStartYRef.current = 0;
-      window.scrollTo(0, 0);
 
       // Smooth inertia flick assist: if user flicked or dragged past 25%, fluidly finish opening to 100%
       const current = targetProgress.get();
@@ -133,9 +121,9 @@ export const ScrollExpandMedia = ({
       }
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
@@ -151,7 +139,7 @@ export const ScrollExpandMedia = ({
       {/* FLAT 2D VERTICAL SLIDE INTRO COVER */}
       {!mediaFullyExpanded && (
         <div 
-          className="fixed inset-0 z-50 pointer-events-auto flex flex-col overflow-hidden select-none cursor-pointer"
+          className="fixed inset-0 z-50 pointer-events-auto flex flex-col overflow-hidden select-none cursor-pointer touch-none"
           onClick={() => targetProgress.set(1)}
         >
 

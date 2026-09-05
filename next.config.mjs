@@ -31,11 +31,20 @@ const nextConfig = {
         ],
       },
       {
-        source: '/(.*)\\.(ico|png|svg|jpg|jpeg|webp|avif|woff|woff2|webmanifest)',
+        source: '/:path*\\.(ico|png|svg|jpg|jpeg|webp|avif|woff|woff2|webmanifest|css|js)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/(manifest\\.webmanifest|site\\.webmanifest|robots\\.txt|sitemap\\.xml|llms\\.txt)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
           },
         ],
       },

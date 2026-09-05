@@ -113,30 +113,51 @@ export const FlickeringGrid = ({
     updateCanvasSize();
 
     let inView = false;
+    let isRunning = false;
     let lastTime = 0;
-    const animate = (time) => {
-      if (inView && gridParams) {
-        const deltaTime = Math.min((time - (lastTime || time)) / 1000, 0.1);
-        lastTime = time;
 
-        updateSquares(gridParams.squares, deltaTime);
-        drawGrid(
-          ctx,
-          canvas.width,
-          canvas.height,
-          gridParams.cols,
-          gridParams.rows,
-          gridParams.squares,
-          gridParams.dpr,
-        );
-      } else {
-        lastTime = time;
+    const animate = (time) => {
+      if (!inView || !gridParams) {
+        isRunning = false;
+        return;
       }
+
+      const deltaTime = Math.min((time - (lastTime || time)) / 1000, 0.1);
+      lastTime = time;
+
+      updateSquares(gridParams.squares, deltaTime);
+      drawGrid(
+        ctx,
+        canvas.width,
+        canvas.height,
+        gridParams.cols,
+        gridParams.rows,
+        gridParams.squares,
+        gridParams.dpr,
+      );
+
       animationFrameId = requestAnimationFrame(animate);
+    };
+
+    const startAnimation = () => {
+      if (!isRunning && inView) {
+        isRunning = true;
+        lastTime = performance.now();
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    const stopAnimation = () => {
+      isRunning = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
     };
 
     const resizeObserver = new ResizeObserver(() => {
       updateCanvasSize();
+      if (inView) startAnimation();
     });
 
     resizeObserver.observe(container);
@@ -145,16 +166,19 @@ export const FlickeringGrid = ({
       ([entry]) => {
         inView = entry.isIntersecting;
         setIsInView(entry.isIntersecting);
+        if (inView) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
       },
       { threshold: 0.05 },
     );
 
     intersectionObserver.observe(container || canvas);
 
-    animationFrameId = requestAnimationFrame(animate);
-
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopAnimation();
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
     };

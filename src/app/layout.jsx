@@ -196,8 +196,9 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* BFCache restoration resilience handler */}
-        <script
+        <Script
+          id="bfcache-handler"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.addEventListener('pageshow', function(event) {

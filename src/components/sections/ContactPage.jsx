@@ -88,7 +88,6 @@ export default function ContactPage() {
       {/* 2. MINIMALIST STEPPER CONTACT FORM */}
       <Stepper
         initialStep={1}
-        disableStepIndicators={true}
         isStepValid={isStepValid}
         onStepChange={handleStepChange}
         onFinalStepCompleted={handleFinalCompleted}
