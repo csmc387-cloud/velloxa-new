@@ -47,6 +47,7 @@ export const ScrollExpandMedia = ({
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (latest) => {
       if (latest >= 0.98 && !mediaFullyExpanded) {
+        window.scrollTo(0, 0);
         setMediaFullyExpanded(true);
       }
     });
@@ -56,11 +57,16 @@ export const ScrollExpandMedia = ({
   // Lock page scrolling cleanly without layout thrashing while intro cover is active
   useEffect(() => {
     if (!mediaFullyExpanded) {
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
     } else {
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      window.scrollTo(0, 0);
     }
     return () => {
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
   }, [mediaFullyExpanded]);
@@ -68,6 +74,7 @@ export const ScrollExpandMedia = ({
   // Ensure BFCache (back/forward cache) can restore cleanly without frozen body overflow
   useEffect(() => {
     const handlePageHide = () => {
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     };
     window.addEventListener('pagehide', handlePageHide);
@@ -79,6 +86,8 @@ export const ScrollExpandMedia = ({
     if (mediaFullyExpanded) return;
 
     const handleWheel = (e) => {
+      e.preventDefault();
+      window.scrollTo(0, 0);
       const current = targetProgress.get();
       const scrollDelta = e.deltaY * 0.005;
       const next = Math.min(Math.max(current + scrollDelta, 0), 1);
@@ -98,6 +107,12 @@ export const ScrollExpandMedia = ({
     const handleTouchMove = (e) => {
       if (!touchStartYRef.current || !e.touches || !e.touches[0]) return;
 
+      // Prevent native window scroll so page never scrolls past hero during card opening
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+      window.scrollTo(0, 0);
+
       const touchY = e.touches[0].clientY;
       const deltaY = touchStartYRef.current - touchY;
       const scrollFactor = deltaY < 0 ? 0.008 : 0.006;
@@ -111,6 +126,7 @@ export const ScrollExpandMedia = ({
 
     const handleTouchEnd = () => {
       touchStartYRef.current = 0;
+      window.scrollTo(0, 0);
 
       // Smooth inertia flick assist: if user flicked or dragged past 25%, fluidly finish opening to 100%
       const current = targetProgress.get();
@@ -121,9 +137,9 @@ export const ScrollExpandMedia = ({
       }
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
@@ -211,7 +227,7 @@ export const ScrollExpandMedia = ({
       <div className="w-full">
         {!mediaFullyExpanded ? (
           <motion.div
-            className="w-full origin-center"
+            className="w-full origin-center pointer-events-none"
             style={{
               scale: contentScale,
               opacity: contentOpacity,
