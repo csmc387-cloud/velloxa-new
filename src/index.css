@@ -45,12 +45,27 @@
       Anything wider than the viewport gets clipped instead of scrolling
       the whole page sideways.
    -------------------------------------------------------------------------- */
-html, body {
+html {
   overflow-x: hidden;
   max-width: 100vw;
   scrollbar-gutter: stable;
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU hardware acceleration for silky smooth scrolling without repaint jank */
+section,
+footer,
+.hero {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 img, video, svg, canvas {
@@ -107,14 +122,28 @@ img, video, svg, canvas {
   body {
     background-color: #1A1A1A;
     color: #FFFFFF;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-body), 'DM Sans', sans-serif;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Oswald', sans-serif;
+    font-family: var(--font-display), 'Oswald', sans-serif;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+  }
+
+  h1, h2 {
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 10px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  h3, h4, h5, h6 {
+    text-shadow: none;
+  }
+}
+
+@layer utilities {
+  .hover-title-shadow {
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 10px 24px rgba(0, 0, 0, 0.18);
   }
 }
 

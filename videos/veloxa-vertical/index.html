@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Velloxa — Apple Keynote Brand Film (Vertical 9:16)</title>
+    <!-- Google Fonts: Oswald (Display), DM Sans (Body), JetBrains Mono (Code/Metrics) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- GSAP for frame-accurate, seek-safe animation -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background-color: #1A1A1A;
+        color: #ffffff;
+        font-family: 'DM Sans', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-display {
+        font-family: 'Oswald', sans-serif;
+      }
+      .font-body {
+        font-family: 'DM Sans', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      /* Exact Brand Colors from Codebase */
+      .text-lime { color: #BAFF7A; }
+      .text-cyan { color: #00FFCC; }
+      .text-silver { color: #CBD5E1; }
+      .text-muted { color: #A0A0A0; }
+      .bg-lime { background-color: #BAFF7A; }
+      .bg-cyan { background-color: #00FFCC; }
+      .bg-charcoal { background-color: #1A1A1A; }
+      .bg-surface { background-color: #242424; }
+
+      .perspective-stage {
+        perspective: 2000px;
+        perspective-origin: 50% 50%;
+        transform-style: preserve-3d;
+      }
+
+      /* Studio Lighting Accents */
+      .studio-keylight {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 45%, transparent 70%);
+        pointer-events: none;
+      }
+      .studio-rim-left {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 10% 50%, rgba(186,255,122,0.18) 0%, transparent 50%);
+        pointer-events: none;
+      }
+      .studio-rim-right {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 90% 50%, rgba(0,255,204,0.16) 0%, transparent 50%);
+        pointer-events: none;
+      }
+      .studio-floor-reflection {
+        position: absolute;
+        bottom: 220px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 960px;
+        height: 240px;
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, rgba(0,255,204,0.06) 40%, transparent 75%);
+        filter: blur(24px);
+        pointer-events: none;
+      }
+
+      /* Apple-grade Glassmorphic Cards */
+      .glass-card {
+        background: rgba(26, 26, 26, 0.88);
+        backdrop-filter: blur(28px);
+        -webkit-backdrop-filter: blur(28px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 255, 204, 0.08);
+      }
+      .glass-card-lime {
+        background: rgba(28, 32, 26, 0.9);
+        backdrop-filter: blur(32px);
+        border: 1px solid rgba(186, 255, 122, 0.38);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(186, 255, 122, 0.18);
+      }
+
+      /* Specular Glare */
+      .glass-glare {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.25) 48%, rgba(0,255,204,0.3) 52%, transparent 62%);
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+
+      /* 3D MACBOOK PRO (UNBRANDED ALUMINUM UNIBODY) */
+      .macbook-3d-box {
+        position: relative;
+        transform-style: preserve-3d;
+      }
+      .macbook-lid-vert {
+        width: 840px;
+        height: 525px;
+        border-radius: 20px 20px 6px 6px;
+        background: linear-gradient(145deg, #2a2e38 0%, #151820 100%);
+        border: 2px solid rgba(255, 255, 255, 0.28);
+        padding: 14px;
+        position: relative;
+        box-shadow: 0 50px 120px rgba(0,0,0,0.95), 0 0 70px rgba(0,255,204,0.18), inset 0 1px 0 rgba(255,255,255,0.5);
+        transform-style: preserve-3d;
+      }
+      .macbook-notch-vert {
+        position: absolute;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 16px;
+        background: #0d0d0d;
+        border-radius: 0 0 8px 8px;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .macbook-screen-vert {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        background: #0d0d0d;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .macbook-base-vert {
+        width: 880px;
+        height: 20px;
+        border-radius: 4px 4px 18px 18px;
+        background: linear-gradient(to bottom, #383d4c 0%, #181a22 100%);
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: 0 35px 80px rgba(0,0,0,0.9);
+      }
+      .macbook-base-indent-vert {
+        width: 120px;
+        height: 7px;
+        background: #0a0b0e;
+        border-radius: 0 0 6px 6px;
+        margin: 0 auto;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: none;
+      }
+
+      /* 3D IPHONE PRO (UNBRANDED TITANIUM SILHOUETTE) */
+      .iphone-3d-box {
+        position: relative;
+        transform-style: preserve-3d;
+      }
+      .iphone-frame-vert {
+        width: 440px;
+        height: 880px;
+        border-radius: 64px;
+        background: #0d0d0d;
+        border: 5px solid #CBD5E1;
+        padding: 14px;
+        position: relative;
+        box-shadow: 0 50px 130px rgba(0,0,0,0.96), 0 0 65px rgba(186,255,122,0.22), inset 0 0 8px rgba(255,255,255,0.45);
+        transform-style: preserve-3d;
+      }
+      .iphone-island-vert {
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140px;
+        height: 36px;
+        background: #000000;
+        border-radius: 9999px;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      .iphone-screen-vert {
+        width: 100%;
+        height: 100%;
+        border-radius: 52px;
+        background: #0d0d0d;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="15"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- Cinematic Audio Layering Across 15s Timeline -->
+      <audio id="audio-riser" src="assets/audio/riser.mp3" data-start="0.0" data-duration="4.2" data-track-index="1"></audio>
+      <audio id="audio-impact-1" src="assets/audio/impact-bass-1.mp3" data-start="0.8" data-duration="2.1" data-track-index="2"></audio>
+      <audio id="audio-whoosh-cinematic" src="assets/audio/whoosh-cinematic.mp3" data-start="2.6" data-duration="2.5" data-track-index="3"></audio>
+      <audio id="audio-click" src="assets/audio/click-soft.mp3" data-start="4.2" data-duration="0.4" data-track-index="4"></audio>
+      <audio id="audio-whoosh-short" src="assets/audio/whoosh-short.mp3" data-start="5.6" data-duration="0.57" data-track-index="3"></audio>
+      <audio id="audio-notification" src="assets/audio/notification.mp3" data-start="7.0" data-duration="1.2" data-track-index="4"></audio>
+      <audio id="audio-glitch" src="assets/audio/glitch-1.mp3" data-start="8.6" data-duration="0.9" data-track-index="3"></audio>
+      <audio id="audio-typing" src="assets/audio/typing.mp3" data-start="9.8" data-duration="1.0" data-track-index="5"></audio>
+      <audio id="audio-impact-2" src="assets/audio/impact-bass-2.mp3" data-start="11.4" data-duration="2.6" data-track-index="2"></audio>
+      <audio id="audio-sparkle" src="assets/audio/sparkle.mp3" data-start="12.2" data-duration="1.8" data-track-index="4"></audio>
+
+      <!-- PERSISTENT BACKGROUND: Studio Environment with ShaderGradient Simulation -->
+      <div id="bg-layer" class="clip" data-start="0" data-duration="15" style="z-index: 1;">
+        <!-- Canvas for WebGL / WaterPlane Harmonic Waves -->
+        <canvas id="canvas-bg" width="1080" height="1920" style="position: absolute; inset: 0; width: 100%; height: 100%;"></canvas>
+        
+        <!-- Studio Key Lighting & Rim Blooms -->
+        <div class="studio-keylight" data-layout-allow-overflow></div>
+        <div class="studio-rim-left" data-layout-allow-overflow></div>
+        <div class="studio-rim-right" data-layout-allow-overflow></div>
+        
+        <!-- Film grain texture overlay from codebase BackgroundShader.jsx -->
+        <div 
+          data-layout-allow-overflow
+          style="position: absolute; inset: 0; pointer-events: none; opacity: 0.055; mix-blend-mode: overlay; background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E&quot;);"
+        ></div>
+
+        <!-- Peripheral Vignette -->
+        <div data-layout-allow-overflow style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(13,13,13,0.85) 90%, #0d0d0d 100%); pointer-events: none;"></div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SCENE 1: LIGHT PARTICLE ASSEMBLY & WORDMARK (0.0s – 2.8s)       -->
+      <!-- =============================================================== -->
+      <div id="scene-1" class="clip perspective-stage" data-layout-allow-overlap data-start="0" data-duration="3.0" style="z-index: 10; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <div id="s1-container" data-layout-allow-overlap style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+          <!-- Light Particle Swarm -->
+          <div id="s1-particles" data-layout-allow-overflow style="position: absolute; width: 600px; height: 600px; pointer-events: none;">
+            <div class="s1-p" style="position: absolute; left: 10%; top: 20%; width: 8px; height: 8px; border-radius: 50%; background: #BAFF7A; box-shadow: 0 0 16px #BAFF7A;"></div>
+            <div class="s1-p" style="position: absolute; right: 15%; top: 25%; width: 10px; height: 10px; border-radius: 50%; background: #00FFCC; box-shadow: 0 0 20px #00FFCC;"></div>
+            <div class="s1-p" style="position: absolute; left: 25%; bottom: 20%; width: 9px; height: 9px; border-radius: 50%; background: #BAFF7A; box-shadow: 0 0 18px #BAFF7A;"></div>
+            <div class="s1-p" style="position: absolute; right: 20%; bottom: 30%; width: 7px; height: 7px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 0 14px #FFFFFF;"></div>
+            <div class="s1-p" style="position: absolute; left: 45%; top: 10%; width: 8px; height: 8px; border-radius: 50%; background: #00FFCC; box-shadow: 0 0 18px #00FFCC;"></div>
+            <div class="s1-p" style="position: absolute; right: 40%; bottom: 12%; width: 9px; height: 9px; border-radius: 50%; background: #BAFF7A; box-shadow: 0 0 16px #BAFF7A;"></div>
+          </div>
+
+          <!-- Assembled Official Monogram Emblem (exact path from opening-card-logo.svg) -->
+          <div id="s1-emblem-box" style="position: relative; width: 170px; height: 170px; margin-bottom: 36px; display: flex; align-items: center; justify-content: center;">
+            <div data-layout-allow-overflow style="position: absolute; inset: -30px; border-radius: 50%; background: radial-gradient(circle, rgba(186,255,122,0.6) 0%, rgba(0,255,204,0.35) 45%, transparent 70%); filter: blur(32px); pointer-events: none;"></div>
+            <div style="position: relative; width: 150px; height: 150px; border-radius: 40px; background: rgba(26, 26, 26, 0.9); backdrop-filter: blur(28px); border: 2px solid rgba(255,255,255,0.28); box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 50px rgba(0,255,204,0.3); display: flex; align-items: center; justify-content: center;">
+              <svg width="100" height="100" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+                <defs>
+                  <linearGradient id="s1-logo-grad" x1="15%" y1="10%" x2="85%" y2="100%">
+                    <stop offset="0%" stop-color="#BAFF7A" />
+                    <stop offset="100%" stop-color="#00FFCC" />
+                  </linearGradient>
+                </defs>
+                <path d="M 28.0,47.0 L 44.0,47.0 L 56.0,69.0 L 66.0,55.0 L 77.0,75.0 L 77.0,80.0 L 71.0,90.0 L 69.0,90.0 L 61.0,77.0 L 50.0,92.0 L 28.0,48.0 Z M 118.0,22.0 L 121.0,22.0 L 121.0,58.0 L 111.0,54.0 L 72.0,127.0 L 70.0,128.0 L 67.0,125.0 L 53.0,95.0 L 59.0,85.0 L 63.0,84.0 L 69.0,96.0 L 72.0,96.0 L 98.0,48.0 L 96.0,44.0 L 90.0,42.0 L 90.0,39.0 L 117.0,23.0 Z" fill="url(#s1-logo-grad)" fill-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Wordmark -->
+          <h1 id="s1-wordmark" class="font-display" style="font-size: 110px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #FFFFFF; line-height: 1; text-shadow: 0 4px 30px rgba(0,0,0,0.95);">
+            VELLOXA
+          </h1>
+
+          <div id="s1-badge" data-layout-allow-overlap style="margin-top: 28px; padding: 12px 38px; border-radius: 9999px; background: rgba(36,36,36,0.85); border: 1px solid rgba(255,255,255,0.22); backdrop-filter: blur(20px); display: flex; align-items: center; gap: 14px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #BAFF7A; box-shadow: 0 0 12px #BAFF7A;"></span>
+            <span class="font-mono" style="font-size: 18px; font-weight: 700; letter-spacing: 0.28em; color: #FFFFFF; text-transform: uppercase;">
+              DIGITAL AGENCY <span class="text-cyan">///</span> SCALE FAST
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SCENE 2: 3D MACBOOK ROTATING — WEB ENGINEERING (2.6s – 5.8s)    -->
+      <!-- =============================================================== -->
+      <div id="scene-2" class="clip perspective-stage" data-layout-allow-overlap data-start="2.6" data-duration="3.4" style="z-index: 20; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <!-- Scene Header -->
+        <div id="s2-header" data-layout-allow-overlap style="position: absolute; top: 120px; text-align: center; z-index: 25; width: 900px;">
+          <div class="font-mono" style="font-size: 16px; letter-spacing: 0.35em; color: #BAFF7A; text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+            // 01 ARCHITECTURE
+          </div>
+          <h2 class="font-display" style="font-size: 68px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #ffffff; text-shadow: 0 4px 24px rgba(0,0,0,0.95);">
+            WEB ENGINEERING<span class="text-lime" style="text-shadow: 0 0 16px #000, 0 2px 4px #000;">.</span>
+          </h2>
+          <p class="font-body" style="font-size: 22px; color: #CBD5E1; margin-top: 10px;">
+            High-conversion platforms engineered for sub-second speed.
+          </p>
+        </div>
+
+        <!-- Studio Reflective Surface -->
+        <div class="studio-floor-reflection" data-layout-allow-overflow style="top: 1040px;"></div>
+
+        <!-- 3D MACBOOK MODEL ROTATING ON REFLECTIVE GROUND -->
+        <div id="s2-macbook-3d" class="macbook-3d-box" style="margin-top: 20px; transform-origin: center center;">
+          <div class="macbook-lid-vert">
+            <!-- Notch -->
+            <div class="macbook-notch-vert">
+              <div style="width: 5px; height: 5px; border-radius: 50%; background: #1a202c;"></div>
+              <div style="width: 4px; height: 4px; border-radius: 50%; background: #00FFCC; box-shadow: 0 0 8px #00FFCC;"></div>
+            </div>
+
+            <!-- Screen: Glowing Abstract Code & UI in Accent Colors -->
+            <div class="macbook-screen-vert">
+              <!-- Browser Bar -->
+              <div style="height: 42px; background: rgba(26,26,26,0.98); border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; padding: 0 16px; justify-content: space-between;">
+                <div style="display: flex; gap: 6px;">
+                  <div style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56;"></div>
+                  <div style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e;"></div>
+                  <div style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f;"></div>
+                </div>
+                <div style="background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.12); padding: 4px 20px; border-radius: 9999px;">
+                  <span class="font-mono" style="font-size: 11px; color: #BAFF7A; font-weight: 600;">velloxa.io/engine</span>
+                </div>
+                <span class="font-mono" style="font-size: 10px; color: #00FFCC; font-weight: 700;">● 60 FPS</span>
+              </div>
+
+              <!-- Abstract UI / Code Layout in Lime & Cyan -->
+              <div style="flex: 1; padding: 28px 32px; display: flex; flex-direction: column; justify-content: space-between; background: radial-gradient(circle at 70% 30%, rgba(0,255,204,0.18) 0%, rgba(186,255,122,0.08) 50%, #0d0d0d 85%);">
+                <!-- Code Editor Snippet -->
+                <div style="background: rgba(18,20,24,0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 18px 22px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: #CBD5E1;">
+                  <div><span style="color: #00FFCC;">import</span> { NextEngine, WebGLShader } <span style="color: #00FFCC;">from</span> <span style="color: #BAFF7A;">'@velloxa/core'</span>;</div>
+                  <div style="margin-top: 4px;"><span style="color: #BAFF7A;">const</span> platform = <span style="color: #00FFCC;">await</span> NextEngine.deploy({</div>
+                  <div style="padding-left: 18px; color: #FFFFFF;">performance: <span style="color: #BAFF7A;">'SUB_SECOND_EDGE'</span>,</div>
+                  <div style="padding-left: 18px; color: #FFFFFF;">conversions: <span style="color: #00FFCC;">'OPTIMIZED_MAX'</span></div>
+                  <div>});</div>
+                </div>
+
+                <!-- Live Performance Metrics -->
+                <div style="display: flex; justify-content: space-between; gap: 14px; margin-top: 14px;">
+                  <div style="flex: 1; background: rgba(36,36,36,0.85); border: 1px solid rgba(186,255,122,0.3); border-radius: 12px; padding: 14px; text-align: center;">
+                    <div class="font-mono" style="font-size: 11px; color: #CBD5E1;">EDGE LATENCY</div>
+                    <div class="font-display" style="font-size: 26px; font-weight: 700; color: #00FFCC; margin-top: 2px;">12ms</div>
+                  </div>
+                  <div style="flex: 1; background: rgba(36,36,36,0.85); border: 1px solid rgba(186,255,122,0.3); border-radius: 12px; padding: 14px; text-align: center;">
+                    <div class="font-mono" style="font-size: 11px; color: #CBD5E1;">LIGHTHOUSE</div>
+                    <div class="font-display" style="font-size: 26px; font-weight: 700; color: #BAFF7A; margin-top: 2px;">100/100</div>
+                  </div>
+                  <div style="flex: 1; background: rgba(36,36,36,0.85); border: 1px solid rgba(186,255,122,0.3); border-radius: 12px; padding: 14px; text-align: center;">
+                    <div class="font-mono" style="font-size: 11px; color: #CBD5E1;">UPTIME</div>
+                    <div class="font-display" style="font-size: 26px; font-weight: 700; color: #FFFFFF; margin-top: 2px;">99.99%</div>
+                  </div>
+                </div>
+
+                <!-- Glare -->
+                <div id="s2-glare" class="glass-glare" data-layout-allow-overflow style="width: 250%; height: 250%; top: -75%; left: -75%; transform: rotate(25deg);"></div>
+              </div>
+            </div>
+          </div>
+          <div class="macbook-base-vert" data-layout-allow-overflow>
+            <div class="macbook-base-indent-vert"></div>
+          </div>
+        </div>
+
+        <!-- Floating Feature Card -->
+        <div id="s2-card" class="glass-card-lime" data-layout-allow-overlap style="margin-top: 90px; width: 840px; padding: 24px 34px; border-radius: 24px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div class="font-mono" style="font-size: 13px; color: #BAFF7A; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">
+              FULL-STACK CAPABILITY
+            </div>
+            <div class="font-display" style="font-size: 28px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-top: 4px;">
+              NEXT.JS + WEBGL ACCELERATION
+            </div>
+          </div>
+          <div class="font-mono" style="font-size: 14px; color: #08080a; background: #BAFF7A; padding: 10px 24px; border-radius: 9999px; font-weight: 700;">
+            PROVEN ROI
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SCENE 3: MATCH-CUT 3D IPHONE — AI INTEGRATION (5.6s – 8.8s)     -->
+      <!-- =============================================================== -->
+      <div id="scene-3" class="clip perspective-stage" data-layout-allow-overlap data-start="5.6" data-duration="3.4" style="z-index: 30; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <!-- Scene Header -->
+        <div id="s3-header" data-layout-allow-overlap style="position: absolute; top: 120px; text-align: center; z-index: 35; width: 900px;">
+          <div class="font-mono" style="font-size: 16px; letter-spacing: 0.35em; color: #00FFCC; text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+            // 02 INTELLIGENCE
+          </div>
+          <h2 class="font-display" style="font-size: 68px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #ffffff; text-shadow: 0 4px 24px rgba(0,0,0,0.95);">
+            AI INTEGRATION<span class="text-cyan" style="text-shadow: 0 0 16px #000, 0 2px 4px #000;">.</span>
+          </h2>
+          <p class="font-body" style="font-size: 22px; color: #CBD5E1; margin-top: 10px;">
+            Autonomous multi-agent workflows and real-time intake pipelines.
+          </p>
+        </div>
+
+        <!-- Studio Reflective Surface -->
+        <div class="studio-floor-reflection" data-layout-allow-overflow style="top: 1220px;"></div>
+
+        <!-- 3D IPHONE MODEL PULSING WITH NEURAL NETWORK -->
+        <div id="s3-iphone-3d" class="iphone-3d-box" style="margin-top: 60px; transform-origin: center center;">
+          <div class="iphone-frame-vert">
+            <!-- Dynamic Island -->
+            <div class="iphone-island-vert">
+              <div style="width: 10px; height: 10px; border-radius: 50%; background: #111;"></div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background: #BAFF7A; box-shadow: 0 0 8px #BAFF7A;"></span>
+                <span class="font-mono" style="font-size: 10px; color: #FFFFFF; font-weight: 700;">VELLOXA NEURAL</span>
+              </div>
+              <div style="width: 8px; height: 8px; border-radius: 50%; background: #00FFCC;"></div>
+            </div>
+
+            <!-- Screen: Neural Network Graph Animation -->
+            <div class="iphone-screen-vert" style="padding: 70px 24px 28px 24px; justify-content: space-between;">
+              <!-- Top App Status -->
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="font-display" style="font-size: 20px; font-weight: 700; color: #FFFFFF; letter-spacing: 0.05em;">AI INTAKE ENGINE</span>
+                <span class="font-mono" style="font-size: 11px; color: #BAFF7A; font-weight: 700; background: rgba(186,255,122,0.12); padding: 4px 10px; border-radius: 9999px; border: 1px solid rgba(186,255,122,0.3);">● 24/7 ACTIVE</span>
+              </div>
+
+              <!-- Animated Neural Graph Container -->
+              <div style="background: rgba(20,24,28,0.95); border: 1px solid rgba(0,255,204,0.3); border-radius: 20px; padding: 20px; position: relative; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.7);">
+                <div class="font-mono" style="font-size: 11px; color: #CBD5E1; margin-bottom: 12px;">// SYNAPTIC AGENT MAPPING</div>
+                <!-- SVG Neural Network Nodes -->
+                <svg width="100%" height="160" viewBox="0 0 360 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Connections -->
+                  <line x1="40" y1="80" x2="130" y2="40" stroke="#BAFF7A" stroke-width="2" stroke-opacity="0.6" />
+                  <line x1="40" y1="80" x2="130" y2="120" stroke="#00FFCC" stroke-width="2" stroke-opacity="0.6" />
+                  <line x1="130" y1="40" x2="230" y2="40" stroke="#BAFF7A" stroke-width="2" stroke-opacity="0.8" />
+                  <line x1="130" y1="40" x2="230" y2="120" stroke="#00FFCC" stroke-width="2" stroke-opacity="0.5" />
+                  <line x1="130" y1="120" x2="230" y2="40" stroke="#BAFF7A" stroke-width="2" stroke-opacity="0.5" />
+                  <line x1="130" y1="120" x2="230" y2="120" stroke="#00FFCC" stroke-width="2" stroke-opacity="0.8" />
+                  <line x1="230" y1="40" x2="320" y2="80" stroke="#BAFF7A" stroke-width="2.5" />
+                  <line x1="230" y1="120" x2="320" y2="80" stroke="#00FFCC" stroke-width="2.5" />
+
+                  <!-- Nodes -->
+                  <circle cx="40" cy="80" r="10" fill="#BAFF7A" />
+                  <circle cx="130" cy="40" r="9" fill="#00FFCC" />
+                  <circle cx="130" cy="120" r="9" fill="#BAFF7A" />
+                  <circle cx="230" cy="40" r="9" fill="#BAFF7A" />
+                  <circle cx="230" cy="120" r="9" fill="#00FFCC" />
+                  <circle cx="320" cy="80" r="12" fill="#FFFFFF" stroke="#00FFCC" stroke-width="3" />
+                </svg>
+
+                <div class="font-mono" style="font-size: 12px; color: #BAFF7A; margin-top: 10px; font-weight: 600;">
+                  &gt; Autonomous Lead Intake: Verified ✓<br/>
+                  &gt; CRM Pipeline: Synchronized
+                </div>
+              </div>
+
+              <!-- Bottom Metrics -->
+              <div style="background: rgba(36,36,36,0.9); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;">
+                <span class="font-body" style="font-size: 15px; font-weight: 600; color: #FFFFFF;">Conversion Boost</span>
+                <span class="font-display" style="font-size: 26px; font-weight: 700; color: #BAFF7A;">+340%</span>
+              </div>
+
+              <!-- CTA -->
+              <div class="font-body" style="background: #FFFFFF; color: #08080a; text-align: center; padding: 14px 0; border-radius: 14px; font-weight: 700; font-size: 15px;">
+                Deploy Agent System →
+              </div>
+
+              <!-- Glare -->
+              <div id="s3-glare" class="glass-glare" data-layout-allow-overflow style="width: 250%; height: 250%; top: -75%; left: -75%; transform: rotate(25deg);"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Badge -->
+        <div id="s3-card" class="glass-card" data-layout-allow-overlap style="margin-top: 70px; width: 840px; padding: 22px 32px; border-radius: 22px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div class="font-mono" style="font-size: 13px; color: #00FFCC; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">
+              AUTONOMOUS INTAKE
+            </div>
+            <div class="font-display" style="font-size: 26px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-top: 4px;">
+              NEURAL AGENT INTEGRATION
+            </div>
+          </div>
+          <div class="font-mono" style="font-size: 13px; color: #00FFCC; font-weight: 700;">
+            INSTANT LEAD SYNC ●
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SCENE 4: PASSION MARKETING & 4 CONNECTED NODES (8.6s – 11.6s)   -->
+      <!-- =============================================================== -->
+      <div id="scene-4" class="clip perspective-stage" data-layout-allow-overlap data-start="8.6" data-duration="3.2" style="z-index: 40; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <!-- Bright Light Trail Wipe Element -->
+        <div id="s4-wipe" data-layout-allow-overflow style="position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(186,255,122,0.6) 30%, rgba(0,255,204,0.8) 50%, rgba(255,255,255,0.95) 55%, transparent 80%); pointer-events: none; z-index: 42;"></div>
+
+        <div id="s4-content" data-layout-allow-overlap style="position: relative; z-index: 48; display: flex; flex-direction: column; align-items: center; text-align: center; width: 920px;">
+          <!-- Megaphone / Growth Motif Badge -->
+          <div id="s4-motif" style="width: 100px; height: 100px; border-radius: 28px; background: rgba(36,36,36,0.92); border: 2px solid #BAFF7A; box-shadow: 0 0 45px rgba(186,255,122,0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+            <!-- Megaphone / Exponential Curve SVG -->
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#BAFF7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 11l19-9-9 19-2-8-8-2z"></path>
+              <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+            </svg>
+          </div>
+
+          <div class="font-mono" style="font-size: 16px; letter-spacing: 0.35em; color: #BAFF7A; text-transform: uppercase; margin-bottom: 8px; font-weight: 700;">
+            // 03 PASSION MARKETING
+          </div>
+          <h2 class="font-display" style="font-size: 72px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.01em; color: #ffffff; text-shadow: 0 4px 24px rgba(0,0,0,0.95);">
+            EXPONENTIAL GROWTH<span class="text-lime" style="text-shadow: 0 0 16px #000, 0 2px 4px #000;">.</span>
+          </h2>
+          <p class="font-body" style="font-size: 22px; color: #CBD5E1; margin-top: 10px; max-width: 800px;">
+            A battle-tested 4-phase flywheel engineered to capture and scale high-value market share.
+          </p>
+
+          <!-- FOUR GLOWING CONNECTED NODES: AUDIT -> STRATEGY -> BUILD -> SCALE -->
+          <div id="s4-nodes-container" style="margin-top: 70px; width: 100%; position: relative;">
+            <!-- Connecting Pipeline Line -->
+            <div style="position: absolute; top: 50px; left: 80px; right: 80px; height: 4px; background: rgba(255,255,255,0.15); z-index: 1;">
+              <div id="s4-line-progress" style="width: 0%; height: 100%; background: linear-gradient(90deg, #BAFF7A, #00FFCC);"></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; position: relative; z-index: 2;">
+              <!-- Node 1: Audit -->
+              <div class="s4-node" style="display: flex; flex-direction: column; align-items: center; width: 200px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: #1A1A1A; border: 3px solid #BAFF7A; box-shadow: 0 0 30px rgba(186,255,122,0.45); display: flex; align-items: center; justify-content: center;">
+                  <span class="font-mono" style="font-size: 24px; font-weight: 700; color: #BAFF7A; text-shadow: 0 0 10px #000;">01</span>
+                </div>
+                <span class="font-display" style="font-size: 28px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-top: 16px;">AUDIT</span>
+                <span class="font-body" style="font-size: 14px; color: #FFFFFF; text-shadow: 0 2px 8px #000; font-weight: 500; margin-top: 4px;">Diagnostic Analysis</span>
+              </div>
+
+              <!-- Node 2: Strategy -->
+              <div class="s4-node" style="display: flex; flex-direction: column; align-items: center; width: 200px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: #1A1A1A; border: 3px solid #00FFCC; box-shadow: 0 0 30px rgba(0,255,204,0.45); display: flex; align-items: center; justify-content: center;">
+                  <span class="font-mono" style="font-size: 24px; font-weight: 700; color: #00FFCC; text-shadow: 0 0 10px #000;">02</span>
+                </div>
+                <span class="font-display" style="font-size: 28px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-top: 16px;">STRATEGY</span>
+                <span class="font-body" style="font-size: 14px; color: #FFFFFF; text-shadow: 0 2px 8px #000; font-weight: 500; margin-top: 4px;">Roadmap Blueprint</span>
+              </div>
+
+              <!-- Node 3: Build -->
+              <div class="s4-node" style="display: flex; flex-direction: column; align-items: center; width: 200px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: #1A1A1A; border: 3px solid #BAFF7A; box-shadow: 0 0 30px rgba(186,255,122,0.45); display: flex; align-items: center; justify-content: center;">
+                  <span class="font-mono" style="font-size: 24px; font-weight: 700; color: #BAFF7A; text-shadow: 0 0 10px #000;">03</span>
+                </div>
+                <span class="font-display" style="font-size: 28px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-top: 16px;">BUILD</span>
+                <span class="font-body" style="font-size: 14px; color: #FFFFFF; text-shadow: 0 2px 8px #000; font-weight: 500; margin-top: 4px;">Web & AI Systems</span>
+              </div>
+
+              <!-- Node 4: Scale -->
+              <div class="s4-node" style="display: flex; flex-direction: column; align-items: center; width: 200px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: #1A1A1A; border: 3px solid #00FFCC; box-shadow: 0 0 30px rgba(0,255,204,0.45); display: flex; align-items: center; justify-content: center;">
+                  <span class="font-mono" style="font-size: 24px; font-weight: 700; color: #00FFCC; text-shadow: 0 0 10px #000;">04</span>
+                </div>
+                <span class="font-display" style="font-size: 28px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-top: 16px;">SCALE</span>
+                <span class="font-body" style="font-size: 14px; color: #FFFFFF; text-shadow: 0 2px 8px #000; font-weight: 500; margin-top: 4px;">Omnichannel Lift</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============================================================== -->
+      <!-- SCENE 5: CLIMAX & BRAND CLOSE (11.4s – 15.0s)                  -->
+      <!-- =============================================================== -->
+      <div id="scene-5" class="clip perspective-stage" data-layout-allow-overlap data-start="11.4" data-duration="3.6" style="z-index: 50; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <div id="s5-container" data-layout-allow-overlap style="display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+          <!-- Prismatic Burst Background Bloom -->
+          <div id="s5-burst" data-layout-allow-overflow style="position: absolute; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(186,255,122,0.45) 0%, rgba(0,255,204,0.3) 45%, transparent 70%); filter: blur(60px); z-index: 1; pointer-events: none;"></div>
+
+          <!-- Centered Official Monogram Emblem -->
+          <div id="s5-emblem" style="position: relative; z-index: 2; width: 180px; height: 180px; margin-bottom: 32px; display: flex; align-items: center; justify-content: center;">
+            <div data-layout-allow-overflow style="position: absolute; inset: -35px; border-radius: 50%; background: radial-gradient(circle, rgba(186,255,122,0.65) 0%, rgba(0,255,204,0.4) 45%, transparent 75%); filter: blur(34px); pointer-events: none;"></div>
+            <div style="position: relative; width: 160px; height: 160px; border-radius: 44px; background: rgba(26, 26, 26, 0.92); backdrop-filter: blur(32px); border: 2px solid rgba(255,255,255,0.3); box-shadow: 0 30px 90px rgba(0,0,0,0.95), 0 0 60px rgba(186,255,122,0.35); display: flex; align-items: center; justify-content: center;">
+              <svg width="110" height="110" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+                <defs>
+                  <linearGradient id="s5-logo-grad" x1="10%" y1="0%" x2="90%" y2="100%">
+                    <stop offset="0%" stop-color="#BAFF7A" />
+                    <stop offset="50%" stop-color="#00FFCC" />
+                    <stop offset="100%" stop-color="#FFFFFF" />
+                  </linearGradient>
+                </defs>
+                <path d="M 28.0,47.0 L 44.0,47.0 L 56.0,69.0 L 66.0,55.0 L 77.0,75.0 L 77.0,80.0 L 71.0,90.0 L 69.0,90.0 L 61.0,77.0 L 50.0,92.0 L 28.0,48.0 Z M 118.0,22.0 L 121.0,22.0 L 121.0,58.0 L 111.0,54.0 L 72.0,127.0 L 70.0,128.0 L 67.0,125.0 L 53.0,95.0 L 59.0,85.0 L 63.0,84.0 L 69.0,96.0 L 72.0,96.0 L 98.0,48.0 L 96.0,44.0 L 90.0,42.0 L 90.0,39.0 L 117.0,23.0 Z" fill="url(#s5-logo-grad)" fill-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Full Wordmark -->
+          <h1 id="s5-wordmark" class="font-display" style="font-size: 130px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #FFFFFF; line-height: 1; z-index: 2; text-shadow: 0 4px 30px rgba(0,0,0,0.95);">
+            VELLOXA
+          </h1>
+
+          <!-- Tagline verbatim from codebase -->
+          <h2 id="s5-tagline" class="font-display" style="font-size: 44px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 18px; z-index: 2; color: #FFFFFF; text-shadow: 0 4px 24px rgba(0,0,0,0.95);">
+            WE BUILD<span class="text-lime" style="text-shadow: 0 0 16px #000, 0 2px 4px #000;">.</span> YOU GROW<span class="text-cyan" style="text-shadow: 0 0 16px #000, 0 2px 4px #000;">.</span>
+          </h2>
+
+          <!-- Stat Overlay: 2X-3X Traffic Growth -->
+          <div id="s5-stat-card" class="glass-card-lime" data-layout-allow-overlap style="margin-top: 42px; padding: 20px 48px; border-radius: 24px; z-index: 2; display: flex; align-items: center; gap: 20px;">
+            <span style="font-size: 32px;">📈</span>
+            <div style="text-align: left;">
+              <div class="font-display" style="font-size: 38px; font-weight: 700; color: #BAFF7A; line-height: 1;">
+                2X–3X TRAFFIC GROWTH
+              </div>
+              <div class="font-mono" style="font-size: 14px; color: #CBD5E1; margin-top: 4px; font-weight: 600;">
+                HIGH-CONVERSION ARCHITECTURE
+              </div>
+            </div>
+          </div>
+
+          <!-- Website Pill -->
+          <div id="s5-pill" data-layout-allow-overlap style="margin-top: 36px; padding: 14px 44px; border-radius: 9999px; background: rgba(36,36,36,0.9); border: 1.5px solid #00FFCC; box-shadow: 0 10px 40px rgba(0,255,204,0.3); z-index: 2; display: flex; align-items: center; gap: 12px;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #00FFCC; box-shadow: 0 0 10px #00FFCC;"></span>
+            <span class="font-mono" style="font-size: 22px; font-weight: 700; letter-spacing: 0.12em; color: #FFFFFF;">
+              velloxa.io
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE SCRIPT -->
+    <script>
+      // 1. DETERMINISTIC WATERPLANE SHADER BACKGROUND (9:16 VERTICAL CANVAS)
+      const bgCanvas = document.getElementById('canvas-bg');
+      const W = 1080;
+      const H = 1920;
+
+      let gl = null;
+      let glProgram = null;
+      let uTimeLoc = null;
+      let uResLoc = null;
+      let ctx2d = null;
+
+      try {
+        gl = bgCanvas.getContext('webgl') || bgCanvas.getContext('experimental-webgl');
+      } catch (e) {
+        gl = null;
+      }
+
+      if (gl) {
+        const vsSrc = `
+          attribute vec2 position;
+          void main() {
+            gl_Position = vec4(position, 0.0, 1.0);
+          }
+        `;
+        // Exact ShaderGradient colors:
+        // color1: #BAFF7A -> vec3(0.729, 1.0, 0.478)
+        // color2: #00FFCC -> vec3(0.0, 1.0, 0.8)
+        // color3: #1A1A1A -> vec3(0.102, 0.102, 0.102)
+        const fsSrc = `
+          precision highp float;
+          uniform float u_time;
+          uniform vec2 u_resolution;
+
+          vec3 c1 = vec3(0.729, 1.0, 0.478);
+          vec3 c2 = vec3(0.0, 1.0, 0.8);
+          vec3 c3 = vec3(0.102, 0.102, 0.102);
+
+          vec2 rot(vec2 p, float a) {
+            float c = cos(a);
+            float s = sin(a);
+            return vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+          }
+
+          void main() {
+            vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+            vec2 p = rot(uv, -1.047);
+            p.y *= 1.4;
+
+            float t = u_time * 0.45;
+            float w1 = sin(p.x * 2.2 + t * 1.1) * cos(p.y * 1.8 + t * 0.8);
+            float w2 = sin((p.x + p.y) * 2.6 - t * 0.9) * cos((p.x - p.y) * 2.0 + t * 0.7);
+            float w3 = sin(length(p) * 3.2 - t * 1.1) * 0.5;
+            float wave = (w1 * 0.5 + w2 * 0.35 + w3 * 0.25) * 1.5;
+
+            float f1 = smoothstep(-0.5, 0.7, wave);
+            float f2 = smoothstep(0.05, 1.1, wave + 0.35 * sin(p.x * 3.0 + t));
+
+            vec3 col = mix(c3, c2, f1);
+            col = mix(col, c1, f2 * 0.85);
+
+            float crest = pow(smoothstep(0.4, 1.25, wave), 3.0) * 0.18;
+            col += vec3(crest);
+
+            float vig = smoothstep(1.4, 0.35, length(uv));
+            col = mix(c3 * 0.7, col, clamp(vig, 0.15, 1.0));
+
+            gl_FragColor = vec4(col, 1.0);
+          }
+        `;
+
+        function createShader(glCtx, type, source) {
+          const s = glCtx.createShader(type);
+          glCtx.shaderSource(s, source);
+          glCtx.compileShader(s);
+          return s;
+        }
+
+        const vs = createShader(gl, gl.VERTEX_SHADER, vsSrc);
+        const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSrc);
+        glProgram = gl.createProgram();
+        gl.attachShader(glProgram, vs);
+        gl.attachShader(glProgram, fs);
+        gl.linkProgram(glProgram);
+
+        const posBuf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+          -1, -1,  1, -1, -1,  1,
+          -1,  1,  1, -1,  1,  1
+        ]), gl.STATIC_DRAW);
+
+        const posLoc = gl.getAttribLocation(glProgram, 'position');
+        gl.enableVertexAttribArray(posLoc);
+        gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+        uTimeLoc = gl.getUniformLocation(glProgram, 'u_time');
+        uResLoc = gl.getUniformLocation(glProgram, 'u_resolution');
+      } else {
+        ctx2d = bgCanvas.getContext('2d');
+      }
+
+      function renderBg(time) {
+        if (gl && glProgram) {
+          gl.viewport(0, 0, W, H);
+          gl.useProgram(glProgram);
+          gl.uniform1f(uTimeLoc, time);
+          gl.uniform2f(uResLoc, W, H);
+          gl.drawArrays(gl.TRIANGLES, 0, 6);
+        } else if (ctx2d) {
+          ctx2d.fillStyle = '#1A1A1A';
+          ctx2d.fillRect(0, 0, W, H);
+
+          const x1 = W * 0.4 + Math.sin(time * 0.7) * 160;
+          const y1 = H * 0.45 + Math.cos(time * 0.6) * 220;
+          const r1 = 600 + Math.sin(time * 1.0) * 80;
+          const grad1 = ctx2d.createRadialGradient(x1, y1, 20, x1, y1, r1);
+          grad1.addColorStop(0, 'rgba(186, 255, 122, 0.35)');
+          grad1.addColorStop(0.5, 'rgba(186, 255, 122, 0.08)');
+          grad1.addColorStop(1, 'rgba(26, 26, 26, 0)');
+          ctx2d.fillStyle = grad1;
+          ctx2d.fillRect(0, 0, W, H);
+        }
+      }
+
+      renderBg(0);
+
+      // 2. MASTER GSAP TIMELINE (15 SECONDS EXACT DURATION)
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      const bgDriver = { t: 0 };
+      tl.to(bgDriver, {
+        t: 15,
+        duration: 15,
+        ease: "none",
+        onUpdate: () => renderBg(bgDriver.t)
+      }, 0);
+
+      // SCENE 1: LIGHT PARTICLES ASSEMBLING INTO WORDMARK (0.0s – 2.8s)
+      tl.fromTo("#s1-container", 
+        { opacity: 0, scale: 1.15, filter: "blur(18px)" },
+        { opacity: 1, scale: 1.0, filter: "blur(0px)", duration: 1.0, ease: "power3.out" },
+        0.05
+      );
+      // Inward particle convergence
+      tl.fromTo(".s1-p",
+        { scale: 2.5, opacity: 0, x: (i) => (i % 2 === 0 ? -120 : 120), y: (i) => (i < 3 ? -100 : 100) },
+        { scale: 1.0, opacity: 0.9, x: 0, y: 0, duration: 1.2, ease: "power2.inOut", stagger: 0.06 },
+        0.1
+      );
+      tl.fromTo("#s1-emblem-box",
+        { rotation: -30, scale: 0.5, opacity: 0 },
+        { rotation: 0, scale: 1.0, opacity: 1, duration: 1.0, ease: "back.out(1.8)" },
+        0.5
+      );
+      tl.fromTo("#s1-wordmark",
+        { opacity: 0, scale: 0.9, y: 24 },
+        { opacity: 1, scale: 1.0, y: 0, duration: 0.9, ease: "power2.out" },
+        0.8
+      );
+      tl.fromTo("#s1-badge",
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        1.1
+      );
+      // Scene 1 Exit: Slow push-in transition
+      tl.to("#s1-container", {
+        opacity: 0,
+        scale: 1.12,
+        filter: "blur(12px)",
+        duration: 0.35,
+        ease: "power2.in"
+      }, 2.5);
+      tl.set("#s1-container", { opacity: 0 }, 2.6);
+
+      // SCENE 2: 3D MACBOOK PUSH-IN & ROTATION — WEB ENGINEERING (2.6s – 5.8s)
+      tl.fromTo("#s2-header",
+        { opacity: 0, y: -40 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        2.7
+      );
+      // Apple Keynote 3D entrance with slow dolly push-in (2.7s to 3.76s)
+      tl.fromTo("#s2-macbook-3d",
+        { opacity: 0, scale: 0.76, rotateY: -28, rotateX: 18, rotateZ: -2, z: -200 },
+        { opacity: 1, scale: 1.0, rotateY: -10, rotateX: 8, rotateZ: -1, z: 0, duration: 1.06, ease: "power3.out" },
+        2.7
+      );
+      // Specular Glare sweep
+      tl.fromTo("#s2-glare",
+        { xPercent: -120 },
+        { xPercent: 130, duration: 1.6, ease: "power2.inOut" },
+        3.2
+      );
+      tl.fromTo("#s2-card",
+        { opacity: 0, y: 40, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1.0, duration: 0.8, ease: "back.out(1.4)" },
+        3.4
+      );
+      // Continuous 3D slow rotation while animation happens (3.82s to 5.18s)
+      tl.to("#s2-macbook-3d", {
+        rotateY: 8,
+        rotateX: -2,
+        rotateZ: 1.5,
+        y: -15,
+        duration: 1.36,
+        ease: "power1.inOut"
+      }, 3.82);
+
+      // Scene 2 Exit / Match-cut transition (5.22s – 5.58s)
+      tl.to("#s2-header, #s2-card", {
+        opacity: 0,
+        duration: 0.35,
+        ease: "power2.in"
+      }, 5.22);
+      tl.to("#s2-macbook-3d", {
+        opacity: 0,
+        scale: 0.82,
+        rotateY: 18,
+        duration: 0.35,
+        ease: "power2.in"
+      }, 5.22);
+      tl.set("#s2-header, #s2-card", { opacity: 0 }, 5.6);
+      tl.set("#s2-macbook-3d", { opacity: 0 }, 5.6);
+
+      // SCENE 3: MATCH-CUT 3D IPHONE — AI INTEGRATION (5.6s – 8.8s)
+      tl.fromTo("#s3-header",
+        { opacity: 0, y: -40 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        5.7
+      );
+      // 3D iPhone entering from match-cut with smooth slow rotation (5.7s to 6.7s)
+      tl.fromTo("#s3-iphone-3d",
+        { opacity: 0, scale: 0.8, rotateY: -26, rotateX: 18, rotateZ: -2, z: -150 },
+        { opacity: 1, scale: 1.0, rotateY: -8, rotateX: 6, rotateZ: -1, z: 0, duration: 1.0, ease: "power3.out" },
+        5.7
+      );
+      // Glare sweep on iPhone
+      tl.fromTo("#s3-glare",
+        { xPercent: -120 },
+        { xPercent: 130, duration: 1.5, ease: "power2.inOut" },
+        6.1
+      );
+      tl.fromTo("#s3-card",
+        { opacity: 0, y: 40, scale: 0.9 },
+        { opacity: 1, y: 0, scale: 1.0, duration: 0.7, ease: "back.out(1.4)" },
+        6.2
+      );
+      // Continuous 3D rotation while animation happens (6.7s to 8.2s)
+      tl.to("#s3-iphone-3d", {
+        rotateY: 8,
+        rotateX: -2,
+        rotateZ: 1.5,
+        y: -16,
+        duration: 1.5,
+        ease: "power1.inOut"
+      }, 6.7);
+
+      // Scene 3 Exit (8.22s – 8.58s)
+      tl.to("#s3-header, #s3-iphone-3d, #s3-card", {
+        opacity: 0,
+        scale: 0.85,
+        filter: "blur(12px)",
+        duration: 0.35,
+        ease: "power2.in"
+      }, 8.22);
+      tl.set("#s3-header, #s3-iphone-3d, #s3-card", { opacity: 0 }, 8.6);
+
+      // SCENE 4: LIGHT TRAIL WIPE & 4 PILLAR NODES (8.6s – 11.6s)
+      // Bright light trail wipe
+      tl.fromTo("#s4-wipe",
+        { xPercent: -100 },
+        { xPercent: 120, duration: 0.8, ease: "power2.inOut" },
+        8.6
+      );
+      tl.fromTo("#s4-content",
+        { opacity: 0, scale: 0.92, filter: "blur(14px)" },
+        { opacity: 1, scale: 1.0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" },
+        8.8
+      );
+      tl.fromTo("#s4-motif",
+        { rotation: -40, scale: 0.4 },
+        { rotation: 0, scale: 1.0, duration: 0.8, ease: "back.out(1.6)" },
+        8.9
+      );
+      // Sequential 4 connected nodes illumination
+      tl.fromTo("#s4-line-progress",
+        { width: "0%" },
+        { width: "100%", duration: 1.6, ease: "power1.inOut" },
+        9.2
+      );
+      tl.fromTo(".s4-node",
+        { scale: 0.6, opacity: 0, y: 20 },
+        { scale: 1.0, opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.8)", stagger: 0.2 },
+        9.2
+      );
+
+      // Scene 4 Exit (11.1s – 11.5s)
+      tl.to("#s4-content", {
+        opacity: 0,
+        scale: 0.9,
+        filter: "blur(14px)",
+        duration: 0.35,
+        ease: "power2.in"
+      }, 11.1);
+      tl.set("#s4-content", { opacity: 0 }, 11.4);
+
+      // SCENE 5: CLIMAX & BRAND CLOSE (11.4s – 15.0s)
+      tl.fromTo("#s5-container",
+        { opacity: 0, scale: 0.85, filter: "blur(20px)" },
+        { opacity: 1, scale: 1.0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" },
+        11.5
+      );
+      tl.fromTo("#s5-burst",
+        { scale: 0.4, opacity: 0 },
+        { scale: 1.3, opacity: 1, duration: 1.2, ease: "power2.out" },
+        11.5
+      );
+      tl.fromTo("#s5-emblem",
+        { rotation: -45, scale: 0.5 },
+        { rotation: 0, scale: 1.0, duration: 0.9, ease: "back.out(1.8)" },
+        11.6
+      );
+      tl.fromTo("#s5-wordmark",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        11.8
+      );
+      tl.fromTo("#s5-tagline",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
+        12.0
+      );
+      tl.fromTo("#s5-stat-card",
+        { opacity: 0, scale: 0.85, y: 24 },
+        { opacity: 1, scale: 1.0, y: 0, duration: 0.8, ease: "back.out(1.6)" },
+        12.3
+      );
+      tl.fromTo("#s5-pill",
+        { opacity: 0, scale: 0.85, y: 20 },
+        { opacity: 1, scale: 1.0, y: 0, duration: 0.7, ease: "back.out(1.5)" },
+        12.6
+      );
+
+      // Final cinematic fade out at 14.7s
+      tl.to("#s5-container", {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in"
+      }, 14.7);
+
+      window.__timelines['main'] = tl;
+    </script>
+  </body>
+</html>

@@ -66,12 +66,12 @@ export async function POST(request) {
 
     console.log('[VELOXA INTAKE LEAD RECEIVED]', leadRecord);
 
-    const publicDir = path.join(process.cwd(), 'public');
-    const xlsxPath = path.join(publicDir, 'contact_leads.xlsx');
-    const csvPath = path.join(publicDir, 'contact_leads.csv');
+    const dataDir = path.join(process.cwd(), 'data');
+    const xlsxPath = path.join(dataDir, 'contact_leads.xlsx');
+    const csvPath = path.join(dataDir, 'contact_leads.csv');
 
-    if (!fs.existsSync(publicDir)) {
-      fs.mkdirSync(publicDir, { recursive: true });
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
     }
 
     // 1. Update XLSX Workbook using ExcelJS
@@ -178,7 +178,7 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const download = searchParams.get('download');
-    const xlsxPath = path.join(process.cwd(), 'public', 'contact_leads.xlsx');
+    const xlsxPath = path.join(process.cwd(), 'data', 'contact_leads.xlsx');
 
     if (download === '1' && fs.existsSync(xlsxPath)) {
       const fileBuffer = fs.readFileSync(xlsxPath);

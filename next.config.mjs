@@ -31,7 +31,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/:path*\\.(ico|png|svg|jpg|jpeg|webp|avif|woff|woff2|webmanifest|css|js)',
+        source: '/:path*\\.(ico|png|svg|jpg|jpeg|webp|avif|woff|woff2|webmanifest|css|js|mjs|wasm|mp4|webm)',
         headers: [
           {
             key: 'Cache-Control',
@@ -40,7 +40,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/(manifest\\.webmanifest|site\\.webmanifest|robots\\.txt|sitemap\\.xml|llms\\.txt)',
+        source: '/(manifest\\.webmanifest|site\\.webmanifest|robots\\.txt|sitemap\\.xml|llms\\.txt|llms-full\\.txt)',
         headers: [
           {
             key: 'Cache-Control',

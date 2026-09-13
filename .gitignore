@@ -35,3 +35,8 @@ out
 # Remotion build output
 video/node_modules
 video/out
+
+# Private data & lead records
+data/
+*.xlsx
+*.csv

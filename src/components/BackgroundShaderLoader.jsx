@@ -12,12 +12,17 @@ export default function BackgroundShaderLoader() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    let idleHandle = null;
-    let timeoutId = null;
+    let triggered = false;
 
     const activateShader = () => {
-      setMounted(true);
+      if (triggered) return;
+      triggered = true;
       cleanup();
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        window.requestIdleCallback(() => setMounted(true));
+      } else {
+        setTimeout(() => setMounted(true), 50);
+      }
     };
 
     const gestureEvents = ["touchstart", "scroll", "pointerdown", "wheel", "keydown", "click"];
@@ -26,23 +31,13 @@ export default function BackgroundShaderLoader() {
       gestureEvents.forEach((evt) => {
         window.removeEventListener(evt, activateShader);
       });
-      if (idleHandle && typeof window !== 'undefined' && 'cancelIdleCallback' in window) {
-        window.cancelIdleCallback(idleHandle);
-      }
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      window.removeEventListener("velloxa:activate-shader", activateShader);
     };
 
     gestureEvents.forEach((evt) => {
       window.addEventListener(evt, activateShader, { passive: true, once: true });
     });
-
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      idleHandle = window.requestIdleCallback(activateShader, { timeout: 3500 });
-    } else {
-      timeoutId = setTimeout(activateShader, 2500);
-    }
+    window.addEventListener("velloxa:activate-shader", activateShader, { once: true });
 
     return cleanup;
   }, []);

@@ -1,10 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import dynamic from 'next/dynamic';
 
-const ContactPage = lazy(() => import('./ContactPage'));
-const Features = lazy(() => import('@/components/blocks/features-8').then(module => ({ default: module.Features })));
+import { Features } from '@/components/blocks/features-8';
+
+// Code-split below-the-fold sections with SSR to drastically reduce initial JS load
+const ComparisonSection = dynamic(() => import('./ComparisonSection'), { ssr: true });
+const FAQSection = dynamic(() => import('./FAQSection'), { ssr: true });
+const ContactPage = dynamic(() => import('./ContactPage'), { ssr: true });
 
 function AnimatedCounter({ from = 1, to = 100, suffix = '%', duration = 1.8 }) {
   const [count, setCount] = useState(from);
@@ -34,23 +39,26 @@ function AnimatedCounter({ from = 1, to = 100, suffix = '%', duration = 1.8 }) {
   }, [isInView, from, to, duration]);
 
   return (
-    <span ref={ref} className="tabular-nums inline-block">
+    <span ref={ref} className="tabular-nums inline-block" suppressHydrationWarning>
       {count}{suffix}
     </span>
   );
 }
 
 export default function HomePage() {
-  // Automatically synchronize URL hash with current section using IntersectionObserver (ZERO scroll lag)
+  // Automatically synchronize URL hash with current section using debounced IntersectionObserver (ZERO scroll lag)
   useEffect(() => {
     const sections = [
       { id: 'hero-section', hash: '' },
       { id: 'metrics', hash: '#metrics' },
       { id: 'solutions', hash: '#solutions' },
+      { id: 'comparison', hash: '#comparison' },
+      { id: 'faq', hash: '#faq' },
       { id: 'contact', hash: '#contact' },
     ];
 
     let currentHash = window.location.hash;
+    let hashTimeout = null;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -59,8 +67,13 @@ export default function HomePage() {
             const match = sections.find((s) => s.id === entry.target.id);
             if (match && match.hash !== currentHash) {
               currentHash = match.hash;
-              const newUrl = match.hash ? `${window.location.pathname}${match.hash}` : window.location.pathname;
-              window.history.replaceState(null, '', newUrl);
+              if (hashTimeout) clearTimeout(hashTimeout);
+              hashTimeout = setTimeout(() => {
+                const newUrl = match.hash ? `${window.location.pathname}${match.hash}` : window.location.pathname;
+                if (window.location.hash !== match.hash) {
+                  window.history.replaceState(null, '', newUrl);
+                }
+              }, 120);
             }
           }
         });
@@ -73,7 +86,10 @@ export default function HomePage() {
       if (el) observer.observe(el);
     });
 
-    return () => observer.disconnect();
+    return () => {
+      if (hashTimeout) clearTimeout(hashTimeout);
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -109,7 +125,7 @@ export default function HomePage() {
         <div className="flex flex-row items-center justify-center gap-4 mini:gap-6 sm:gap-16 text-center">
           {/* 100% Counter */}
           <div>
-            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight [text-shadow:0_0_25px_rgba(255,255,255,0.4)]">
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight hover-title-shadow">
               <AnimatedCounter from={1} to={100} suffix="%" duration={1.8} />
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">ROI Impact</span>
@@ -119,7 +135,7 @@ export default function HomePage() {
 
           {/* 2X - 3X Traffic */}
           <div>
-            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight [text-shadow:0_0_25px_rgba(255,255,255,0.4)]">
+            <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight hover-title-shadow">
               2<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span>
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">Traffic Growth</span>
@@ -131,8 +147,8 @@ export default function HomePage() {
       <section id="solutions" className="max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
         <div className="text-center max-w-5xl mx-auto">
           <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
-            <span className="text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase [text-shadow:0_0_35px_rgba(255,255,255,0.4)] leading-none select-none">
-              SOLUTIONS<span className="text-cyan [text-shadow:0_0_25px_rgba(0,255,204,0.7)]">.</span>
+            <span className="text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase leading-none select-none">
+              SOLUTIONS<span className="text-cyan">.</span>
             </span>
             <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pt-2">
               Engineered for Growth
@@ -140,16 +156,18 @@ export default function HomePage() {
           </h2>
         </div>
 
-        <Suspense fallback={<div className="h-64 flex items-center justify-center">Loading solutions...</div>}>
-          <Features />
-        </Suspense>
+        <Features />
       </section>
 
-      {/* 4. MULTI-STEP CONTACT INTAKE FORM */}
+      {/* 4. THE VELLOXA ADVANTAGE */}
+      <ComparisonSection />
+
+      {/* 5. FREQUENTLY ASKED QUESTIONS */}
+      <FAQSection />
+
+      {/* 6. MULTI-STEP CONTACT INTAKE FORM */}
       <div id="contact">
-        <Suspense fallback={<div className="h-96 flex items-center justify-center">Loading contact form...</div>}>
-          <ContactPage />
-        </Suspense>
+        <ContactPage />
       </div>
 
     </div>

@@ -1,12 +1,9 @@
-import dynamic from 'next/dynamic';
+"use client";
+
 import ScrollExpandMedia from '@/components/ScrollExpandMedia';
 import HomePage from '@/components/sections/HomePage';
-
+import Footer from '@/components/Footer';
 import BackgroundShaderLoader from '@/components/BackgroundShaderLoader';
-
-const Footer = dynamic(() => import('@/components/Footer'), {
-  ssr: false,
-});
 
 export default function Page() {
   return (

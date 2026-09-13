@@ -33,7 +33,7 @@ export const FlickeringGrid = ({
 
   const setupCanvas = useCallback(
     (canvas, w, h) => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 1.5);
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       canvas.style.width = `${w}px`;
@@ -79,6 +79,7 @@ export const FlickeringGrid = ({
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
           const opacity = squares[i * rows + j];
+          if (opacity < 0.008) continue;
           ctx.fillStyle = `${memoizedColor}${opacity})`;
           ctx.fillRect(
             i * (squareSize + gridGap) * dpr,
@@ -97,20 +98,25 @@ export const FlickeringGrid = ({
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     let animationFrameId;
     let gridParams;
 
-    const updateCanvasSize = () => {
-      const newWidth = width || container.clientWidth;
-      const newHeight = height || container.clientHeight;
-      setCanvasSize({ width: newWidth, height: newHeight });
-      gridParams = setupCanvas(canvas, newWidth, newHeight);
+    let curWidth = width || 0;
+    let curHeight = height || 0;
+
+    const setupDimensions = (w, h) => {
+      if (!w || !h || (w === curWidth && h === curHeight)) return;
+      curWidth = w;
+      curHeight = h;
+      setCanvasSize({ width: w, height: h });
+      gridParams = setupCanvas(canvas, w, h);
     };
 
-    updateCanvasSize();
+    const initialRect = container.getBoundingClientRect();
+    setupDimensions(width || Math.round(initialRect.width), height || Math.round(initialRect.height));
 
     let inView = false;
     let isRunning = false;
@@ -119,6 +125,12 @@ export const FlickeringGrid = ({
     const animate = (time) => {
       if (!inView || !gridParams) {
         isRunning = false;
+        return;
+      }
+
+      // Throttle to ~30 FPS to eliminate long main-thread tasks
+      if (lastTime && time - lastTime < 32) {
+        animationFrameId = requestAnimationFrame(animate);
         return;
       }
 
@@ -155,9 +167,14 @@ export const FlickeringGrid = ({
       }
     };
 
-    const resizeObserver = new ResizeObserver(() => {
-      updateCanvasSize();
-      if (inView) startAnimation();
+    const resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (entry && entry.contentRect) {
+        const w = width || Math.round(entry.contentRect.width);
+        const h = height || Math.round(entry.contentRect.height);
+        setupDimensions(w, h);
+        if (inView) startAnimation();
+      }
     });
 
     resizeObserver.observe(container);
@@ -189,6 +206,7 @@ export const FlickeringGrid = ({
       <canvas
         ref={canvasRef}
         className="pointer-events-none"
+        suppressHydrationWarning
         style={{
           width: canvasSize.width,
           height: canvasSize.height,
