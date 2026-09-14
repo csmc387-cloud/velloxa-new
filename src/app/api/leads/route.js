@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs';
 import ExcelJS from 'exceljs';
+import { syncFilesToCrmDirectories, syncLeadToCrmDatabase } from '@/lib/crmSync';
 
 const HEADERS = [
   'Timestamp',
@@ -160,10 +161,24 @@ export async function POST(request) {
       console.warn('[VELOXA INTAKE LEAD] CSV Write Warning:', csvErr.message);
     }
 
+    // 3. Autonomous CRM Multi-Directory, Docker & PostgreSQL Sync
+    let crmFileSync = null;
+    let crmDbSync = null;
+    try {
+      crmFileSync = await syncFilesToCrmDirectories(csvPath, xlsxPath);
+      crmDbSync = await syncLeadToCrmDatabase(leadRecord);
+    } catch (syncErr) {
+      console.warn('[VELOXA INTAKE LEAD] CRM Sync non-fatal warning:', syncErr.message);
+    }
+
     return NextResponse.json({
       success: true,
-      message: 'Lead captured and appended to contact_leads.xlsx successfully.',
+      message: 'Lead captured, appended to contact_leads.xlsx, and synced to CRM database successfully.',
       lead: leadRecord,
+      crmSync: {
+        files: crmFileSync,
+        database: crmDbSync,
+      },
     });
   } catch (error) {
     console.error('Lead processing error:', error);

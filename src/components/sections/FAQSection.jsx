@@ -37,10 +37,10 @@ export default function FAQSection() {
   return (
     <motion.section
       id="faq"
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-15px" }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       className="max-w-5xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-12 space-y-8"
     >
       {/* Section Header */}

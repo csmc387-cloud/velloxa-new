@@ -15,7 +15,7 @@ const MAIN_STANDARDS = [
     standard: "Smart Business Automation",
     niche: "AI Integration",
     traditional: "Manual data entry or generic copy-paste chatbots that frustrate customers and still leave your staff doing repetitive busywork.",
-    velloxa: "Custom AI assistants that qualify leads 24/7, answer inquiries instantly, and save your team 40+ hours every week.",
+    velloxa: "Custom AI workflows and assistants that qualify leads 24/7, answer inquiries instantly, and save your team 40+ hours every week.",
   },
   {
     standard: "Organic Reach & OmniSearch",
@@ -36,10 +36,10 @@ export default function ComparisonSection() {
   return (
     <motion.section
       id="comparison"
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-15px" }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       className="max-w-6xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 space-y-6"
     >
       {/* Section Header */}
@@ -66,7 +66,7 @@ export default function ComparisonSection() {
                 Traditional Agencies
               </th>
               <th scope="col" className="py-4 px-6 font-mono text-xs uppercase tracking-wider text-lime font-bold w-1/3 bg-lime/10 border-l border-r border-lime/30">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <Zap className="size-3.5 text-cyan fill-cyan" />
                   <span>Velloxa Delivery</span>
                 </div>
@@ -143,7 +143,7 @@ export default function ComparisonSection() {
           >
             <div className="border-b border-white/10 pb-2.5">
               <span className="text-[11px] font-mono text-cyan font-semibold uppercase tracking-wider block mb-1">
-                Category: {row.niche}
+                {row.niche}
               </span>
               <h3 className="text-sm sm:text-base font-bold text-white font-sans flex items-center gap-2">
                 <span className="text-xs font-mono text-lime font-bold">0{idx + 1}.</span>

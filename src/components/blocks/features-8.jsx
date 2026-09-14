@@ -344,13 +344,13 @@ export function Features() {
                 <div className="relative">
                     <div className="relative z-10 grid grid-cols-6 gap-4">
 
-                        {/* 1. Web Engineering (top-left 2-col card) - RIGHT side entrance */}
+                        {/* 1. Web Engineering (top-left 2-col card) */}
                         <motion.div
                             id="web-engineering"
-                            initial={{ opacity: 0, x: 60, y: 35 }}
-                            whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            viewport={{ once: true, margin: "-40px" }}
-                            transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            initial={{ opacity: 0, y: 25 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-10px" }}
+                            transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
@@ -364,13 +364,13 @@ export function Features() {
                             </div>
                         </motion.div>
 
-                        {/* 2. SME AI Integration - LEFT side entrance */}
+                        {/* 2. SME AI Integration */}
                         <motion.div
                             id="ai-integration"
-                            initial={{ opacity: 0, x: -60, y: 35 }}
-                            whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            viewport={{ once: true, margin: "-40px" }}
-                            transition={{ duration: 0.85, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                            initial={{ opacity: 0, y: 25 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-10px" }}
+                            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
@@ -384,13 +384,13 @@ export function Features() {
                             </div>
                         </motion.div>
 
-                        {/* 3. Passion Marketing - RIGHT side entrance */}
+                        {/* 3. Passion Marketing */}
                         <motion.div
                             id="passion-marketing"
-                            initial={{ opacity: 0, x: 60, y: 35 }}
-                            whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            viewport={{ once: true, margin: "-40px" }}
-                            transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                            initial={{ opacity: 0, y: 25 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-10px" }}
+                            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
@@ -404,12 +404,12 @@ export function Features() {
                             </div>
                         </motion.div>
 
-                        {/* 4. Growth For You (big 3-column card with growing bar graph) - LEFT side entrance */}
+                        {/* 4. Growth For You */}
                         <motion.div
-                            initial={{ opacity: 0, x: -60, y: 35 }}
-                            whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            viewport={{ once: true, margin: "-40px" }}
-                            transition={{ duration: 0.85, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            initial={{ opacity: 0, y: 25 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-10px" }}
+                            transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full lg:col-span-3 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white grid grid-cols-1 sm:grid-cols-2 items-center p-6 pb-6 sm:pb-8 gap-6 sm:gap-8">
@@ -429,12 +429,12 @@ export function Features() {
                             </div>
                         </motion.div>
 
-                        {/* 5. Step by Step Card - RIGHT side entrance */}
+                        {/* 5. Step by Step Card */}
                         <motion.div
-                            initial={{ opacity: 0, x: 60, y: 35 }}
-                            whileInView={{ opacity: 1, x: 0, y: 0 }}
-                            viewport={{ once: true, margin: "-40px" }}
-                            transition={{ duration: 0.85, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                            initial={{ opacity: 0, y: 25 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-10px" }}
+                            transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
                             className="col-span-full lg:col-span-3 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white grid grid-cols-1 sm:grid-cols-2 items-center p-6 pb-6 sm:pb-8 gap-6 sm:gap-8">
