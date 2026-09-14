@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import ExcelJS from 'exceljs';
 import { syncFilesToCrmDirectories, syncLeadToCrmDatabase } from '@/lib/crmSync';
+import { supabase, insertLeadToSupabase } from '@/lib/supabase';
 
 const HEADERS = [
   'Timestamp',
@@ -181,11 +182,19 @@ export async function POST(request) {
     // 3. Autonomous CRM Multi-Directory, Docker & PostgreSQL Sync
     let crmFileSync = null;
     let crmDbSync = null;
+    let supabaseSync = null;
     try {
       crmFileSync = await syncFilesToCrmDirectories(csvPath, xlsxPath);
       crmDbSync = await syncLeadToCrmDatabase(leadRecord);
     } catch (syncErr) {
       console.warn('[VELOXA INTAKE LEAD] CRM Sync non-fatal warning:', syncErr.message);
+    }
+
+    // 4. Supabase Cloud Sync
+    try {
+      supabaseSync = await insertLeadToSupabase(leadRecord);
+    } catch (sbErr) {
+      console.warn('[VELOXA INTAKE LEAD] Supabase Sync non-fatal warning:', sbErr.message);
     }
 
     return NextResponse.json({
@@ -196,6 +205,7 @@ export async function POST(request) {
         files: crmFileSync,
         database: crmDbSync,
       },
+      supabaseSync,
     });
   } catch (error) {
     console.error('Lead processing error:', error);
@@ -257,8 +267,26 @@ export async function GET(request) {
       });
     }
 
+    // If Supabase is connected, query leads directly from cloud database
+    if (supabase) {
+      const { data: sbLeads, error: sbError } = await supabase
+        .from('leads')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!sbError && sbLeads && sbLeads.length > 0) {
+        return NextResponse.json({
+          success: true,
+          source: 'supabase',
+          count: sbLeads.length,
+          leads: sbLeads,
+        });
+      }
+    }
+
     return NextResponse.json({
       success: true,
+      source: 'none',
       count: 0,
       leads: [],
     });
