@@ -34,8 +34,12 @@ function getCrmPool() {
 export async function syncFilesToCrmDirectories(sourceCsvPath, sourceXlsxPath) {
   const syncResults = { filesCopied: [], dockerCopied: false, errors: [] };
 
+  // Skip local CRM paths when deployed in serverless/cloud environments where host dir is not available
+  if (!fs.existsSync(CRM_BASE_DIR)) {
+    return { filesCopied: [], dockerCopied: false, errors: [], skipped: true };
+  }
+
   const targetDirs = [
-    path.join(process.cwd(), 'public'),
     path.join(CRM_BASE_DIR, 'contacts'),
     path.join(CRM_BASE_DIR, 'packages', 'web', 'public'),
     path.join(CRM_BASE_DIR, 'leads_data'),
@@ -101,6 +105,11 @@ export async function syncFilesToCrmDirectories(sourceCsvPath, sourceXlsxPath) {
  * contacts, deals, and pipeline_cards (under "Lead In" stage)
  */
 export async function syncLeadToCrmDatabase(leadRecord) {
+  // If running in cloud (Vercel) without an explicit external database URL, skip gracefully
+  if (!process.env.CRM_DATABASE_URL && !fs.existsSync('/Users/cosmic')) {
+    return { success: true, skipped: true, note: 'CRM DB sync active in local/docker environments' };
+  }
+
   try {
     const pool = getCrmPool();
     const { name, email, company, service, budget, message, timestamp } = leadRecord;

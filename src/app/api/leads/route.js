@@ -67,12 +67,19 @@ export async function POST(request) {
 
     console.log('[VELOXA INTAKE LEAD RECEIVED]', leadRecord);
 
-    const dataDir = path.join(process.cwd(), 'data');
-    const xlsxPath = path.join(dataDir, 'contact_leads.xlsx');
-    const csvPath = path.join(dataDir, 'contact_leads.csv');
+    let dataDir = path.join(process.cwd(), 'data');
+    let xlsxPath = path.join(dataDir, 'contact_leads.xlsx');
+    let csvPath = path.join(dataDir, 'contact_leads.csv');
 
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
+    try {
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+    } catch (mkdirErr) {
+      // Serverless (Vercel) read-only root fallback to /tmp
+      dataDir = '/tmp';
+      xlsxPath = path.join('/tmp', 'contact_leads.xlsx');
+      csvPath = path.join('/tmp', 'contact_leads.csv');
     }
 
     // 1. Update XLSX Workbook using ExcelJS
@@ -150,13 +157,23 @@ export async function POST(request) {
         escapeCsvField(leadRecord.message),
       ].join(',') + '\n';
 
-      if (!fs.existsSync(csvPath)) {
-        const csvHeader = HEADERS.map(escapeCsvField).join(',') + '\n';
-        fs.writeFileSync(csvPath, csvHeader + csvLine, 'utf8');
-      } else {
-        fs.appendFileSync(csvPath, csvLine, 'utf8');
+      try {
+        if (!fs.existsSync(csvPath)) {
+          const csvHeader = HEADERS.map(escapeCsvField).join(',') + '\n';
+          fs.writeFileSync(csvPath, csvHeader + csvLine, 'utf8');
+        } else {
+          fs.appendFileSync(csvPath, csvLine, 'utf8');
+        }
+      } catch (localCsvErr) {
+        const tmpCsv = path.join('/tmp', 'contact_leads.csv');
+        if (!fs.existsSync(tmpCsv)) {
+          const csvHeader = HEADERS.map(escapeCsvField).join(',') + '\n';
+          fs.writeFileSync(tmpCsv, csvHeader + csvLine, 'utf8');
+        } else {
+          fs.appendFileSync(tmpCsv, csvLine, 'utf8');
+        }
       }
-      console.log('[VELOXA INTAKE LEAD] Successfully appended to CSV:', csvPath);
+      console.log('[VELOXA INTAKE LEAD] Successfully appended to CSV');
     } catch (csvErr) {
       console.warn('[VELOXA INTAKE LEAD] CSV Write Warning:', csvErr.message);
     }
@@ -193,9 +210,16 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const download = searchParams.get('download');
-    const xlsxPath = path.join(process.cwd(), 'data', 'contact_leads.xlsx');
 
-    if (download === '1' && fs.existsSync(xlsxPath)) {
+    const candidatePaths = [
+      path.join(process.cwd(), 'data', 'contact_leads.xlsx'),
+      path.join('/tmp', 'contact_leads.xlsx'),
+      path.join(process.cwd(), 'public', 'contact_leads.xlsx'),
+    ];
+
+    const xlsxPath = candidatePaths.find((p) => fs.existsSync(p));
+
+    if (download === '1' && xlsxPath && fs.existsSync(xlsxPath)) {
       const fileBuffer = fs.readFileSync(xlsxPath);
       return new Response(fileBuffer, {
         headers: {
@@ -205,7 +229,7 @@ export async function GET(request) {
       });
     }
 
-    if (fs.existsSync(xlsxPath)) {
+    if (xlsxPath && fs.existsSync(xlsxPath)) {
       const workbook = new ExcelJS.Workbook();
       await workbook.xlsx.readFile(xlsxPath);
       const worksheet = workbook.getWorksheet('Contact Leads') || workbook.worksheets[0];
