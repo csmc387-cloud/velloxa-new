@@ -53,7 +53,7 @@ export default function ComparisonSection() {
       <div
         className="hidden md:block overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300"
       >
-        <table className="w-full text-left border-collapse" aria-label="Competitive differentiation between Traditional Agencies and Velloxa Delivery">
+        <table className="w-full text-left border-collapse" aria-label="Competitive differentiation between Traditional Agencies and Velloxa Agency">
           <caption className="sr-only">
             Comparison table explaining how Velloxa delivers across website speed, smart AI automation, passion marketing with local reach, SEO, AEO, and GEO, and project delivery timelines compared to traditional agencies.
           </caption>
@@ -68,7 +68,7 @@ export default function ComparisonSection() {
               <th scope="col" className="py-4 px-6 font-mono text-xs uppercase tracking-wider text-lime font-bold w-1/3 bg-lime/10 border-l border-r border-lime/30">
                 <div className="flex items-center gap-1.5">
                   <Zap className="size-3.5 text-cyan fill-cyan" />
-                  <span>Velloxa Delivery</span>
+                  <span>Velloxa Agency</span>
                 </div>
               </th>
             </tr>
@@ -155,7 +155,7 @@ export default function ComparisonSection() {
               {/* Velloxa Highlight */}
               <div className="p-3 rounded-xl border border-lime/40 bg-lime/10 text-white shadow-[0_0_15px_rgba(186,255,122,0.08)]">
                 <div className="flex items-center gap-1.5 text-lime font-mono font-bold text-[10px] uppercase tracking-wider mb-1">
-                  <CheckCircle2 className="size-3.5" /> Velloxa Delivery
+                  <CheckCircle2 className="size-3.5" /> Velloxa Agency
                 </div>
                 <p className="font-semibold text-white">{row.velloxa}</p>
               </div>
