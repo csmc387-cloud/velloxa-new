@@ -104,10 +104,10 @@ export default function ComparisonSection() {
   return (
     <motion.section
       id="comparison"
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-15px" }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, margin: "-25px" }}
+      transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
       className="max-w-6xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 space-y-6"
     >
       {/* Section Header */}
@@ -119,7 +119,7 @@ export default function ComparisonSection() {
 
       {/* Desktop & Tablet Table View */}
       <div
-        className="hidden md:block overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300"
+        className="hidden md:block overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
       >
         <table className="w-full text-left border-collapse" aria-label="Competitive differentiation between Traditional Agencies and Velloxa Agency">
           <caption className="sr-only">

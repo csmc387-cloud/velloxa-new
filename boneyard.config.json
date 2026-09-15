@@ -1,0 +1,8 @@
+{
+  "color": "rgba(255, 255, 255, 0.06)",
+  "darkColor": "rgba(255, 255, 255, 0.06)",
+  "darkShimmerColor": "rgba(186, 255, 122, 0.1)",
+  "animate": "shimmer",
+  "speed": "1.8s",
+  "select": "container"
+}

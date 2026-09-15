@@ -14,6 +14,7 @@
     "@react-three/fiber": "^8.18.0",
     "@supabase/supabase-js": "^2.116.0",
     "@vercel/analytics": "^2.0.1",
+    "boneyard-js": "^1.10.0",
     "clsx": "^2.1.1",
     "exceljs": "^4.4.0",
     "framer-motion": "^12.42.2",

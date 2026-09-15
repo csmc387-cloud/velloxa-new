@@ -6,10 +6,21 @@ import dynamic from 'next/dynamic';
 
 import { Features } from '@/components/blocks/features-8';
 
-// Code-split below-the-fold sections with SSR to drastically reduce initial JS load
-const ComparisonSection = dynamic(() => import('./ComparisonSection'), { ssr: true });
-const FAQSection = dynamic(() => import('./FAQSection'), { ssr: true });
-const ContactPage = dynamic(() => import('./ContactPage'), { ssr: true });
+import { ComparisonSkeleton, FAQSkeleton, ContactSkeleton } from '@/components/boneyard/BoneyardSkeleton';
+
+// Code-split below-the-fold sections with Boneyard skeleton loading fallbacks
+const ComparisonSection = dynamic(() => import('./ComparisonSection'), { 
+  ssr: true,
+  loading: () => <ComparisonSkeleton />,
+});
+const FAQSection = dynamic(() => import('./FAQSection'), { 
+  ssr: true,
+  loading: () => <FAQSkeleton />,
+});
+const ContactPage = dynamic(() => import('./ContactPage'), { 
+  ssr: true,
+  loading: () => <ContactSkeleton />,
+});
 
 function AnimatedCounter({ from = 1, to = 100, suffix = '%', duration = 1.8 }) {
   const [count, setCount] = useState(from);
@@ -107,45 +118,77 @@ export default function HomePage() {
         <div className="w-full max-w-7xl mx-auto px-2 mini:px-3 sm:px-6 lg:px-8 relative z-10 text-center flex flex-col items-center justify-center">
           {/* Main Slogan - Scaled larger across all iPhone sizes (mini 375px, standard 390px, Plus/Pro Max 428-430px) and desktop */}
           <h1 className="font-display text-[clamp(3.2rem,14.5vw,13.5rem)] sm:text-[9rem] md:text-[10.5rem] lg:text-[12.5rem] xl:text-[14rem] font-black tracking-tight text-white uppercase w-full mx-auto leading-[0.88] select-none text-center flex flex-col items-center justify-center space-y-1 sm:space-y-3">
-            <span className="block text-center whitespace-nowrap">WE BUILD<span className="text-lime">.</span></span>
-            <span className="block text-center whitespace-nowrap">YOU GROW<span className="text-cyan">.</span></span>
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.08, ease: [0.25, 1, 0.5, 1] }}
+              className="block text-center whitespace-nowrap"
+            >
+              WE BUILD<span className="text-lime">.</span>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.18, ease: [0.25, 1, 0.5, 1] }}
+              className="block text-center whitespace-nowrap"
+            >
+              YOU GROW<span className="text-cyan">.</span>
+            </motion.span>
           </h1>
         </div>
       </section>
 
-      {/* 2. KEY METRICS SECTION - FOLLOWS ON SCROLL */}
-      <motion.section
+      {/* 2. KEY METRICS SECTION - ANIMATED COUNTER */}
+      <section
         id="metrics"
-        initial={{ opacity: 0, y: 45 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         className="max-w-4xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 relative z-20 py-8"
       >
         <div className="flex flex-row items-center justify-center gap-4 mini:gap-6 sm:gap-16 text-center">
           {/* 100% Counter */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.04, ease: [0.25, 1, 0.5, 1] }}
+          >
             <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight hover-title-shadow">
               <AnimatedCounter from={1} to={100} suffix="%" duration={1.8} />
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">ROI Impact</span>
-          </div>
+          </motion.div>
 
-          <div className="h-12 sm:h-16 w-px bg-white/20" />
+          <motion.div
+            initial={{ opacity: 0, scaleY: 0 }}
+            whileInView={{ opacity: 1, scaleY: 1 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.4, delay: 0.1, ease: [0.25, 1, 0.5, 1] }}
+            className="h-12 sm:h-16 w-px bg-white/20 origin-center"
+          />
 
           {/* 2X - 3X Traffic */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-30px" }}
+            transition={{ duration: 0.45, delay: 0.16, ease: [0.25, 1, 0.5, 1] }}
+          >
             <span className="block text-5xl mini:text-6xl sm:text-7xl lg:text-8xl font-display font-black text-white tracking-tight hover-title-shadow">
               2<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span> - 3<span className="text-2xl mini:text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold opacity-90 uppercase">X</span>
             </span>
             <span className="text-xs mini:text-sm sm:text-base font-mono font-bold text-gray-200 uppercase tracking-widest pt-1.5 block">Traffic Growth</span>
-          </div>
+          </motion.div>
         </div>
-      </motion.section>
+      </section>
 
       {/* 3. SERVICES FEATURES SECTION */}
       <section id="solutions" className="max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-8 space-y-8">
-        <div className="text-center max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+          className="text-center max-w-5xl mx-auto"
+        >
           <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
             <span className="text-[clamp(3.2rem,13vw,9.8rem)] font-black tracking-tight text-white uppercase leading-none select-none">
               SOLUTIONS<span className="text-cyan">.</span>
@@ -154,7 +197,7 @@ export default function HomePage() {
               Engineered for Growth
             </span>
           </h2>
-        </div>
+        </motion.div>
 
         <Features />
       </section>

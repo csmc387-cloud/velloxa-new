@@ -347,10 +347,10 @@ export function Features() {
                         {/* 1. Web Engineering (top-left 2-col card) */}
                         <motion.div
                             id="web-engineering"
-                            initial={{ opacity: 0, y: 25 }}
+                            initial={{ opacity: 0, y: 14 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-10px" }}
-                            transition={{ duration: 0.6, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                            viewport={{ once: true, margin: "-20px" }}
+                            transition={{ duration: 0.45, delay: 0.04, ease: [0.25, 1, 0.5, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
@@ -367,10 +367,10 @@ export function Features() {
                         {/* 2. SME AI Integration */}
                         <motion.div
                             id="ai-integration"
-                            initial={{ opacity: 0, y: 25 }}
+                            initial={{ opacity: 0, y: 14 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-10px" }}
-                            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            viewport={{ once: true, margin: "-20px" }}
+                            transition={{ duration: 0.45, delay: 0.1, ease: [0.25, 1, 0.5, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
@@ -387,10 +387,10 @@ export function Features() {
                         {/* 3. Passion Marketing */}
                         <motion.div
                             id="passion-marketing"
-                            initial={{ opacity: 0, y: 25 }}
+                            initial={{ opacity: 0, y: 14 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-10px" }}
-                            transition={{ duration: 0.6, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                            viewport={{ once: true, margin: "-20px" }}
+                            transition={{ duration: 0.45, delay: 0.16, ease: [0.25, 1, 0.5, 1] }}
                             className="col-span-full sm:col-span-3 lg:col-span-2 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white p-6 flex flex-col justify-start space-y-3">
@@ -406,10 +406,10 @@ export function Features() {
 
                         {/* 4. Growth For You */}
                         <motion.div
-                            initial={{ opacity: 0, y: 25 }}
+                            initial={{ opacity: 0, y: 14 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-10px" }}
-                            transition={{ duration: 0.6, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                            viewport={{ once: true, margin: "-20px" }}
+                            transition={{ duration: 0.45, delay: 0.08, ease: [0.25, 1, 0.5, 1] }}
                             className="col-span-full lg:col-span-3 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white grid grid-cols-1 sm:grid-cols-2 items-center p-6 pb-6 sm:pb-8 gap-6 sm:gap-8">
@@ -431,10 +431,10 @@ export function Features() {
 
                         {/* 5. Step by Step Card */}
                         <motion.div
-                            initial={{ opacity: 0, y: 25 }}
+                            initial={{ opacity: 0, y: 14 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-10px" }}
-                            transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                            viewport={{ once: true, margin: "-20px" }}
+                            transition={{ duration: 0.45, delay: 0.14, ease: [0.25, 1, 0.5, 1] }}
                             className="col-span-full lg:col-span-3 h-full"
                         >
                             <div className="relative overflow-hidden liquid-glass-card h-full rounded-2xl border border-white/10 text-white grid grid-cols-1 sm:grid-cols-2 items-center p-6 pb-6 sm:pb-8 gap-6 sm:gap-8">

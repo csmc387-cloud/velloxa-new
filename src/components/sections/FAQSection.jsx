@@ -35,30 +35,36 @@ export default function FAQSection() {
   };
 
   return (
-    <motion.section
+    <section
       id="faq"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-15px" }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       className="max-w-5xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 pt-12 space-y-8"
     >
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+        className="text-center max-w-3xl mx-auto"
+      >
         <h2 className="font-display text-[clamp(2.5rem,8vw,5.5rem)] font-black tracking-tight text-white uppercase leading-none select-none">
           FAQ<span className="text-lime">.</span>
         </h2>
-      </div>
+      </motion.div>
 
-      {/* FAQ Accordion List */}
+      {/* FAQ Accordion List - Minimal Staggered Fade Up */}
       <div className="space-y-3.5 pt-2">
         {FAQS.map((faq, index) => {
           const isOpen = openIndex === index;
 
           return (
-            <div
+            <motion.div
               key={index}
-              className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-25px" }}
+              transition={{ duration: 0.4, delay: index * 0.07, ease: [0.25, 1, 0.5, 1] }}
+              className={`rounded-2xl border transition-[border-color,background-color,box-shadow] duration-200 overflow-hidden ${
                 isOpen
                   ? 'border-lime/50 bg-black/40 backdrop-blur-2xl shadow-[0_0_20px_rgba(186,255,122,0.12)]'
                   : 'border-white/10 bg-black/40 backdrop-blur-2xl hover:border-white/20'
@@ -80,7 +86,7 @@ export default function FAQSection() {
                   </span>
                 </div>
                 <div
-                  className={`size-8 rounded-full border border-white/10 flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                  className={`size-8 rounded-full border border-white/10 flex items-center justify-center shrink-0 transition-transform duration-200 ${
                     isOpen ? 'rotate-180 bg-lime text-charcoal border-lime' : 'text-gray-400'
                   }`}
                 >
@@ -95,7 +101,7 @@ export default function FAQSection() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
                     className="overflow-hidden"
                   >
                     <div className="px-4 pb-4.5 mini:px-5 mini:pb-5 sm:px-6 sm:pb-6 pt-0 space-y-3 text-sm leading-relaxed border-t border-white/10 mt-1 pt-4">
@@ -109,10 +115,10 @@ export default function FAQSection() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           );
         })}
       </div>
-    </motion.section>
+    </section>
   );
 }

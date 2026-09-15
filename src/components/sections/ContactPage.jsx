@@ -74,7 +74,13 @@ export default function ContactPage() {
     <div id="contact-section" className="space-y-12 pb-16 pt-8 max-w-7xl mx-auto px-3 mini:px-4 sm:px-6 lg:px-8 overflow-hidden">
 
       {/* 1. HEADER */}
-      <section className="text-center max-w-5xl lg:max-w-6xl mx-auto">
+      <motion.section
+        initial={{ opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+        className="text-center max-w-5xl lg:max-w-6xl mx-auto"
+      >
         <h2 className="font-display flex flex-col items-center justify-center -space-y-1 sm:-space-y-3 leading-none">
           <span className="text-xl mini:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-widest text-white uppercase pb-1">
             Let's Build Something
@@ -83,7 +89,7 @@ export default function ContactPage() {
             EXTRAORDINARY<span className="text-lime">.</span>
           </span>
         </h2>
-      </section>
+      </motion.section>
 
       {/* 2. MINIMALIST STEPPER CONTACT FORM */}
       <Stepper
