@@ -146,7 +146,7 @@ export default function ComparisonSection() {
                 {row.niche}
               </span>
               <h3 className="text-sm sm:text-base font-bold text-white font-sans flex items-center gap-2">
-                <span className="text-xs font-mono text-lime font-bold">0{idx + 1}.</span>
+                <span className="text-xs font-mono text-lime font-bold">{idx + 1}.</span>
                 {row.standard}
               </h3>
             </div>
