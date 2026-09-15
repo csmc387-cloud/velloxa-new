@@ -1,8 +1,8 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, XCircle, Zap } from 'lucide-react';
+import { CheckCircle2, XCircle, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const MAIN_STANDARDS = [
   {
@@ -32,7 +32,75 @@ const ROI_STANDARD = {
   velloxa: "1 to 3 week rapid launch with transparent milestone pricing, full code ownership, and measurable ROI.",
 };
 
+const ALL_CARDS = [
+  ...MAIN_STANDARDS,
+  ROI_STANDARD,
+];
+
 export default function ComparisonSection() {
+  const n = ALL_CARDS.length;
+  const [active, setActive] = useState(0);
+  const [leaving, setLeaving] = useState(null);
+  const deckRef = useRef(null);
+  const downX = useRef(null);
+
+  const FALL_MS = 340;
+
+  const handleNext = () => {
+    if (leaving !== null) return;
+    setLeaving(active);
+    window.setTimeout(() => {
+      setActive((a) => (a + 1) % n);
+      setLeaving(null);
+    }, FALL_MS);
+  };
+
+  const handlePrev = () => {
+    if (leaving !== null) return;
+    setActive((a) => (a - 1 + n) % n);
+  };
+
+  const goTo = (i) => {
+    if (leaving !== null) return;
+    setActive(i);
+  };
+
+  const onPointerDown = (e) => {
+    downX.current = e.clientX;
+  };
+  const onPointerUp = (e) => {
+    if (downX.current === null) return;
+    const dx = e.clientX - downX.current;
+    downX.current = null;
+    if (dx < -45) handleNext();
+    else if (dx > 45) handlePrev();
+  };
+
+  const cardStyle = (i) => {
+    if (i === leaving) {
+      return {
+        transform: "translateY(120%) rotate(6deg) scale(0.96)",
+        opacity: 0,
+        zIndex: n + 1,
+        pointerEvents: "none",
+        transformOrigin: "top center",
+        transition: "transform 0.4s cubic-bezier(0.4, 0, 0.7, 1), opacity 0.34s ease-out",
+        cursor: "default",
+      };
+    }
+    const offset = (i - active + n) % n;
+    const visible = offset < 3;
+    const isFront = offset === 0 && leaving === null;
+    return {
+      transform: `translateY(${offset * 14}px) scale(${1 - offset * 0.05})`,
+      opacity: visible ? (offset === 0 ? 1 : 0.65 - offset * 0.3) : 0,
+      zIndex: n - offset,
+      pointerEvents: isFront ? "auto" : "none",
+      transformOrigin: "top center",
+      transition: "transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1)",
+      cursor: isFront ? "pointer" : "default",
+    };
+  };
   return (
     <motion.section
       id="comparison"
@@ -133,71 +201,101 @@ export default function ComparisonSection() {
         </table>
       </div>
 
-      {/* Mobile-Optimized Cards View */}
-      <div className="space-y-3 md:hidden">
-        {/* 3 Main Flagship Service Cards */}
-        {MAIN_STANDARDS.map((row, idx) => (
-          <div
-            key={idx}
-            className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl p-4 space-y-3"
-          >
-            <div className="border-b border-white/10 pb-2.5">
-              <span className="text-[11px] font-mono text-cyan font-semibold uppercase tracking-wider block mb-1">
-                {row.niche}
-              </span>
-              <h3 className="text-sm sm:text-base font-bold text-white font-sans flex items-center gap-2">
-                <span className="text-xs font-mono text-lime font-bold">{idx + 1}.</span>
-                {row.standard}
-              </h3>
-            </div>
+      {/* Mobile-Optimized Deck Carousel */}
+      <div className="md:hidden space-y-4 pt-2">
+        {/* Step Indicator Dots - Dot counter only */}
+        <div className="flex items-center justify-center gap-2 px-1" role="tablist" aria-label="Comparison Cards">
+          {ALL_CARDS.map((card, idx) => {
+            const dotIndex = leaving !== null ? (active + 1) % n : active;
+            const isActive = idx === dotIndex;
+            return (
+              <button
+                key={idx}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => goTo(idx)}
+                aria-label={`Go to difference ${idx + 1}: ${card.standard}`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  isActive
+                    ? 'w-8 bg-lime'
+                    : 'w-2.5 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            );
+          })}
+        </div>
 
-            <div className="space-y-2 text-xs leading-relaxed">
-              {/* Velloxa Highlight */}
-              <div className="p-3 rounded-xl border border-lime/40 bg-lime/10 text-white shadow-[0_0_15px_rgba(186,255,122,0.08)]">
-                <div className="flex items-center gap-1.5 text-lime font-mono font-bold text-[10px] uppercase tracking-wider mb-1">
-                  <CheckCircle2 className="size-3.5" /> Velloxa Agency
+        {/* 3D Stack Container with Perspective and Touch Swipe */}
+        <div
+          ref={deckRef}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          className="relative h-[390px] sm:h-[355px] w-full select-none"
+          style={{ perspective: "1200px", touchAction: "pan-y" }}
+        >
+          {ALL_CARDS.map((card, i) => {
+            const isFront = i === active && leaving === null;
+            return (
+              <article
+                key={i}
+                onClick={isFront ? handleNext : undefined}
+                aria-hidden={!isFront}
+                style={cardStyle(i)}
+                className="absolute inset-0 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-2xl p-4 sm:p-5 flex flex-col justify-between shadow-[0_8px_32px_rgba(0,0,0,0.37)] box-border overflow-hidden"
+              >
+                {/* Header row */}
+                <div className="border-b border-white/10 pb-2.5">
+                  <span className="text-[11px] font-mono text-cyan font-semibold uppercase tracking-wider block mb-0.5">
+                    {card.niche}
+                  </span>
+                  <h3 className="text-sm sm:text-base font-bold text-white font-sans">
+                    {card.standard}
+                  </h3>
                 </div>
-                <p className="font-semibold text-white">{row.velloxa}</p>
-              </div>
 
-              {/* Traditional */}
-              <div className="p-3 rounded-xl border border-white/10 bg-white/5 text-gray-400">
-                <span className="font-mono text-[10px] text-red-400/80 uppercase block mb-1 font-semibold flex items-center gap-1.5">
-                  <XCircle className="size-3" /> Traditional Agencies
-                </span>
-                <p>{row.traditional}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+                {/* Content Comparison */}
+                <div className="space-y-2.5 text-xs leading-relaxed flex-1 flex flex-col justify-center">
+                  {/* Velloxa Highlight */}
+                  <div className="p-3 rounded-xl border border-lime/40 bg-lime/10 text-white shadow-[0_0_15px_rgba(186,255,122,0.08)]">
+                    <div className="flex items-center gap-1.5 text-lime font-mono font-bold text-[10px] uppercase tracking-wider mb-1">
+                      <CheckCircle2 className="size-3.5" /> Velloxa Agency
+                    </div>
+                    <p className="font-semibold text-white">{card.velloxa}</p>
+                  </div>
 
-        {/* Compact, Little ROI Box with Same Translucency & High Visibility */}
-        <div className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-2xl p-3 space-y-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-          <div className="flex items-center justify-between border-b border-white/10 pb-2">
-            <span className="text-[10px] font-mono text-cyan font-bold uppercase tracking-wider">
-              {ROI_STANDARD.niche}
-            </span>
-            <span className="text-[11px] font-bold text-white font-sans">
-              {ROI_STANDARD.standard}
-            </span>
-          </div>
+                  {/* Traditional */}
+                  <div className="p-3 rounded-xl border border-white/10 bg-white/5 text-gray-400">
+                    <span className="font-mono text-[10px] text-red-400/80 uppercase block mb-1 font-semibold flex items-center gap-1.5">
+                      <XCircle className="size-3" /> Traditional Agencies
+                    </span>
+                    <p>{card.traditional}</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
 
-          <div className="space-y-1.5 text-xs">
-            {/* Velloxa - Highly Visible */}
-            <div className="p-2.5 rounded-lg border border-lime/40 bg-lime/10 text-white shadow-[0_0_12px_rgba(186,255,122,0.08)]">
-              <div className="flex items-center gap-1.5 text-lime font-mono font-bold text-[10px] uppercase tracking-wider mb-0.5">
-                <CheckCircle2 className="size-3" /> Velloxa
-              </div>
-              <p className="font-semibold text-white text-[11px] leading-snug">{ROI_STANDARD.velloxa}</p>
-            </div>
-
-            {/* Traditional - Visible & Clean */}
-            <div className="p-2.5 rounded-lg border border-white/10 bg-white/5 text-gray-300">
-              <div className="flex items-center gap-1.5 text-red-400 font-mono font-bold text-[10px] uppercase tracking-wider mb-0.5">
-                <XCircle className="size-3" /> Traditional
-              </div>
-              <p className="text-gray-300 text-[11px] leading-snug">{ROI_STANDARD.traditional}</p>
-            </div>
+        {/* Navigation Controls - Clean arrow buttons without text labels */}
+        <div className="flex items-center justify-center pt-7 sm:pt-5 px-1">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous difference"
+              className="p-2 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-lime/40 transition-colors"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next difference"
+              className="p-2 rounded-xl border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-lime/40 transition-colors"
+            >
+              <ChevronRight className="size-4" />
+            </button>
           </div>
         </div>
       </div>

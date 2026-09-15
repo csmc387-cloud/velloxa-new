@@ -73,7 +73,7 @@ export default function FAQSection() {
               >
                 <div className="flex items-center gap-2.5 mini:gap-3 sm:gap-4 flex-1 min-w-0">
                   <span className="font-mono text-xs sm:text-sm font-bold text-lime/80 shrink-0 select-none">
-                    {index + 1}
+                    {index + 1}.
                   </span>
                   <span role="heading" aria-level={3} className="text-sm mini:text-base sm:text-lg lg:text-xl font-sans font-semibold text-white tracking-tight leading-snug">
                     {faq.question}
