@@ -26,7 +26,7 @@ export const viewport = {
 };
 
 export const metadata = {
-  metadataBase: new URL('https://veloxa.io'),
+  metadataBase: new URL('https://velloxa.website'),
   title: {
     default: 'Velloxa — AI Integration, Web Engineering & Growth Agency',
     template: '%s | Velloxa',
@@ -48,7 +48,7 @@ export const metadata = {
     'Velloxa Agency',
     'Veloxa',
   ],
-  authors: [{ name: 'Velloxa Engineering Team', url: 'https://veloxa.io' }],
+  authors: [{ name: 'Velloxa Engineering Team', url: 'https://velloxa.website' }],
   creator: 'Velloxa Agency',
   publisher: 'Velloxa Agency',
   formatDetection: {
@@ -58,13 +58,13 @@ export const metadata = {
   },
   referrer: 'strict-origin-when-cross-origin',
   alternates: {
-    canonical: 'https://veloxa.io/',
+    canonical: 'https://velloxa.website/',
   },
   openGraph: {
     title: 'Velloxa — AI Integration, Web Engineering & Growth Agency',
     description:
       'Velloxa builds high-conversion digital platforms, bespoke AI integrations, and organic acquisition funnels for ambitious SMEs.',
-    url: 'https://veloxa.io',
+    url: 'https://velloxa.website',
     siteName: 'Velloxa Agency',
     images: [
       {
@@ -119,12 +119,12 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'ProfessionalService',
-      '@id': 'https://veloxa.io/#agency',
+      '@id': 'https://velloxa.website/#agency',
       name: 'Velloxa Agency',
       alternateName: ['Velloxa', 'Veloxa', 'Velloxa Digital Agency'],
-      url: 'https://veloxa.io/',
-      logo: 'https://veloxa.io/favicon.svg',
-      image: 'https://veloxa.io/og-image.jpg',
+      url: 'https://velloxa.website/',
+      logo: 'https://velloxa.website/favicon.svg',
+      image: 'https://velloxa.website/og-image.jpg',
       description:
         'Velloxa is an elite digital engineering and growth agency specializing in custom AI workflow integration, sub-second web engineering, and passion marketing for modern SMEs.',
       email: 'velloxa.agency@gmail.com',
@@ -148,7 +148,7 @@ const jsonLd = {
         '@type': 'Person',
         name: 'Velloxa Core Team',
         jobTitle: 'Principal Systems & AI Engineers',
-        url: 'https://veloxa.io/',
+        url: 'https://velloxa.website/',
       },
       contactPoint: {
         '@type': 'ContactPoint',
@@ -185,7 +185,7 @@ const jsonLd = {
               '@type': 'Service',
               name: 'Custom AI Integration',
               description: 'Automate internal operations, customer intake funnels, and enterprise workflows with bespoke LLM agents and multi-agent systems.',
-              url: 'https://veloxa.io/#ai-integration',
+              url: 'https://velloxa.website/#ai-integration',
             },
           },
           {
@@ -194,7 +194,7 @@ const jsonLd = {
               '@type': 'Service',
               name: 'High-Performance Web Engineering',
               description: 'Sub-second mobile-first Next.js web applications engineered for 100% Core Web Vitals compliance and high-velocity conversion.',
-              url: 'https://veloxa.io/#web-engineering',
+              url: 'https://velloxa.website/#web-engineering',
             },
           },
           {
@@ -203,7 +203,7 @@ const jsonLd = {
               '@type': 'Service',
               name: 'Passion Marketing & GEO Growth',
               description: 'Organic acquisition engine combining elite SEO, AEO, Generative Engine Optimization (GEO), and high-retention brand positioning.',
-              url: 'https://veloxa.io/#passion-marketing',
+              url: 'https://velloxa.website/#passion-marketing',
             },
           },
         ],
@@ -211,18 +211,18 @@ const jsonLd = {
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://veloxa.io/#website',
-      url: 'https://veloxa.io/',
+      '@id': 'https://velloxa.website/#website',
+      url: 'https://velloxa.website/',
       name: 'Velloxa Agency — AI Integration & Web Engineering',
       description: 'Velloxa builds high-conversion digital platforms, bespoke AI integrations, and organic acquisition funnels.',
       publisher: {
-        '@id': 'https://veloxa.io/#agency',
+        '@id': 'https://velloxa.website/#agency',
       },
       inLanguage: 'en-US',
     },
     {
       '@type': 'FAQPage',
-      '@id': 'https://veloxa.io/#faq',
+      '@id': 'https://velloxa.website/#faq',
       mainEntity: [
         {
           '@type': 'Question',
@@ -260,43 +260,43 @@ const jsonLd = {
     },
     {
       '@type': 'BreadcrumbList',
-      '@id': 'https://veloxa.io/#breadcrumbs',
+      '@id': 'https://velloxa.website/#breadcrumbs',
       itemListElement: [
         {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://veloxa.io/#hero-section',
+          item: 'https://velloxa.website/#hero-section',
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Metrics & ROI',
-          item: 'https://veloxa.io/#metrics',
+          item: 'https://velloxa.website/#metrics',
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: 'Solutions & Engineering',
-          item: 'https://veloxa.io/#solutions',
+          item: 'https://velloxa.website/#solutions',
         },
         {
           '@type': 'ListItem',
           position: 4,
           name: 'The Velloxa Advantage',
-          item: 'https://veloxa.io/#comparison',
+          item: 'https://velloxa.website/#comparison',
         },
         {
           '@type': 'ListItem',
           position: 5,
           name: 'Frequently Asked Questions',
-          item: 'https://veloxa.io/#faq',
+          item: 'https://velloxa.website/#faq',
         },
         {
           '@type': 'ListItem',
           position: 6,
           name: 'Consultation & Intake',
-          item: 'https://veloxa.io/#contact',
+          item: 'https://velloxa.website/#contact',
         },
       ],
     },

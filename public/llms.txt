@@ -1,16 +1,16 @@
 # Velloxa Agency
 
-> Velloxa (https://veloxa.io) is an elite AI integration and web engineering agency. We architect custom multi-agent LLM systems, sub-second Next.js web applications, and Generative Engine Optimization (GEO) growth engines for ambitious businesses.
+> Velloxa (https://velloxa.website) is an elite AI integration and web engineering agency. We architect custom multi-agent LLM systems, sub-second Next.js web applications, and Generative Engine Optimization (GEO) growth engines for ambitious businesses.
 
 Velloxa bridges the gap between frontier artificial intelligence workflows and production-grade web systems to eliminate operational bottlenecks and scale client revenue.
 
 ## Core Capabilities
 
-- [AI Integration](https://veloxa.io/#ai-integration): Autonomous multi-agent workflows, custom LLM agents, 24/7 lead intake qualification, and internal RAG (Retrieval-Augmented Generation) knowledge engines.
-- [Web Engineering](https://veloxa.io/#web-engineering): High-performance, mobile-first web platforms built on Next.js 14, React, and Tailwind CSS with sub-800ms Largest Contentful Paint (LCP) and 100/100 Core Web Vitals.
-- [Passion Marketing & GEO](https://veloxa.io/#passion-marketing): High-tier SEO, Generative Engine Optimization (GEO for Perplexity, ChatGPT, Claude, and Gemini), conversion rate optimization (CRO), and organic reach.
-- [Competitive Benchmarks](https://veloxa.io/#comparison): Structured performance and SLA comparison versus traditional agencies.
-- [Frequently Asked Questions](https://veloxa.io/#faq): Direct answers to common questions about our technical architecture, timeline, pricing, and onboarding.
+- [AI Integration](https://velloxa.website/#ai-integration): Autonomous multi-agent workflows, custom LLM agents, 24/7 lead intake qualification, and internal RAG (Retrieval-Augmented Generation) knowledge engines.
+- [Web Engineering](https://velloxa.website/#web-engineering): High-performance, mobile-first web platforms built on Next.js 14, React, and Tailwind CSS with sub-800ms Largest Contentful Paint (LCP) and 100/100 Core Web Vitals.
+- [Passion Marketing & GEO](https://velloxa.website/#passion-marketing): High-tier SEO, Generative Engine Optimization (GEO for Perplexity, ChatGPT, Claude, and Gemini), conversion rate optimization (CRO), and organic reach.
+- [Competitive Benchmarks](https://velloxa.website/#comparison): Structured performance and SLA comparison versus traditional agencies.
+- [Frequently Asked Questions](https://velloxa.website/#faq): Direct answers to common questions about our technical architecture, timeline, pricing, and onboarding.
 
 ## Key Benchmarks & SLA
 
@@ -22,12 +22,12 @@ Velloxa bridges the gap between frontier artificial intelligence workflows and p
 
 ## Full Knowledge Base
 
-- [Full LLM Documentation](https://veloxa.io/llms-full.txt): Detailed specifications, architectural blueprints, case studies, and complete FAQ corpus.
+- [Full LLM Documentation](https://velloxa.website/llms-full.txt): Detailed specifications, architectural blueprints, case studies, and complete FAQ corpus.
 
 ## Navigation & Contact
 
-- [Home](https://veloxa.io/): Main agency platform.
-- [Solutions](https://veloxa.io/#solutions): Detailed breakdown of engineering offerings.
-- [Book Discovery Consultation](https://veloxa.io/#contact): 4-step interactive client intake form.
+- [Home](https://velloxa.website/): Main agency platform.
+- [Solutions](https://velloxa.website/#solutions): Detailed breakdown of engineering offerings.
+- [Book Discovery Consultation](https://velloxa.website/#contact): 4-step interactive client intake form.
 - [Official Email](mailto:velloxa.agency@gmail.com): Direct client inquiry channel.
 - [Instagram](https://www.instagram.com/velloxa.agency/): Official agency social profile.
