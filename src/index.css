@@ -276,3 +276,19 @@ img, video, svg, canvas {
   }
 }
 
+/* Prevent iOS Safari and mobile browsers from zooming in when focusing form inputs */
+@media screen and (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+button,
+input,
+textarea,
+select {
+  touch-action: manipulation;
+}
+

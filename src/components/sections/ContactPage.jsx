@@ -121,7 +121,7 @@ export default function ContactPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Alex Morgan"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-sm transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-base sm:text-sm transition-all"
                 />
               </div>
 
@@ -137,7 +137,7 @@ export default function ContactPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="e.g. user@gmail.com or @instahandle"
-                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-500 focus:outline-none text-sm transition-all ${
+                  className={`w-full px-4 py-3 rounded-xl bg-white/5 border text-white placeholder-gray-500 focus:outline-none text-base sm:text-sm transition-all ${
                     formData.email.length > 0 && !formData.email.includes('@')
                       ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/30'
                       : formData.email.includes('@')
@@ -165,7 +165,7 @@ export default function ContactPage() {
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   placeholder="e.g. Acme Corp / NextGen AI"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-sm transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-base sm:text-sm transition-all"
                 />
               </div>
             </div>
@@ -261,7 +261,7 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Outline key project objectives, deliverables, or timeline..."
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-sm transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-lime/60 focus:ring-1 focus:ring-lime/30 text-base sm:text-sm transition-all"
                 />
               </div>
             </div>
